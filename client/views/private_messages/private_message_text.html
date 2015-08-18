@@ -1,0 +1,57 @@
+<template name="privateMessageText">
+        <li class="media">
+            {{#if authorIsCurrentUser}}
+                {{#with user}}
+                    <a class="" href="{{pathFor 'profilePage'}}">
+                        <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}">
+                    </a>
+                {{/with}}
+            {{else}}
+                {{#with user}}
+                    <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                        <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}">
+                    </a>
+                {{/with}}
+            {{/if}}
+            <div class="media-body">
+                <h4 class="media-heading">
+                    {{#with user}}
+                        <a href="{{pathFor 'profilePage'}}">{{username}}</a>
+                    {{/with}}
+                </h4>
+
+                <p>{{date}}</p>
+                {{#if isInvitation}}
+                    {{#if currentUserIsInvited}}
+                        I invite you to work on {{../subject}} as {{role}}.
+                        {{#if invitationStatusContext '0'}}
+                            <button type="button"
+                                    class="btn btn-success btn-block accept-invitation {{#if invitationStatusContext '1'}}disabled{{/if}}">
+                                Accept
+                            </button>
+                            <button type="button"
+                                    class="btn btn-danger btn-block decline-invitation {{#if invitationStatusContext '2'}}disabled{{/if}}">
+                                Decline
+                            </button>
+                        {{/if}}
+                    {{else}}
+                        Invitations sent to:
+                        <ul>
+                            {{#each invitedUsers}}
+                                <li>
+                                    <a href="{{pathFor 'profilePage'}}">{{username}}</a>
+                                </li>
+                                {{#if invitationStatusParentContext '1'}}
+                                    <span class="accepted">(accepted)</span>
+                                {{/if}}{{#if invitationStatusParentContext '2'}}
+                                <span class="declined">(declined)</span>
+                            {{/if}}
+                            {{/each}}
+                        </ul>
+                    {{/if}}
+                {{else}}
+                    <p>{{{text}}}</p>
+                {{/if}}
+            </div>
+        </li>
+</template>

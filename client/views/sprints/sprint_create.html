@@ -1,0 +1,31 @@
+<template name="sprintCreate">
+    <div class="input-group form-create-sprint-start-date">
+        <span class="input-group-addon">Start date</span>
+        <input type="text" class="form-control" name="sprint-start-date" id="sprint-start-date-input"
+               placeholder="Start date" value="{{currentDate}}">
+              <span class="input-group-btn">
+                <button id="datepicker-start-date-button" class="btn btn-primary fa fa-calendar"
+                        data-type="last"></button>
+              </span>
+    </div>
+    <br/>
+
+    <div class="input-group form-create-sprint-end-date">
+        <span class="input-group-addon">End date</span>
+        <input type="text" class="form-control" name="sprint-end-date" id="sprint-end-date-input" placeholder="End date"
+               value="{{dateInSevenDays}}">
+              <span class="input-group-btn">
+                <button id="datepicker-end-date-button" class="btn btn-primary fa fa-calendar"
+                        data-type="last"></button>
+              </span>
+    </div>
+    <br/>
+
+    <div class="input-group form-create-sprint-goal-input">
+        <span class="input-group-addon">Goal</span>
+        <input type="text" class="form-control" placeholder="Define your sprint goal." id="sprint-goal-input"
+               name="sprint-goal">
+    </div>
+    <br/>
+    <button type="button" class="btn btn-success btn-block create-sprint">Create sprint</button>
+</template>

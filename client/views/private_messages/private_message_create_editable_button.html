@@ -1,0 +1,7 @@
+<template name="privateMessageCreateEditableButton">
+    {{#unless isCurrUser}}
+        <button data-type="pm" class="fa fa-comments private-message-create-editable editable editable-click"
+                name="{{_id}}" type="button">
+        </button>
+    {{/unless}}
+</template>

@@ -1,0 +1,17 @@
+<template name="productPageNavTabs">
+    <ul class="nav nav-tabs">
+
+        <li class="{{#if navTabIsActive 'productDashboard'}}active{{/if}} productDashboardNavTab">
+            <a href="{{pathFor 'productDashboard'}}">{{#if navTabIsActive 'productDashboard'}}<b class="text-info">Product Dashboard</b>{{else}}Product Dashboard{{/if}}</a>
+        </li>
+
+        <li class="{{#if navTabIsActive 'sprintPlanning'}}active{{/if}} sprintPlanningNavTab">
+            <a href="{{pathFor 'sprintPlanning'}}">{{#if navTabIsActive 'sprintPlanning'}}<b class="text-info">Sprint planning</b>{{else}}Sprint planning{{/if}}</a>
+        </li>
+
+        <li class="{{#if navTabIsActive 'documents'}}active{{/if}} documentsNavTab">
+            <a href="{{pathFor 'documents'}}">{{#if navTabIsActive 'documents'}}<b class="text-info">Documents</b>{{else}}Documents{{/if}}</a>
+        </li>
+
+    </ul>
+</template>

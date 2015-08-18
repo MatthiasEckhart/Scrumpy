@@ -1,0 +1,18 @@
+<template name="productPageIncludes">
+    <div class="title-box">
+        <h2 class="">{{title}}</h2>
+    </div>
+
+    <div class="vision-statement">
+        {{> vision}}
+    </div>
+    <div class="row">
+        {{#if userIsProductOwner 'productPageIncludes'}}
+            <a href="{{pathFor 'productEdit'}}" class="btn btn-default btn-edit">Edit project</a>
+        {{/if}}
+    </div>
+
+    <button type="button" class="btn btn-success btn-block goToCurrentSprint {{#if noSprints}}disabled{{/if}}">Go to current sprint</button>
+    <br/>
+    {{> productPageNavTabs}}
+</template>

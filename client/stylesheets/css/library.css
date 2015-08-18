@@ -1,0 +1,29 @@
+.blue {
+  background-color: #5ccdde;
+}
+.green {
+  background-color: #afde5c;
+}
+.orange {
+  background-color: #deb25c;
+}
+.red {
+  background-color: #de815c;
+}
+.padding-20 {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.margin-top-20 {
+  margin-top: 20px;
+}
+.margin-bottom-20 {
+  margin-bottom: 20px;
+}
+.padding-15 {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+/** Shades of grey **/
+/** Screen resolution **/
+/** Font settings **/

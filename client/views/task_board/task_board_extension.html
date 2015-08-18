@@ -1,0 +1,21 @@
+<template name="taskBoardExtension">
+    <div class="page-content">
+        <div class="panel-group panel-group-lists collapse in" id="accordion2" style="">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion2" href="#collapseFive" class="collapsed">
+                            Product History
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseFive" class="panel-collapse collapse" style="height: 0px;">
+                    <div class="panel-body">
+                        {{> productHistory}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>

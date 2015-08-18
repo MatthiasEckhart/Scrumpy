@@ -1,0 +1,26 @@
+<template name="login">
+    <div class="authentication-wrapper">
+        <div id="login">
+            <form action="/login" id="login-form" method="post">
+                <div class="athentication-header">
+                    <p>PLEASE LOGIN</p>
+                    <a href="{{pathFor 'register'}}" id="register">
+                        <span class="fa fa-plus"></span>
+                    </a>
+                </div>
+                <div class="padding-20">
+                    <div class="form-group">
+                        <input class="username form-control" id="login-username" type="text" name="username" placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                        <input class="password form-control" id="login-password" type="password" name="password" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <input class="btn btn-primary btn-block" type="submit" value="Login">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</template>

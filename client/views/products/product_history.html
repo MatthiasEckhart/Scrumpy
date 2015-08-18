@@ -1,0 +1,9 @@
+<template name="productHistory">
+    <select multiple id="select-multiple-product-history" class="select-multiple">
+        {{#each sprints}}
+            <option class="select-multiple-sprint-element" value="{{_id}}">{{goal}}: {{startDateFormatted}}
+                - {{endDateFormatted}}</option>
+        {{/each}}
+    </select>
+    <button type="button" class="btn btn-sm btn-primary btn-block disabled" id="activate-sprint">Activate</button>
+</template>

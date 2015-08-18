@@ -1,0 +1,22 @@
+/* CSS crunched with Crunch - http://crunchapp.net/ */
+/** Shades of grey **/
+/** Screen resolution **/
+/** Font settings **/
+html {
+  height: 100%;
+}
+body {
+  width: 100%;
+  min-height: 100%;
+}
+.custom-container {
+  width: 100%;
+  height: 100%;
+}
+.page-wrapper {
+  position: absolute;
+  top: 50px;
+  background-color: #ebeef2;
+  width: 100%;
+  min-height: 100%;
+}

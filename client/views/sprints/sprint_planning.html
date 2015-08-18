@@ -1,0 +1,92 @@
+<template name="sprintPlanning">
+    <div class="page-content">
+        <div class="padding-20">
+            {{> productPageIncludes}}
+            <div class="row" id="drag">
+                <div class="col-md-6">
+                    {{#if userIsProductOwner 'sprintPlanning'}}
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Add story</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Title</span>
+                                    <input type="text" name="new-story-title-input" class="form-control input-custom"
+                                           placeholder="Name your story.">
+                                </div>
+                                <br/>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">Description</span>
+                                    <input type="text" name="new-story-description-input" class="form-control input-custom"
+                                           placeholder="As a <role>, I want <goal> so that <benefit>.">
+                                </div>
+                                <br/>
+                                <button type="button" class="btn btn-success btn-block new-story-submit">Create story</button>
+                            </div>
+                        </div>
+                    {{/if}}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">User Stories</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td class="user-stories-no-prioritization" style="width: 100px; height: 100px;">
+                                            {{#each userStoriesNoPrioritization}}
+                                                {{> userStory}}
+                                            {{/each}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Product Backlog</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div>
+                                <table>
+                                    {{#each userStoriesProductBacklog}}
+                                        <tr>
+                                            <td id="{{priority}}" class="user-stories-product-backlog"
+                                                style="width: 100px; height: 100px;">
+                                                <span class="story-priority">
+                                                    {{priority}}
+                                                </span>
+                                                {{> userStory}}
+                                            </td>
+                                        </tr>
+                                    {{/each}}
+                                    <tr>
+                                        <td id="new-priority-field" class="user-stories-product-backlog-new-field"
+                                            style="width: 100px; height: 100px;">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    {{#if userIsScrumMaster 'sprintPlanning'}}
+                        <div class="panel panel-info">
+                            <div class="panel-heading">Add sprint</div>
+                            <div class="panel-body">
+                                {{> sprintCreate}}
+                            </div>
+                        </div>
+                    {{/if}}
+                    {{#each sprints}}
+                        {{> sprint}}
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

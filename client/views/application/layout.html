@@ -1,0 +1,15 @@
+<template name="layout">
+    <header class="application">
+        {{> navigation}}
+        {{> alerts}}
+        {{> dialogs}}
+    </header>
+    <div class="custom-container">
+        <div class="page-wrapper">
+            {{#unless isLoginOrRegisterRoute}}
+                {{> sidebar}}
+            {{/unless}}
+                {{> yield}}
+        </div>
+    </div>
+</template>

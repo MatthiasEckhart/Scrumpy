@@ -1,0 +1,30 @@
+<template name="changePersonalInfo">
+    <div class="control-group">
+        <div class="input-group">
+            <span class="input-group-addon">First name</span>
+            <input id="first-name" name="first-name" class="form-control" type="text"
+                   placeholder="What's your first name?" value="{{profile.firstName}}"/>
+        </div>
+    </div>
+    <br/>
+
+    <div class="control-group">
+        <div class="input-group">
+            <span class="input-group-addon">Last name</span>
+            <input id="last-name" name="last-name" class="form-control" type="text" placeholder="What's your last name?"
+                   value="{{profile.lastName}}"/>
+        </div>
+    </div>
+    <br/>
+
+    <div class="control-group">
+        <div class="input-group">
+            <span class="input-group-addon">Organization</span>
+            <input id="organization" name="organization" class="form-control" type="text"
+                   placeholder="Where do you work?" value="{{profile.organization}}"/>
+        </div>
+    </div>
+    <br/>
+    <input type="button" id="save-personal-info-button" class="btn btn-primary btn-block"
+           value="Save personal information"/>
+</template>

@@ -1,0 +1,36 @@
+<template name="notification">
+    <ul class="notification-list">
+        <li class="notification-item">
+            {{#if notificationType '1'}}
+                {{#with user}}
+                    <a href="{{pathFor 'profilePage'}}">
+                        <img src="{{avatar}}" alt="{{username}}" width="20" height="20"/>
+                    </a>
+                {{/with}}
+                {{#with pm}}
+
+                    <a href="{{pathFor 'privateMessage'}}" class="mark-notification-as-read">
+                        {{#with notification}}
+                            <span class="author">{{author}}</span> <span class="new-message">sent </span> <span class="rest-message"> a new message.</span>
+                        {{/with}}
+                    </a>
+
+                {{/with}}
+            {{/if}}
+            {{#if notificationType '2'}}
+                {{#with user}}
+                    <a href="{{pathFor 'productDashboard'}}">
+                        <img src="{{avatar}}" alt="{{username}}" width="20" height="20"/>
+                    </a>
+                {{/with}}
+                {{#with product}}
+                    <a href="{{pathFor 'productDashboard'}}" class="mark-notification-as-read">
+                        {{#with notification}}
+                        <span class="author">{{author}}</span><span class="rest-message">commented on a common project.</span>
+                        {{/with}}
+                    </a>
+                {{/with}}
+            {{/if}}
+        </li>
+    </ul>
+</template>

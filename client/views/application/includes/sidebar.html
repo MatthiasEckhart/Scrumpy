@@ -1,0 +1,40 @@
+<template name="sidebar">
+    <div id="sidebar">
+        <div class="dashboard-block {{#if navTabIsActive 'dashboard'}}active{{/if}}">
+            <a href="{{pathFor 'dashboard'}}">
+                <span class="fa fa-dashboard"></span><span class="dashboard-link">Dashboard</span>
+            </a>
+        </div>
+        {{#if currentUser}}
+            <div class="new-product-block {{#if navTabIsActive 'productCreate'}}active{{/if}}">
+                <a href="{{pathFor 'productCreate'}}">
+                    <span class="fa fa-cubes"></span><span class="new-product-link">New product</span>
+                </a>
+            </div>
+            <div class="messages-block {{#if navTabIsActive 'privateMessagesList'}}active{{/if}}">
+                <a href="{{pathFor 'privateMessagesList'}}">
+                    <span class="fa fa-comments"></span><span class="messages-link">Messages</span>
+                </a>
+            </div>
+            <div class="settings-block {{#if navTabIsActive 'privateMessagesList'}}active{{/if}}">
+                <a href="{{pathFor 'settingsPage'}}">
+                    <span class="fa fa-cogs"></span><span class="settings-link">Settings</span>
+                </a>
+            </div>
+            {{#with user}}
+                <div class="profile-block {{#if navTabIsActive 'profilePage'}}active{{/if}}">
+                    <a href="{{pathFor 'profilePage'}}">
+                        <span class="fa fa-user"></span><span class="profile-link">Profile</span>
+                    </a>
+                </div>
+            {{/with}}
+            <div class="notifications-block {{#if navTabIsActive 'privateMessagesList'}}active{{/if}}">
+                <span class="notifications">{{> notifications}}</span>
+            </div>
+        {{/if}}
+        <footer class="application-footer">
+            <span class="crafted"> CRAFTED WITH</span><span class="fa fa-heart">
+            </span><span class="joanneum">FOR FH JOANNEUM</span>
+        </footer>
+    </div>
+</template>

@@ -1,0 +1,114 @@
+<template name="teamOverview">
+    <div id="panel-product-owner" class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">Product Owner
+                <span class="badge badge-default pull-right">1</span>
+            </h3>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Actions</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>
+                    {{#with productOwner}}
+                        {{#if isOnline}}
+                            <span class="fa fa-circle circle-online"></span>
+                        {{/if}}
+                        <a href="{{pathFor 'profilePage'}}" target="_blank">{{username}}</a>
+                    {{/with}}
+                </td>
+                <td>
+                    {{#with productOwner}}
+                        {{> privateMessageCreateEditableButton}}
+                    {{/with}}
+                </td>
+                <td><span class="fa fa-check"></span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="panel-scrum-master" class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">Scrum Master
+                <span class="badge badge-default pull-right">{{totalScrumMaster}}</span></h3>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Actions</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each roleScrumMasterCursorWithIndex}}
+                <tr>
+                    <td>{{index}}</td>
+                    <td>
+                        {{#if isOnline}}
+                            <span class="fa fa-circle circle-online"></span>
+                        {{/if}}
+                        <a href="{{pathFor 'profilePage'}}" target="_blank">{{username}}</a></td>
+                    <td>
+                        {{> privateMessageCreateEditableButton}}
+                    </td>
+                    <td>
+                        {{#unless isAlreadyInRole}}
+                            <span class="fa fa-question"></span>
+                        {{else}}
+                            <span class="fa fa-check"></span>
+                        {{/unless}}
+                    </td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <div id="panel-development-team" class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">Development Team<span
+                    class="badge badge-default pull-right">{{totalDevTeamMember}}</span></h3>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Actions</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each roleDevTeamCursorWithIndex}}
+                <tr>
+                    <td>{{index}}</td>
+                    <td>
+                        {{#if isOnline}}
+                            <span class="fa fa-circle circle-online"></span>
+                        {{/if}}
+                        <a href="{{pathFor 'profilePage'}}" target="_blank">{{username}}</a></td>
+                    <td>
+                        {{> privateMessageCreateEditableButton}}
+                    </td>
+                    <td>
+                        {{#unless isAlreadyInRole}}
+                            <span class="fa fa-question"></span>
+                        {{else}}
+                            <span class="fa fa-check"></span>
+                        {{/unless}}
+                    </td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+</template>

@@ -1,0 +1,30 @@
+<template name="productItem">
+        <!--<div class="product-content"> -->
+        <a href="{{pathFor 'productDashboard'}}">
+            <div class="single-product effect-product-item">
+                <div class="img-circle">
+                    {{#unless noAvatar 'productOwnerOrAdministrator'}}
+                        <img class="avatar-img" src="{{avatar}}" alt="{{author}}" width="45" />
+                    {{else}}
+                        <img class="avatar-img" src="{{defaultAvatar}}" alt="{{author}}" width="45" />
+                    {{/unless}}
+                </div>
+                <span class="product-name">{{titleShort 'product'}}</span>
+                {{#if advancedMode}}
+                    {{#if userInRole 'productOwner'}}
+                        <span class="role">Product Owner</span>
+                    {{/if}}
+                    {{#if userInRole 'scrumMaster'}}
+                        <span class="role">Scrum Master</span>
+                    {{/if}}
+                {{else}}
+                    {{#if userInRole 'administrator'}}
+                        <span class="role">Administrator</span>
+                    {{/if}}
+                {{/if}}
+                {{#if userInRole 'developmentTeam'}}
+                    <span class="role">Member of Development Team</span>
+                {{/if}}
+            </div>
+        </a>
+</template>

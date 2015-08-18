@@ -1,0 +1,61 @@
+<template name="privateMessageCreate">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Create new message</h3>
+        </div>
+        <div class="panel-body">
+            <form class="main message-standard-form">
+
+                {{> memberSearch}}
+
+                {{> memberMultipleSelect}}
+
+                <button id="add-to-recipients-list" type="button" class="btn btn-warning btn-block">Add to recipients
+                    list
+                </button>
+
+                <div id="panel-recipients" class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><a href="#" id="recipients" rel="popover">Recipients</a>
+                            <span class="badge badge-default pull-right">{{totalRecipients}}</span>
+                        </h3>
+                    </div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Username</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each recipients}}
+                            <tr>
+                                <td>{{index}}</td>
+                                <td><a href="{{pathFor 'profilePage'}}" target="_blank">{{username}}</a></td>
+                                <td>
+                                    <button class="fa fa-remove remove-recipient" name="{{_id}}"></button>
+                                </td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+
+                <br/>
+
+                <div class="input-group">
+                    <span class="input-group-addon">Subject</span>
+                    <input id="subject-input" name="subject" type="text" class="form-control"
+                           placeholder="What's the purpose?">
+                </div>
+                <br/>
+                <textarea id="message-input" name="message" type="text" value="" rows="15"></textarea>
+                <br/>
+                <br/>
+                <input type="submit" value="Send private message" class="btn btn-sm btn-primary"/>
+                <a href="{{pathFor 'dashboard'}}" class="btn btn-sm btn-default">Cancel</a>
+            </form>
+        </div>
+    </div>
+</template>

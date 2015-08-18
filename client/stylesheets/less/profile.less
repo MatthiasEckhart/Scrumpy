@@ -1,0 +1,111 @@
+@import "library.less";
+
+.page-content-profile {
+  margin-left: 220px;
+}
+
+.cover-picture {
+  .cover-picture-shadow {
+    width: 100%;
+    height: 80px;
+    background-color: #000000;
+    background: rgba(0, 0, 0, 0.5);
+    position: relative;
+    bottom: 80px;
+  }
+  width: 100%;
+  .profile-pic-wrapper {
+    position: relative;
+    bottom: -15px;
+    margin-left: 20px;
+    background-color: @color-white;
+    width: 56px;
+    height: 56px;
+    .border-radius(90px);
+  }
+  .profile-img {
+    width: 50px;
+    height: 50px;
+    .border-radius(90px);
+    margin-top: 3px;
+    margin-left: 3px;
+  }
+  .display-name {
+    position: relative;
+    bottom: 30px;
+    margin-left: 90px;
+    color: @color-white;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    .organisation-name {
+      display: block;
+      margin-left: 20px;
+    }
+    .display-username {
+    }
+  }
+}
+
+.statistics-profile-block {
+  width: 31.33%;
+  height: 320px;
+  margin-top: 5px;
+  margin-left: 15px;
+  background-color: @color-white;
+  float: left;
+  z-index: 100!important;
+  .statistics-header-title {
+    text-align: center;
+    color: @gray-darker;
+    position: relative;
+    top: 15px;
+  }
+  .statistics-profile-content {
+    width: 100%;
+    height: 270px;
+    background-color: @color-content;
+  }
+}
+
+
+#profile-roles-polar-area-chart,
+#profile-products-doughnut-charts {
+  width: 60%;
+  height: 230px;
+  margin: 0 auto;
+  padding-top: 20px;
+
+}
+
+#profile-activity-overview-bar-chart {
+  width: 96%;
+  height: auto;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+
+@media (max-width: @screen-md-min) {
+  .page-content-profile {
+    margin-left: 70px;
+  }
+  .statistics-profile-block {
+    width: 96%;
+    height: 270px;
+    margin-top: 5px;
+    margin-left: 15px;
+    background-color: @color-white;
+    float: left;
+    z-index: 100!important;
+    .statistics-header-title {
+      text-align: center;
+      color: @gray-darker;
+      position: relative;
+      top: 15px;
+    }
+    .statistics-profile-content {
+      width: 100%;
+      height: 250px;
+      background-color: @color-content;
+    }
+  }
+}

@@ -1,0 +1,118 @@
+@import "library";
+
+.input-group .form-control {
+}
+
+iframe.wysihtml5-sandbox {
+  width: 350px!important;
+}
+
+form.main {
+  background-color: @color-content;
+  margin: 30px auto;
+  padding-bottom: 20px;
+  border: solid 1px @gray-light;
+  border-radius: 3px;
+  width: 400px!important;
+  h2 {
+    margin-left: 20px;
+    margin-top: 0!important;
+  }
+  #title-input {
+    border-radius: 0 50px 50px 0!important;
+  }
+  .alert,
+  .alert-info,
+  .alert-dismissable  {
+    position: relative;
+    top: 10px;
+    left: 0;
+    width: 100%;
+  }
+  #select-multiple-product {
+    position: relative;
+    top: 10px;
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+    border: solid 1px #e1e1e1;
+  }
+  .select-multiple-user-element {
+    font-size: 1.1em;
+    padding-left: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    outline: none;
+    border: 1px solid #DDDDDD;
+    background-color: #C9EFF9;
+  }
+
+  #member-multiple-select {
+    background-color: #4FC1E9;
+    padding: 3px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    border-radius: 4px;
+  }
+
+  button.glyphicon:nth-child(1) {
+    border: none;
+    border-radius: 5px;
+  }
+  #add-to-development-team {
+    width: 100%!important;
+    position: relative!important;
+
+  }
+}
+
+input#userSearch[type=text],
+input#title-input[type=text],
+textarea#userSearch,
+textarea#title-input {
+  .transition(all 0.30s ease-in-out);
+  outline: none;
+  border: 1px solid #DDDDDD;
+}
+
+input#userSearch[type=text]:focus,
+input#title-input[type=text]:focus,
+textarea#userSearch:focus,
+textarea#title-input:focus,
+#vision-input:focus {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1)!important;
+  border: 1px solid rgba(81, 203, 238, 1)!important;
+}
+
+
+div.col-md-6:nth-child(2) {
+  padding-left: 0;
+}
+
+.form-control-feedback {
+ visibility: hidden;
+}
+
+/* colors */
+#panel-administrator > div:nth-child(1) {
+  background-color: #A0D468;
+}
+
+#panel-development-team > div:nth-child(1) {
+  background-color: #FFCE54;
+}
+
+.input-group-addon {
+  background-color: #AAB2BD;
+}
+
+textarea {
+  resize: none;
+}
+
+#assign-as-scrum-master {
+  position: relative;
+  width: 100%!important;
+  right: 0;
+  bottom: 0;
+  margin-top: 10px;
+}

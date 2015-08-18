@@ -1,0 +1,45 @@
+<template name="editAvatar">
+    <div id="edit-avatar">
+        <div class="row">
+            <button id="btn-change-avatar" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                Change avatar
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                {{#unless removeAvatar}}
+                    <li><a href="#" id="change-avatar">Upload image</a></li>
+                {{/unless}}
+                {{#unless changeAvatar}}
+                    <li><a href="#" id="remove-avatar">Remove avatar</a></li>
+                {{/unless}}
+            </ul>
+
+            <div id="row-img" style="position:relative;">
+
+                <img id="real-img" src="{{image}}" class="hide" alt=""/>
+                {{#if removeAvatar}}
+                    <img id="default-avatar-img" src={{defaultAvatar}} class="" alt=""/>
+                {{else}}
+                    <img id="avatar-img" src="{{image}}" class="" alt=""
+                         style="box-sizing:content-box; -moz-box-sizing:content-box; -webkit-box-sizing:content-box;"/>
+                {{/if}}
+
+                <input type="file" name="image-upload" class="hide"/>
+
+                <div class="">
+                    <div id="preview-frame" class="hide">
+                        <div id="preview">
+                            <img src="{{image}}"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <input type="button" id="save-avatar-button"
+                           class="btn btn-primary btn-block {{disabledSaveAvatarButton}}"
+                           value="Save avatar"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

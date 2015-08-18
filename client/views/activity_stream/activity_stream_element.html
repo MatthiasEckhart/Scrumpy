@@ -1,0 +1,186 @@
+<template name="activityStreamElement">
+    {{#if elType '1'}}
+        {{#with user}}
+            <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
+            </a>
+        {{/with}}
+        <p class="text-info text-information"><span class="author">{{author}}</span> created the product with the title {{productTitle}}.</p>
+        <p class="date margin-left-40">{{submittedFormatted}}</p>
+    {{/if}}
+    {{#if elType '2'}}
+        {{#with user}}
+            <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
+            </a>
+        {{/with}}
+        <p class="text-info text-information"><span class="author">{{author}}</span> changed the product title from {{oldProductTitle}} to {{newProductTitle}}.</p>
+        <p class="date margin-left-40">{{submittedFormatted}}</p>
+    {{/if}}
+    {{#if elType '3'}}
+        {{#with user}}
+            <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
+            </a>
+        {{/with}}
+        <p class="text-info text-information"><b>{{author}}</b> accepted to work on {{productTitle}} as {{roleFormatted}}.</p>
+        <p class="date margin-left-40">{{submittedFormatted}}</p>
+    {{/if}}
+    {{#if elType '4'}}
+        {{#with user}}
+            <a class="pull-left" href="{{pathFor 'profilePage'}}">
+            <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
+        </a>{{/with}}
+        <p class="text-info text-information"><span class="author">{{author}}</span> declined to work on {{productTitle}}.</p>
+        <p class="date margin-left-40">{{submittedFormatted}}</p>
+    {{/if}}
+    {{#if elType '5'}}
+        {{#with user}}
+            <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
+            </a>
+        {{/with}}
+        <p class="text-info text-information"><span class="author">{{author}}</span> created the sprint {{sprintGoal}} with the period from {{sprintStartDate}} to {{sprintEndDate}}.</p>
+        <p class="date margin-left-40">{{submittedFormatted}}</p>
+    {{/if}}
+    {{#if elType '6'}}
+        {{#with user}}
+            <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
+            </a>
+        {{/with}}
+    <p class="text-info text-information"><span class="author">{{author}}</span> created the user story {{userStoryTitle}}.</p>
+        <p class="date margin-left-40">{{submittedFormatted}}</p>
+    {{/if}}
+    {{#if elType '7'}}
+        {{#with user}}
+            <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
+            </a>
+        {{/with}}
+    <p class="text-info text-information"><span class="author">{{author}}</span> assigned priority no. {{priority}} for the user story {{userStoryTitle}}.</p>
+        <p class="date margin-left-40">{{submittedFormatted}}</p>
+    {{/if}}
+    {{#if elType '8'}}
+        {{#with user}}
+            <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
+            </a>
+        {{/with}}
+    <p class="text-info text-information"><span class="author">{{author}}</span> created the sticky {{stickyTitle}} for the user story {{userStoryTitle}} in the sprint {{sprintGoal}}.</p>
+        <p class="date margin-left-40">{{submittedFormatted}}</p>
+    {{/if}}
+    {{#if elType '9'}}
+        {{#with user}}
+            <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
+            </a>
+        {{/with}}
+    <p class="text-info text-information"><span class="author">{{author}}</span> moved the sticky {{stickyTitle}} from status {{stickyStatusFormatted 'old'}} to {{stickyStatusFormatted 'new'}}.</p>
+        <p class="date margin-left-40">{{submittedFormatted}}</p>
+    {{/if}}
+    {{#if elType '10'}}
+        {{#with user}}
+            <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
+            </a>
+        {{/with}}
+    <p class="text-info text-information"><span class="author">{{author}}</span> changed the sticky title from {{oldStickyTitle}} to {{newStickyTitle}}.</p>
+        <p class="date margin-left-40">{{submittedFormatted}}</p>
+    {{/if}}
+    {{#if elType '11'}}
+        {{#with user}}
+            <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
+            </a>
+        {{/with}}
+    <p class="text-info text-information"><span class="author">{{author}}</span> changed the sticky description from {{oldStickyDescription}} to {{newStickyDescription}}.</p>
+        <p class="date margin-left-40">{{submittedFormatted}}</p>
+    {{/if}}
+    {{#if elType '12'}}
+        {{#with user}}
+            <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
+            </a>
+        {{/with}}
+    <p class="text-info text-information"><span class="author">{{author}}</span> changed the user story title from {{oldUserStoryTitle}} to {{newUserStoryTitle}}.</p>
+        <p class="date margin-left-40">{{submittedFormatted}}</p>
+    {{/if}}
+    {{#if elType '13'}}
+        {{#with user}}
+            <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
+            </a>
+        {{/with}}
+    <p class="text-info text-information"><span class="author">{{author}}</span> changed the user story description from {{oldUserStoryDescription}} to {{newUserStoryDescription}}.</p>
+        <p class="date margin-left-40">{{submittedFormatted}}</p>
+    {{/if}}
+    {{#if elType '14'}}
+        {{#with user}}
+            <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
+            </a>
+        {{/with}}
+    <p class="text-info text-information"><span class="author">{{author}}</span> removed the sticky {{stickyTitle}}.</p>
+        <p class="date margin-left-40">{{submittedFormatted}}</p>
+    {{/if}}
+    {{#if elType '15'}}
+        {{#with user}}
+            <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
+            </a>
+        {{/with}}
+    <p class="text-info text-information"><span class="author">{{author}}</span> removed the story {{storyTitle}}.</p>
+        <p class="date margin-left-40">{{submittedFormatted}}</p>
+    {{/if}}
+    {{#if elType '16'}}
+        {{#with user}}
+            <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
+            </a>
+        {{/with}}
+    <p class="text-info text-information"><span class="author">{{author}}</span> changed the sprint goal from {{oldSprintGoal}} to {{newSprintGoal}}.</p>
+        <p class="date margin-left-40">{{submittedFormatted}}</p>
+    {{/if}}
+    {{#if elType '17'}}
+        {{#with user}}
+            <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
+            </a>
+        {{/with}}
+    <p class="text-info text-information"><span class="author">{{author}}</span>  changed the sprint start date from {{oldSprintStartDate}} to {{newSprintStartDate}}.</p>
+        <p class="date margin-left-40">{{submittedFormatted}}</p>
+    {{/if}}
+    {{#if elType '18'}}
+        {{#with user}}
+            <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
+            </a>
+        {{/with}}
+    <p class="text-info text-information"><span class="author">{{author}}</span> changed the sprint end date from {{oldSprintEndDate}} to {{newSprintEndDate}}.</p>
+        <p class="date margin-left-40">{{submittedFormatted}}</p>
+    {{/if}}
+    {{#if elType '19'}}
+        {{#with user}}
+            <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
+            </a>
+        {{/with}}
+    <p class="text-info text-information"><span class="author">{{author}}</span> removed the sprint {{sprintGoal}}.</p>
+        <p class="date margin-left-40">{{submittedFormatted}}</p>
+    {{/if}}
+    {{#if elType '20'}}
+        {{#with user}}
+            <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
+            </a>
+        {{/with}}
+        <p class="text-info text-information"><span class="author">{{author}}</span> changed the effort from sticky {{stickyTitle}} from {{oldEffort}} to {{newEffort}}.</p>
+        <p class="date margin-left-40">{{submittedFormatted}}</p>
+    {{/if}}
+    <br/>
+    {{#each comments}}
+        {{> comment}}
+    {{/each}}
+    {{> commentSubmit}}
+</template>

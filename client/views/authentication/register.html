@@ -1,0 +1,25 @@
+<template name="register">
+    <div id="authentication-wrapper">
+        <div id="register">
+            <form action="/register" id="register-form" method="post">
+                <div class="athentication-header">
+                    <p>REGISTER</p>
+                </div>
+                <div class="padding-20">
+                    <div class="form-group">
+                        <input class="username form-control" id="register-username" name="username" placeholder="Username" type="text">
+                    </div>
+                    <div class="form-group">
+                        <input class="password form-control" id="register-password" name="password" placeholder="Password" type="password">
+                    </div>
+                    <div class="form-group">
+                        <input class="password-confirm form-control" id="register-password-confirm" name="password-confirm" placeholder="Confirm" type="password">
+                    </div>
+                    <div class="form-group">
+                        <input class="btn btn-primary btn-block" type="submit" value="Join Scrumpy">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</template>

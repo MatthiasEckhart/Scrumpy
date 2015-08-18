@@ -1,0 +1,12 @@
+<template name="noAccess">
+    <div class="page-content-errors">
+        <a href="{{pathFor 'dashboard'}}">
+        <div class="alert-error">
+           <div class="text-vertical-align">
+               <span class="text-center">You are not part of the development process of the product {{title}}.</span><br/>
+               <span class="text-center">Please contact {{author}}, the {{representative}}.</span>
+           </div>
+        </div>
+        </a>
+    </div>
+</template>

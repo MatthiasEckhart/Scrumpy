@@ -1,0 +1,6 @@
+<template name="editor">
+    {{#with docid}}
+        {{> documentTitle this}}
+        {{> sharejsAce docid=this onRender=configAce id="editor"}}
+    {{/with}}
+</template>

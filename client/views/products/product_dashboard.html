@@ -1,0 +1,65 @@
+<template name="productDashboard">
+    <div class="page-content">
+        <div class="padding-20">
+            <div class="includes">
+                {{> productPageIncludes}}
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Overall statistics</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul>
+                            <li>Velocity: {{velocity}}</li>
+                            <li>Total moved stickies: {{totalStickies}}</li>
+                            <li>Total user stories: {{totalUserStories}}</li>
+                            <li>Member working on this product: {{totalScrumTeamMembers}}</li>
+                        </ul>
+                    </div>
+                </div>
+                {{#if barChartDataAvailable}}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Bar chart
+                                <label class="toggle">
+                                    <input type="checkbox" name="showBarChartForCurrentSprint" {{barChartSwitch}}>
+                                    <span class="handle"></span>
+                                </label>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            {{> productDashboardBarChart}}
+                        </div>
+                    </div>
+                {{/if}}
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Your team</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{> teamOverview}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                {{#if burndownDataAvailable}}
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Burndown chart</div>
+                        <div class="panel-body">
+                            {{> productDashboardBurndownChart}}
+                        </div>
+                    </div>
+                {{/if}}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <p>Activity stream</p>
+                    </div>
+                    <div class="panel-body panel-scrollable">
+                        {{> activityStream}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

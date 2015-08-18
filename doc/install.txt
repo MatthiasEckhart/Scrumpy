@@ -1,0 +1,26 @@
+*** IMPORTANT: before you need to run an instance of mongodb ***
+	$ mongod
+
+Install Demeteorizer.
+	$ npm install -g demeteorizer
+
+Run Demeteorizer on the Meteor project, specify the output location (command -o).
+	$ demeteorizer -o ~/my-meteor-apps/converted -n v0.8.24
+
+Navigate to newly converted location and install nmp.
+	$ cd /my/converted/app
+	$ npm install
+
+Export mongo environment.
+	export MONGO_URL='mongodb://'
+
+*** depending on your settings you may assign username/password/database-name and other parameters ***
+	$ export MONGO_URL='mongodb://user:password@host:port/databasename?autoReconnect=true&connectTimeout=60000'
+	(optional) PORT=8080 (optional, defaults to 80)
+	MAIL_URL='smtp://user:password@mailhost:port/' (optional)
+
+Assign a port.
+	$ export PORT=8080
+
+Finish up with a smile in your face.
+	$ node main.js

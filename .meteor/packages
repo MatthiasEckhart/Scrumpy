@@ -1,0 +1,24 @@
+# Meteor packages used by this project, one per line.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+meteor-platform
+accounts-password
+alanning:roles
+email
+mrt:chartjs
+iron:router
+mizzao:bootstrap-3
+elie:bootflat
+jquery
+mrt:jquery-ui
+matteodem:easy-search
+reactive-var
+multiply:iron-router-progress
+natestrauser:x-editable-bootstrap
+mizzao:sharejs-ace
+mrt:profile-online
+mrt:reactive-publish
+natestrauser:font-awesome
+matb33:collection-hooks

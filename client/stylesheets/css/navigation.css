@@ -1,0 +1,114 @@
+/* CSS crunched with Crunch - http://crunchapp.net/ */
+/** Shades of grey **/
+/** Screen resolution **/
+/** Font settings **/
+#top-navigation {
+  position: fixed;
+  z-index: 9999!important;
+  height: 50px;
+  width: 100%;
+  background-color: #5ccdde;
+  border-radius: 0;
+}
+#top-navigation .dropdown-menu {
+  position: relative;
+  float: right  ;
+  margin-top: 50px;
+  left: 55px;
+  width: 100px;
+  background-color: #ffffff;
+}
+.sidebar-top {
+  position: absolute;
+  width: 220px;
+  height: 50px;
+  border-right: dotted 1px #c8c8c8;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+.sidebar-top .logo {
+  margin-top: 3px;
+  margin-left: 13px;
+}
+.sidebar-top:hover {
+  background-color: #4EAFBD;
+}
+.avatar-container {
+  float: right;
+  margin-top: 7px;
+  margin-right: 20px;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  -webkit-border-radius: 90px;
+  -moz-border-radius: 90px;
+  border-radius: 90px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.avatar-container .avatar-img {
+  -webkit-border-radius: 90px;
+  -moz-border-radius: 90px;
+  border-radius: 90px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.settings {
+  position: absolute;
+  right: 70px;
+  margin-top: 7px;
+  margin-right: 10px;
+  width: 35px;
+  height: 35px;
+  background-color: #ffffff;
+  -webkit-border-radius: 90px;
+  -moz-border-radius: 90px;
+  border-radius: 90px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  cursor: auto;
+}
+.settings-img {
+  margin-top: 5px;
+  margin-left: 5px;
+}
+.navbar-form {
+  position: absolute;
+  right: 200px;
+}
+.form-control {
+  -webkit-border-radius: 50px !important;
+  -moz-border-radius: 50px !important;
+  border-radius: 50px !important;
+  -moz-background-clip: padding !important;
+  -webkit-background-clip: padding-box !important;
+  background-clip: padding-box !important;
+}
+@media (max-width: 992px) {
+  .sidebar-top {
+    width: 70px;
+    height: 50px;
+    border-right: dotted 1px #c8c8c8;
+  }
+  #top-navigation .dropdown-menu {
+    position: relative!important;
+    float: right  !important;
+    right: 0!important;
+    left: -165px !important;
+    margin-top: 50px!important;
+    width: 100px!important;
+    background-color: #ffffff !important;
+  }
+}
+@media (min-width: 992px) {
+  .sidebar-top {
+    width: 220px;
+    height: 50px;
+    border-right: dotted 1px #c8c8c8;
+  }
+}

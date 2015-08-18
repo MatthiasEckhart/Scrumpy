@@ -1,0 +1,9 @@
+<template name="taskBoardPage">
+    {{#if advancedMode}}
+        <div id="taskBoardExtension">
+            {{> taskBoardExtension}}
+        </div>
+    {{/if}}
+
+    {{> taskBoard}}
+</template>

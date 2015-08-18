@@ -1,0 +1,42 @@
+@import "library.less";
+
+
+.page-content-errors {
+  margin-left: 220px;
+}
+
+.alert {
+  position: fixed;
+  top: 80px;
+  z-index: 100;
+  float: right;
+  right: 20px;
+  opacity: 0.8;
+}
+
+.alert-error {
+  width: 50%;
+  height: 150px;
+  margin: 12% auto;
+  background-color: rgba(232, 107, 12, 1);
+  .border-radius(4px);
+  a {
+    color: @color-white!important;
+  }
+  a:hover {
+    text-decoration: none!important;
+    text-outline: none!important;
+    color: @color-white!important;
+  }
+  .text-vertical-align {
+    text-align: center;
+    position: relative;
+    top: 37%;
+  }
+}
+
+@media (max-width: @screen-md-min) {
+  .page-content-errors {
+    margin-left: 70px;
+  }
+}

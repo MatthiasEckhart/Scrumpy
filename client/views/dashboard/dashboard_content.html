@@ -1,0 +1,253 @@
+<!-- stylesheet to be found in dashboard-content.less -->
+<template name="dashboardContent">
+        <div id="first-wrapper">
+            <div class="info-content effect">
+                <div class="info-icon blue">
+                    <span class="fa fa-check-circle"></span>
+                    <div id="total-tasks-completed" class="visual-sugar-block">
+                        <div class="visual-sugar">
+                            <div class="sugar">
+                                <span  class="plus-sign fa fa-plus"></span>
+                                <span class="counter">{{totalTasksDone}}</span>
+                            </div>
+                            <span class="visual-sugar-text">TASKS COMPLETED</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="info-content effect">
+                <div class="info-icon green">
+                    <span class="fa fa-user"></span>
+                    <div id="total-users" class="visual-sugar-block">
+                        <div class="visual-sugar">
+                            <div class="sugar">
+                                <span class="plus-sign fa fa-plus"></span>
+                                <span class="counter">{{totalUsers}}</span>
+                            </div>
+                            <span class="visual-sugar-text">NEW USERS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="info-content effect">
+                <div class="info-icon orange">
+                    <span class="fa fa-cubes"></span>
+                    <div id="total-projects" class="visual-sugar-block">
+                        <div class="visual-sugar">
+                            <div class="sugar">
+                                <span class="plus-sign fa fa-plus"></span>
+                                <span class="counter">{{totalProducts}}</span>
+                            </div>
+                            <span class="visual-sugar-text">PRODUCTS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="info-content effect">
+                <div class="info-icon red">
+                    <span class="fa fa-university"></span>
+                    <div id="total-organizations" class="visual-sugar-block">
+                        <div class="visual-sugar">
+                            <div class="sugar">
+                                <span class="plus-sign fa fa-plus"></span>
+                                <span class="counter">{{totalOrganizations}}</span>
+                            </div>
+                            <span class="visual-sugar-text">ORGANIZATIONS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="second-wrapper">
+        {{#if oneProductExist}}
+            <div id="statistics-wrapper">
+                <div class="header">
+                    <p class="header-title">Work done (h) for product {{productStatTitle 'productStat'}}</p>
+                </div>
+                <div class="statistics-content">
+                    {{> dashboardLineChart}}
+                </div>
+                <div class="statistics-info">
+                    <span class="statistics-info-data">Open tasks</span>
+                    <span class="statistics-cipher">{{openTasks 'productStat'}}</span>
+                </div>
+                <div class="statistics-info">
+                    <span class="statistics-info-data">Tasks assigned</span>
+                    <span class="statistics-cipher">{{tasksAssigned 'me'}}</span>
+                </div>
+                <div class="statistics-info">
+                    <span class="statistics-info-data">Tasks completed</span>
+                    <span class="statistics-cipher">{{totalTasksDoneForProduct}}</span>
+                </div>
+            </div>
+        {{else}}
+            <div id="statistics-wrapper">
+                <div class="header">
+                    <p class="header-title">Global tasks overview</p>
+                </div>
+                <div class="statistics-content">
+                    {{> dashboardPieChart}}
+                </div>
+                <div class="statistics-info">
+                    <span class="statistics-info-data">Total open tasks</span>
+                    <span class="statistics-cipher">{{openTasks 'all'}}</span>
+                </div>
+                <div class="statistics-info">
+                    <span class="statistics-info-data">Total tasks assigned</span>
+                    <span class="statistics-cipher">{{tasksAssigned 'total'}}</span>
+                </div>
+                <div class="statistics-info">
+                    <span class="statistics-info-data">Total tasks to do</span>
+                    <span class="statistics-cipher">{{totalTasksTodo}}</span>
+                </div>
+            </div>
+        {{/if}}
+            <div id="product-wrapper" class="">
+                <div class="header">
+                    <p class="header-title">Products</p>
+                </div>
+                <div class="product-content">
+                    {{#if currentUser}}
+                        {{#if emptyProducts}}
+                            <a href="{{pathFor 'productCreate'}}">
+                                <div class="product-empty">
+                                    <p class="text-center">Start by creating a new product</p>
+
+                                </div>
+                            </a>
+                        {{else}}
+                            {{#each products}}
+                                {{> productItem}}
+                            {{/each}}
+
+                            {{#if nextPath}}
+                                <a class="load-more" href="{{nextPath}}">Load more</a>
+                            {{/if}}
+                        {{/if}}
+                    {{else}}
+                        <a href="{{pathFor 'login'}}">
+                            <div class="product-visitors">
+                                <p class="text-center">Build your product from scratch</p>
+                                <p class="text-center">Contribute</p>
+                                <p class="text-center text-bottom">Let it grow</p>
+                            </div>
+                        </a>
+                    {{/if}}
+                </div>
+
+                {{#if currentUser}}
+                    {{#if emptyProducts}}
+                        <div class="product-info">
+                            <a href="{{pathFor 'productCreate'}}">
+                                <div class="create-product">
+                                </div>
+                            </a>
+                        </div>
+                        <div class="product-info">
+                            <div class="">
+                                <span class="fa fa-user"></span>
+                                <span class="">{{totalUsersOnline}}</span> <br />
+                                <span class="">User(s) online</span>
+                            </div>
+                        </div>
+                        <div class="product-info new-conv-block">
+                            <div class="">
+                                <button type="button" class="btn btn-success btn-block new-conversation">
+                                    <span class="fa fa-comments"></span>
+                                </button>
+                            </div>
+                        </div>
+                    {{else}}
+                        <div class="product-info">
+                            <a href="{{pathFor 'productCreate'}}">
+                                <div class="create-product-inner">
+                                    <span class="create-product">Create a new product</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="product-info">
+                            <div class="">
+                                <span class="fa fa-cubes"></span>
+                                <span class="">{{totalProductsUser}}</span> <br />
+                                <span class="">Products</span>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{else}}
+                    <div class="product-info">
+                        <div class="create-product">
+                            <span class="text-center product-hours">hours developed</span>
+                            <span class="product-cipher text-center">{{totalDevTime}}</span> <br />
+
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="">
+                            <span class="fa fa-user"></span>
+                            <span class="">{{totalUsersOnline}}</span> <br />
+                            <span class="">User(s) online</span>
+                        </div>
+                    </div>
+                {{/if}}
+
+            </div>
+        </div>
+
+        <div id="third-wrapper">
+            <div id="featured-wrapper">
+                <div class="header">
+                    <p class="header-title">Featured</p>
+                </div>
+                <div class="featured-content">
+                    <p class="quote">"The secret of getting ahead is getting started."</p>
+                    <span class="quote-author">- Mark Twain</span>
+                </div>
+            </div>
+
+            <div id="details-wrapper">
+                <div class="header">
+                    <p class="header-title">Meet the team</p>
+                </div>
+                <div class="details-content">
+                    <div class="detail-content-wrapper">
+                        <p class="text-center contact-us">Drop us a line</p>
+                        <div class="dev1-block">
+                            <div class="dev1-wrapper">
+                                <a href="https://twitter.com/MatthiasEckhart" target="_blank">
+                                    <img class="dev1" src="images/dev1.png">
+                                    <p class="text-center">Matthias Eckhart</p>
+                                </a>
+
+                            </div>
+                        </div>
+                        <div class="dev2-block">
+                            <div class="dev2-wrapper">
+                                <a href="https://twitter.com/TheStandardGeek" target="_blank">
+                                    <img class="dev2" src="images/dev2.jpg">
+                                    <p class="text-center">Eduardo da Silva</p>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="testimonials-wrapper">
+                <div class="header">
+                    <p class="header-title">Our Vision</p>
+                </div>
+                <div class="our-vision-content">
+                    <div class="testimonials-shadow">
+                        <div class="vision-statement">
+                            <p>We sky-rocket productivity</p>
+                        </div>
+                        <div class="sub-statement">
+                            <p>Your project, our concern.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</template>

@@ -1,0 +1,32 @@
+<template name="sprint">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title editable-sprint-goal" data-type="text" data-placeholder="Enter text">{{goal}}</h3>
+            <div class="sprint-date">
+                <span class="panel-title text-info editable-sprint-start-date" data-type="date">{{sprintStartDateFormatted}}</span>
+                <span> - </span>
+                <span class="panel-title ext-info editable-sprint-end-date" data-type="date">{{sprintEndDateFormatted}}</span>
+            </div>
+
+            <span class="text-info">Total business value: {{sumBusinessValue}}</span>
+            <br />
+            <span class="text-info">Total story points: {{sumStoryPoints}}</span>
+            {{#if userIsScrumMaster 'sprint'}}
+                <button class="btn btn-danger btn-xs delete-sprint">Delete sprint</button>{{/if}}
+        </div>
+        <div class="panel-body">
+            <table>
+                <tr>
+                    <td id="{{_id}}" class="user-story-sprint" style="width: 100px; height: 100px;">
+                        {{#each userStories}}
+                        <span class="story-priority">
+                            {{priority}}
+                        </span>
+                            {{> userStory}}
+                        {{/each}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</template>

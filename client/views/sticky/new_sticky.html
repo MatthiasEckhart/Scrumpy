@@ -1,0 +1,7 @@
+<template name="newSticky">
+    <div class="tooltip-wrapper">
+        <button id="new-sticky-{{_id}}" name="new-sticky" data-type="sticky"
+            class="btn btn-primary btn-block fa fa-plus new-sticky editable editable-click {{#unless userIsPartOfDevTeamOrAdmin}}disabled{{/unless}}"
+            type="button"></button>
+    </div>
+</template>

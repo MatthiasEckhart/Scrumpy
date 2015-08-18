@@ -1,0 +1,70 @@
+<template name="sticky">
+    <div class="panel panel-default sticky-element {{isDrag}}" id="{{_id}}">
+        <div class="panel-heading" style="background-color: {{assigneeColor}}">
+            {{#if userIsPartOfDevTeamOrAdmin}}
+                <h3 class="panel-title" id="editable-sticky-title-{{_id}}" data-type="text"
+                    data-placeholder="Enter text" data-emptytext="Click to enter text" data-pk="{{_id}}">{{titleShort 'sticky'}}</h3>
+            {{else}}
+                <h3 class="panel-title">{{titleShort 'sticky'}}</h3>
+            {{/if}}
+        </div>
+        <div class="panel-body">
+            {{#if userIsPartOfDevTeamOrAdmin}}
+                <p id="editable-sticky-description-{{_id}}" data-type="textarea" data-placeholder="Enter text"
+                   data-row="2" data-pk="{{_id}}">{{description}}</p>
+                <a href="#" id="editable-sticky-effort-{{_id}}" data-type="select"
+                   data-placeholder="Enter estimated effort" data-value="{{effort}}" data-pk="{{_id}}"></a> h
+                <br/>
+                <span class="assigned-to">Assigned to: </span>
+                <a href="#" data-type="select" id="assign-sticky-to-{{_id}}" data-value="{{assigneeId}}" data-pk="{{_id}}"></a>
+                {{#if noAvatar 'assignee'}}
+                    {{#with user}}
+                        <a href="{{pathFor 'profilePage'}}"><img src="{{defaultAvatar}}" alt="{{currentUserUsername}}"
+                                                                 width="30" height="30"/></a>
+                    {{/with}}
+                {{else}}
+                    {{#with user}}
+                        <a href="{{pathFor 'profilePage'}}"><img src="{{avatar}}" alt="{{currentUserUsername}}"
+                                                                 width="30" height="30"/></a>
+                    {{/with}}
+                {{/if}}
+            {{else}}
+                <p>{{description}}</p>
+                {{effort}} h
+                <br/>
+                Assigned to: {{assigneeFormatted}}
+                {{#if noAvatar 'assignee'}}
+                    {{#with user}}
+                        <a href="{{pathFor 'profilePage'}}"><img src="{{defaultAvatar}}" alt="{{currentUserUsername}}"
+                                                                 width="30" height="30"/></a>
+                    {{/with}}
+                {{else}}
+                    {{#with user}}
+                        <a href="{{pathFor 'profilePage'}}"><img src="{{avatar}}" alt="{{currentUserUsername}}"
+                                                                 width="30" height="30"/></a>
+                    {{/with}}
+                {{/if}}
+            {{/if}}
+
+            <div class="sticky-footer">
+                <div class="sticky-controls">
+                    <div class="control-wrapper">
+                        {{#if userIsPartOfDevTeamOrAdmin}}
+                            <button class="fa fa-remove btn btn-danger btn-xs delete-sticky nodrag"></button>
+                        {{/if}}
+                        <button id="show-info-sticky-{{_id}}"
+                                class="fa fa-info-circle btn btn-default btn-xs show-info-sticky nodrag"></button>
+                        <div id="popover-content-{{_id}}" style="display: none">
+                            <p>
+                                <b>Author:</b> {{author}}<br/>
+                                <b>Last moved:</b> {{lastMoved}}<br/>
+                                <b>Last edited:</b> {{lastEdited}}<br/>
+                                <b>Created:</b> {{submitted}}<br/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

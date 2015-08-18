@@ -1,0 +1,77 @@
+<template name="taskBoard">
+    <div class="page-content">
+        <div id="scrum-board">
+            <div id="drag">
+                <table class="scrum-board-table">
+                        <tr class="scrum-board-header">
+                            <th class="table-stories table-header mark">Stories</th>
+                            <th class="table-plus table-header mark"><!-- empty --></th>
+                            <th class="table-to-do table-header mark">Todo - Σ {{sumEffort '1'}} h</th>
+                            <th class="table-started table-header mark">Started - Σ {{sumEffort '2'}} h</th>
+                            <th class="table-verify table-header mark">Verify - Σ {{sumEffort '3'}} h</th>
+                            <th class="table-done table-header mark">Done</th>
+                        </tr>
+                    {{#each userStories}}
+                        <tr id="{{_id}}" class="story-row">
+                            <td class="stories mark">
+                                {{> userStory}}
+                            </td>
+                            <td class="plus mark">
+                                {{> newSticky}}
+                            </td>
+                            <td class="to-do">
+                                {{#each stickyType '1'}}
+                                    {{> sticky}}
+                                {{/each}}
+                            </td>
+                            <td class="started">
+                                {{#each stickyType '2'}}
+                                    {{> sticky}}
+                                {{/each}}
+                            </td>
+                            <td class="verify">
+                                {{#each stickyType '3'}}
+                                    {{> sticky}}
+                                {{/each}}
+                            </td>
+                            <td class="done">
+                                {{#each stickyType '4'}}
+                                    {{> sticky}}
+                                {{/each}}
+                            </td>
+                        </tr>
+                    {{/each}}
+                    {{#unless advancedMode}}
+                        <tr class="story-row mark">
+                            <td class="stories mark">
+                                 <button id="new-user-story-editable" data-type="userStory"
+                                   class="editable editable-click btn btn-default" data-original-title="" title="">New user story</button>
+                            </td>
+                            <td class="plus mark">
+
+                            </td>
+                            <td class="to-do mark">
+
+                            </td>
+                            <td class="started mark">
+
+                            </td>
+                            <td class="verify mark">
+
+                            </td>
+                            <td class="done mark">
+
+                            </td>
+                        </tr>
+                    {{/unless}}
+                </table>
+            </div>
+            <button type="button" class="btn btn-block btn-pdf fa fa-download export-taskboard-as-pdf {{#if noStories}}disabled{{/if}}">
+                <span> Export as PDF</span>
+            </button>
+        </div>
+        {{#if userIsAdminOrProductOwner}}
+            <a href="{{pathFor 'productEdit'}}" class="btn btn-default edit-btn">Edit project</a>
+        {{/if}}
+    </div>
+</template>
