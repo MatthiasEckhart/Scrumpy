@@ -1,5 +1,7 @@
 public/node_modules
 
+.DS_Store
+
 *.iml
 
 ## Directory-based project format:
