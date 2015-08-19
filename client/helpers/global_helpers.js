@@ -1,5 +1,3 @@
-"use strict";
-
 UI.registerHelper('titleShort', function (type) {
     var short = this.title;
     if (short) {
