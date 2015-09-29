@@ -43,6 +43,9 @@ Template.productDashboard.helpers({
             return "-";
         }
         return velocity;
+    },
+    sprintsAvailable: function() {
+        return Sprints.find({productId: this._id}).count() > 0;
     }
 });
 

@@ -1,9 +1,9 @@
 Sprints = new Meteor.Collection('sprints');
 
 Sprints.allow({
-    insert: isScrumMaster,
-    update: isScrumMaster,
-    remove: isScrumMaster
+    insert: scrumTeam,
+    update: scrumTeam,
+    remove: scrumTeam
 });
 
 Sprints.before.insert(function (userId, doc) {

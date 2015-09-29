@@ -16,10 +16,25 @@ Template.productHistory.helpers({
         return Sprints.find({productId: this._id});
     },
     startDateFormatted: function () {
-        return moment(this.startDate).format('MMMM D, YYYY');
+        return formatDate(this.startDate, false);
     },
     endDateFormatted: function () {
-        return moment(this.endDate).format('MMMM D, YYYY');
+        return formatDate(this.endDate, false);
+    },
+    startDateUrlFormatted: function () {
+        return formatDate(this.startDate, true);
+    },
+    endDateUrlFormatted: function () {
+        return formatDate(this.endDate, true);
+    },
+    slug: function() {
+        var product = Products.findOne({_id: this.productId});
+        return product && product.slug;
+    },
+    isCurrentSprint: function() {
+        /* MomentJS: isBetween is currently not available (> 2.9).
+         * Therefore, we need to use a workaround. */
+        return (!(moment(new Date()).isBefore(this.startDate) || moment(new Date()).isAfter(this.endDate)));
     }
 });
 
@@ -46,18 +61,13 @@ Template.productHistory.events({
         } else {
             throwAlert('error', 'Ops!', 'Something went wrong.');
         }
-    },
-    'click .select-multiple-sprint-element': function (e) {
-        operateMultipleSelect($(getProductHistorySelectorString(e.currentTarget.value)));
-        var selector = $(getSelectMultipleSprintElementSelectorString()),
-            len = selector.length;
-        if (len === 0 || len > 1 || selector.hasClass('disabled')) {
-            $('#activate-sprint').addClass('disabled');
-        } else {
-            $('#activate-sprint').removeClass('disabled');
-        }
     }
 });
+
+function formatDate(date, isUrl) {
+    if (isUrl) return moment(date).format('YYYY-MM-DD');
+    return moment(date).format('MMMM D, YYYY');
+}
 
 function getProductHistorySelectorString(sprintId) {
     return '#select-multiple-product-history option[value=' + sprintId + ']';

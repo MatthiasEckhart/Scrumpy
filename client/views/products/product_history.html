@@ -1,9 +1,12 @@
 <template name="productHistory">
-    <select multiple id="select-multiple-product-history" class="select-multiple">
+    <div class="list-group">
         {{#each sprints}}
-            <option class="select-multiple-sprint-element" value="{{_id}}">{{goal}}: {{startDateFormatted}}
-                - {{endDateFormatted}}</option>
+            <a href="{{pathFor 'taskBoardPage' slug=slug startDate=startDateUrlFormatted endDate=endDateUrlFormatted}}" class="list-group-item {{#if isCurrentSprint}}active{{/if}}">
+                <h4 class="list-group-item-heading">{{startDateFormatted}}
+                    - {{endDateFormatted}}</h4>
+
+                <p class="list-group-item-text">{{goal}}</p>
+            </a>
         {{/each}}
-    </select>
-    <button type="button" class="btn btn-sm btn-primary btn-block disabled" id="activate-sprint">Activate</button>
+    </div>
 </template>

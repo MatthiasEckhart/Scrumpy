@@ -4,29 +4,28 @@
             {{> productPageIncludes}}
             <div class="row" id="drag">
                 <div class="col-md-6">
-                    {{#if userIsProductOwner 'sprintPlanning'}}
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Add story</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Title</span>
-                                    <input type="text" name="new-story-title-input" class="form-control input-custom"
-                                           placeholder="Name your story.">
-                                </div>
-                                <br/>
-
-                                <div class="input-group">
-                                    <span class="input-group-addon">Description</span>
-                                    <input type="text" name="new-story-description-input" class="form-control input-custom"
-                                           placeholder="As a <role>, I want <goal> so that <benefit>.">
-                                </div>
-                                <br/>
-                                <button type="button" class="btn btn-success btn-block new-story-submit">Create story</button>
-                            </div>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Add story</h3>
                         </div>
-                    {{/if}}
+                        <div class="panel-body">
+                            <div class="input-group">
+                                <span class="input-group-addon">Title</span>
+                                <input type="text" name="new-story-title-input" class="form-control input-custom"
+                                       placeholder="Name your story.">
+                            </div>
+                            <br/>
+
+                            <div class="input-group">
+                                <span class="input-group-addon">Description</span>
+                                <input type="text" name="new-story-description-input" class="form-control input-custom"
+                                       placeholder="As a <role>, I want <goal> so that <benefit>.">
+                            </div>
+                            <br/>
+                            <button type="button" class="btn btn-success btn-block new-story-submit">Create story
+                            </button>
+                        </div>
+                    </div>
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">User Stories</h3>
@@ -74,14 +73,12 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    {{#if userIsScrumMaster 'sprintPlanning'}}
                         <div class="panel panel-info">
                             <div class="panel-heading">Add sprint</div>
                             <div class="panel-body">
                                 {{> sprintCreate}}
                             </div>
                         </div>
-                    {{/if}}
                     {{#each sprints}}
                         {{> sprint}}
                     {{/each}}

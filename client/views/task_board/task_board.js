@@ -57,10 +57,6 @@ Template.taskBoard.created = function () {
     }
 };
 
-Template.taskBoard.destroyed = function () {
-    Session.set('sprintNotAvailableError', false);
-};
-
 Template.taskBoard.rendered = function () {
     var productId = this.data._id;
     $('#new-user-story-editable').editable({
@@ -89,12 +85,6 @@ Template.taskBoard.rendered = function () {
             }
         }
     });
-    if (Session.equals('sprintNotAvailableError', true)) {
-        throwAlert('error', 'Ooops!', 'This sprint is not available! We redirected you to the current sprint.');
-    }
-    if (Session.equals('sprintNotAvailableError', true)) {
-        throwAlert('error', 'Ooops!', 'This sprint is not available! We redirected you to the current sprint.');
-    }
 };
 
 function getSprintId(productId) {

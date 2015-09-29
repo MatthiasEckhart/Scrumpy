@@ -1,6 +1,6 @@
 "use strict";
 
-Template.taskBoardExtension.helpers({
+Template.sprintsOverview.helpers({
     noSprints: function () {
         return Sprints.find({productId: this._id}).count() === 0;
     },

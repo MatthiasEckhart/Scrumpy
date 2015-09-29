@@ -126,11 +126,12 @@ Template.sprintCreate.events({
     'click .create-sprint': function (e) {
         e.preventDefault();
         var sprintProperties = {
-            startDate: moment($(getSelectorType("sprintStartDateInput")).val(), 'MMMM D, YYYY').toDate(),
-            endDate: moment($(getSelectorType("sprintEndDateInput")).val(), 'MMMM D, YYYY').toDate(),
-            goal: $(getSelectorType("sprintGoalInput")).val(),
-            productId: this._id
-        },
+                startDate: moment($(getSelectorType("sprintStartDateInput")).val(), 'MMMM D, YYYY').toDate(),
+                endDate: moment($(getSelectorType("sprintEndDateInput")).val(), 'MMMM D, YYYY').toDate(),
+                goal: $(getSelectorType("sprintGoalInput")).val(),
+                productId: this._id,
+                submitted: new Date()
+            },
             noEmptyFields = isNotEmpty(getSelectorType("sprintStartDateInput"), sprintProperties.startDate) & isNotEmpty(getSelectorType("sprintEndDateInput"), sprintProperties.endDate) & isNotEmpty(getSelectorType("sprintGoalInput"), sprintProperties.goal),
             dupl;
 

@@ -1,20 +1,9 @@
 "use strict";
 
-Template.newSticky.helpers({
-    userIsPartOfDevTeamOrAdmin: function () {
-        return userIsPartOfDevTeamOrAdminHelper(this.productId);
-    }
-});
-
 Template.newSticky.rendered = function () {
     var parentDataContext = Template.parentData(1),
         storyId = this.data._id,
         newStickyEditableSelector = $('#new-sticky-' + storyId);
-
-    // show popover on hover, if user is not allowed to create sticky
-    if (!userIsPartOfDevTeamOrAdminHelper(this.data.productId)) {
-        $('.tooltip-wrapper').popover({trigger: "hover", title: 'Sorry!', content: 'You are not allowed to create tasks.'});
-    }
 
     newStickyEditableSelector.editable({
         title: 'New sticky',
@@ -70,10 +59,6 @@ Template.newSticky.rendered = function () {
         }
     });
 };
-
-function userIsPartOfDevTeamOrAdminHelper(productId) {
-    return Roles.userIsInRole(Meteor.user(), [productId], 'developmentTeam') || Roles.userIsInRole(Meteor.user(), [productId], 'administrator');
-}
 
 // x-editable custom field for new sticky button
 (function($) {

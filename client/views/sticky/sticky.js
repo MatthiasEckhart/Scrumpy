@@ -142,9 +142,9 @@ Template.sticky.rendered = function () {
                             return null;
                         }
                     });
-                    Meteor.call('updateBurndown', sprintId, function (err) {
-                        if (err) {
-                            alert(err);
+                    Meteor.call('updateBurndown', sprint._id, function (error) {
+                        if (error) {
+                            throwAlert('error', error.reason, error.details);
                         }
                     });
                 }
@@ -226,21 +226,6 @@ Template.sticky.helpers({
     },
     advancedMode: function () {
         return Template.parentData(3).advancedMode;
-    },
-    userIsPartOfDevTeamOrAdmin: function () {
-        return Roles.userIsInRole(Meteor.user(), [Template.parentData(3)._id], 'developmentTeam') || Roles.userIsInRole(Meteor.user(), [Template.parentData(3)._id], 'administrator');
-    },
-    assigneeFormatted: function () {
-        var assignee = Users.findOne({_id: this.assigneeId});
-        if (assignee) {
-            return assignee.username;
-        }
-        return "nobody";
-    },
-    isDrag: function () {
-        if (Roles.userIsInRole(Meteor.user(), [Template.parentData(3)._id], 'developmentTeam') || Roles.userIsInRole(Meteor.user(), [Template.parentData(3)._id], 'administrator')) {
-            return "drag";
-        }
     }
 });
 
