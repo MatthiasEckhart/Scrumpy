@@ -61,7 +61,12 @@ Template.sticky.rendered = function () {
             }
         }
 
-        Stickies.update({_id: stickyDroppedId}, {$set: {storyId: stickyDroppedUserStory._id, lastMoved: Meteor.user().username}});
+        Stickies.update({_id: stickyDroppedId}, {
+            $set: {
+                storyId: stickyDroppedUserStory._id,
+                lastMoved: Meteor.user().username
+            }
+        });
         Meteor.call('createActElStickyMoved', stickyDroppedUserStory.productId, Meteor.user()._id, stickyDropped.title, stickyOldStatus, stickyDropped.status, function (error) {
             if (error) {
                 throwAlert('error', error.reason, error.details);
@@ -133,7 +138,12 @@ Template.sticky.rendered = function () {
         success: function (response, newValue) {
             if (newValue) {
                 var oldValue = sticky.effort;
-                Stickies.update({_id: stickyId}, {$set: {effort: parseInt(newValue, 10), lastEdited: Meteor.user().username}});
+                Stickies.update({_id: stickyId}, {
+                    $set: {
+                        effort: parseInt(newValue, 10),
+                        lastEdited: Meteor.user().username
+                    }
+                });
                 throwAlert('success', 'Yes!', 'Estimated effort updated.');
                 if (advancedMode) {
                     Meteor.call('createActElStickyEffortChanged', story.productId, Meteor.user()._id, oldValue, newValue, sticky.title, function (error) {
@@ -155,6 +165,13 @@ Template.sticky.rendered = function () {
     var sourceUsers = [];
     if (!Template.parentData(3).advancedMode) {
         Roles.getUsersInRole([this.data.productId], 'administrator').forEach(function (user) {
+            sourceUsers.push({value: user._id, text: user.username});
+        });
+    } else {
+        Roles.getUsersInRole([this.data.productId], 'productOwner').forEach(function (user) {
+            sourceUsers.push({value: user._id, text: user.username});
+        });
+        Roles.getUsersInRole([this.data.productId], 'scrumMaster').forEach(function (user) {
             sourceUsers.push({value: user._id, text: user.username});
         });
     }
