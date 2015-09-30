@@ -1,10 +1,7 @@
-/* CSS crunched with Crunch - http://crunchapp.net/ */
-/** Shades of grey **/
-/** Screen resolution **/
-/** Font settings **/
 .page-content-errors {
   margin-left: 220px;
 }
+
 .alert {
   position: fixed;
   top: 80px;
@@ -13,6 +10,7 @@
   right: 20px;
   opacity: 0.8;
 }
+
 .alert-error {
   width: 50%;
   height: 150px;
@@ -24,20 +22,21 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
+  a {
+    color: #ffffff !important;
+    &:hover {
+      text-decoration: none !important;
+      text-outline: none !important;
+      color: #ffffff !important;
+    }
+  }
+  .text-vertical-align {
+    text-align: center;
+    position: relative;
+    top: 37%;
+  }
 }
-.alert-error a {
-  color: #ffffff !important;
-}
-.alert-error a:hover {
-  text-decoration: none!important;
-  text-outline: none!important;
-  color: #ffffff !important;
-}
-.alert-error .text-vertical-align {
-  text-align: center;
-  position: relative;
-  top: 37%;
-}
+
 @media (max-width: 992px) {
   .page-content-errors {
     margin-left: 70px;

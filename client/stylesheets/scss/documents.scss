@@ -1,15 +1,6 @@
-@import "library.less";
-@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css");
-
-
 div.col-xs-5:nth-child(2) > div:nth-child(1) {
   margin-bottom: 0;
 }
-
-.document-container {
-
-}
-
 
 #editor {
   width: 100%;
@@ -20,12 +11,12 @@ div.col-xs-5:nth-child(2) > div:nth-child(1) {
 }
 
 .custom-xs-3 {
-  background-color: @color-white;
+  background-color: #ffffff;
   margin-left: 15px;
   padding-bottom: 20px;
   width: 50%;
   h3 {
-    font-size: @font-size-h3;
+    font-size: 24px;
   }
 }
 
@@ -33,24 +24,24 @@ div.col-xs-5:nth-child(2) > div:nth-child(1) {
   float: right;
 }
 
-.navbar-form{
-  border: none!important;
-  float: left!important;
-  right: 0!important;
-  left: 0!important;
+.navbar-form {
+  border: none !important;
+  float: left !important;
+  right: 0 !important;
+  left: 0 !important;
+  /* delete button */
   .center-this {
     display: block;
     margin: 0 auto;
     width: 100%;
   }
   .form-control {
-    border-radius: 0 0 0 0!important;
-    width: 100%!important;
+    border-radius: 0 0 0 0 !important;
+    width: 100% !important;
     position: relative;
     top: -10px;
     text-align: center;
   }
-  /* delete button */
   button.btn:nth-child(2) {
     border-radius: 0;
     width: 100%;
@@ -62,7 +53,7 @@ div.col-xs-5:nth-child(2) > div:nth-child(1) {
 
 .col-xs-5 > div:nth-child(1) {
   width: 100%;
-  padding: 0!important;
+  padding: 0 !important;
 }
 
 div.col-xs-6:nth-child(2) > div:nth-child(1) {
@@ -71,12 +62,8 @@ div.col-xs-6:nth-child(2) > div:nth-child(1) {
   display: block;
 }
 
-
-@media (max-width:@screen-sm-min) {
-  .custom-xs-3 {
-    h3 {
-      font-size: @font-size-h4;
-    }
+@media (max-width: 767px) {
+  .custom-xs-3 h3 {
+    font-size: 18px;
   }
 }
-

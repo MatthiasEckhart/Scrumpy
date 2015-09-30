@@ -1,14 +1,13 @@
-@import "library.less";
-
 .input-custom {
-  border-radius: 0 50px 50px 0!important;
+  border-radius: 0 50px 50px 0 !important;
 }
 
 .panel-title {
-  font-weight: 500!important;
+  font-weight: 500 !important;
   border: none;
   text-align: center;
 }
+
 .panel-body {
   font-weight: 300;
   font-size: 0.9em;
@@ -19,7 +18,7 @@ table {
 }
 
 .story {
- width: 120px;   
+  width: 120px;
 }
 
 .story-formatted {
@@ -41,36 +40,31 @@ table {
 
 /* Scrum master's view*/
 
-#sprint-start-date-input,
-#sprint-end-date-input {
-    border-radius: 0 0 0 0!important;
+#sprint-start-date-input, #sprint-end-date-input {
+  border-radius: 0 0 0 0 !important;
 }
 
-
-#sprint-start-date-input:focus,
-#sprint-end-date-input:focus,
-#sprint-goal-input:focus {
-  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-  border: 1px solid rgba(81, 203, 238, 1);
+#sprint-start-date-input:focus, #sprint-end-date-input:focus {
+  box-shadow: 0 0 5px #51cbee;
+  border: 1px solid #51cbee;
 }
-
-
-
-
-
 
 #sprint-goal-input {
-  border-radius: 0 90px 90px 0!important;
+  &:focus {
+    box-shadow: 0 0 5px #51cbee;
+    border: 1px solid #51cbee;
+  }
+  border-radius: 0 90px 90px 0 !important;
 }
 
-#datepicker-start-date-button,
-#datepicker-end-date-button {
+#datepicker-start-date-button, #datepicker-end-date-button {
   margin-top: -1px;
 }
 
 /* Sprint div */
+
 .editable-sprint-start-date {
- color: red;
+  color: red;
 }
 
 .print-date {
@@ -83,7 +77,3 @@ table {
 .delete-sprint {
   float: right;
 }
-
-
-
-

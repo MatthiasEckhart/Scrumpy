@@ -1,41 +1,40 @@
-@import "library";
-
-a:active, a:focus, a:active {
-  outline:0!important;
+a {
+  &:active, &:focus, &:active {
+    outline: 0 !important;
+  }
 }
 
 #sidebar {
   top: 50px;
   position: fixed;
-  z-index: 9999!important;
-  background-color: @color-sidebar;
+  z-index: 9999 !important;
+  background-color: #454e59;
   width: 220px;
   min-height: 100%;
-
 }
+
 .dashboard-block {
   width: 100%;
   height: 50px;
   margin-top: 10px;
-
   .fa-dashboard, .dashboard-link {
     margin-left: 10px;
     margin-top: 16px;
   }
   a {
     padding: 14px 115px 19px 0;
-    color: @gray-lighter;
-  }
-  a:hover {
-    text-decoration: none!important;
-    text-underline: none!important;
-    color: @gray-lighter!important;
-  }
-  a:active, a:focus {
-    background-color: @gray-darker;
-    color: @gray-lighter!important;
-    text-decoration: none!important;
-    text-underline: none!important;
+    color: #eeeeee;
+    &:hover {
+      text-decoration: none !important;
+      text-underline: none !important;
+      color: #eeeeee !important;
+    }
+    &:active, &:focus {
+      background-color: #444444;
+      color: #eeeeee !important;
+      text-decoration: none !important;
+      text-underline: none !important;
+    }
   }
 }
 
@@ -48,44 +47,42 @@ a:active, a:focus, a:active {
   }
   a {
     padding: 14px 100px 19px 0px;
-    color: @gray-lighter;
-  }
-  a:hover {
-    text-decoration: none!important;
-    text-underline: none!important;
-    color: @gray-lighter!important;
-  }
-  a:active, a:focus {
-    background-color: @gray-darker;
-    color: @gray-lighter!important;
-    text-decoration: none!important;
-    text-underline: none!important;
+    color: #eeeeee;
+    &:hover {
+      text-decoration: none !important;
+      text-underline: none !important;
+      color: #eeeeee !important;
+    }
+    &:active, &:focus {
+      background-color: #444444;
+      color: #eeeeee !important;
+      text-decoration: none !important;
+      text-underline: none !important;
+    }
   }
 }
 
 .messages-block {
   width: 100%;
   height: 50px;
-
-
   .fa-comments, .messages-link {
     margin-left: 10px;
     margin-top: 16px;
   }
   a {
     padding: 14px 121px 20px 0px;
-    color: @gray-lighter;
-  }
-  a:hover {
-    text-decoration: none!important;
-    text-underline: none!important;
-    color: @gray-lighter!important;
-  }
-  a:active, a:focus {
-    background-color: @gray-darker;
-    color: @gray-lighter!important;
-    text-decoration: none!important;
-    text-underline: none!important;
+    color: #eeeeee;
+    &:hover {
+      text-decoration: none !important;
+      text-underline: none !important;
+      color: #eeeeee !important;
+    }
+    &:active, &:focus {
+      background-color: #444444;
+      color: #eeeeee !important;
+      text-decoration: none !important;
+      text-underline: none !important;
+    }
   }
 }
 
@@ -95,21 +92,21 @@ a:active, a:focus, a:active {
   .fa-cogs, .settings-link {
     margin-left: 10px;
     margin-top: 16px;
-    color: @gray-lighter;
+    color: #eeeeee;
   }
   a {
     padding: 14px 133px 20px 0;
-  }
-  a:hover {
-    text-decoration: none!important;
-    text-underline: none!important;
-    color: @gray-lighter!important;
-  }
-  a:active, a:focus {
-    background-color: @gray-darker;
-    color: @gray-lighter!important;
-    text-decoration: none!important;
-    text-underline: none!important;
+    &:hover {
+      text-decoration: none !important;
+      text-underline: none !important;
+      color: #eeeeee !important;
+    }
+    &:active, &:focus {
+      background-color: #444444;
+      color: #eeeeee !important;
+      text-decoration: none !important;
+      text-underline: none !important;
+    }
   }
 }
 
@@ -119,21 +116,21 @@ a:active, a:focus, a:active {
   .fa-user, .profile-link {
     margin-left: 10px;
     margin-top: 16px;
-    color: @gray-lighter;
+    color: #eeeeee;
   }
   a {
     padding: 14px 147px 20px 0;
-  }
-  a:hover {
-    text-decoration: none!important;
-    text-underline: none!important;
-    color: @gray-lighter!important;
-  }
-  a:active, a:focus {
-    background-color: @gray-darker;
-    color: @gray-lighter!important;
-    text-decoration: none!important;
-    text-underline: none!important;
+    &:hover {
+      text-decoration: none !important;
+      text-underline: none !important;
+      color: #eeeeee !important;
+    }
+    &:active, &:focus {
+      background-color: #444444;
+      color: #eeeeee !important;
+      text-decoration: none !important;
+      text-underline: none !important;
+    }
   }
 }
 
@@ -146,18 +143,18 @@ a:active, a:focus, a:active {
   }
   a {
     padding: 14px 105px 19px 0;
-    color: @gray-lighter;
-  }
-  a:hover {
-    text-decoration: none!important;
-    text-underline: none!important;
-    color: @gray-lighter!important;
-  }
-  a:active, a:focus {
-    background-color: @gray-darker;
-    color: @gray-lighter!important;
-    text-decoration: none!important;
-    text-underline: none!important;
+    color: #eeeeee;
+    &:hover {
+      text-decoration: none !important;
+      text-underline: none !important;
+      color: #eeeeee !important;
+    }
+    &:active, &:focus {
+      background-color: #444444;
+      color: #eeeeee !important;
+      text-decoration: none !important;
+      text-underline: none !important;
+    }
   }
   .notifications-counter {
     position: absolute;
@@ -175,9 +172,9 @@ a:active, a:focus, a:active {
     margin-right: 0;
     z-index: 1000;
     opacity: 1;
-    background-color: @color-white;
+    background-color: #ffffff;
     a:hover {
-      color: #080808!important;
+      color: #080808 !important;
     }
     .no-notifications {
       text-align: center;
@@ -189,7 +186,12 @@ a:active, a:focus, a:active {
       list-style-type: none;
     }
     img {
-      .border-radius(90px);
+      -webkit-border-radius: 90px;
+      -moz-border-radius: 90px;
+      border-radius: 90px;
+      -moz-background-clip: padding;
+      -webkit-background-clip: padding-box;
+      background-clip: padding-box;
       position: relative;
       left: -50px;
       margin-top: 10px;
@@ -200,7 +202,6 @@ a:active, a:focus, a:active {
       left: -80px;
       font-weight: 600;
       font-size: 0.90em;
-
     }
     .new-message {
       position: relative;
@@ -216,36 +217,33 @@ a:active, a:focus, a:active {
       font-weight: 600;
       font-size: 0.90em;
     }
-    .new-message-activity {
-      
-    }
   }
 }
-.dropdown-menu li a {
-  color: #000000!important;
-}
-.dropdown-menu li a:focus {
-  color: #000000!important;
-  background-color: @color-white!important;
-}
-.dropdown-menu li a:hover {
-  color: #000000!important;
-  background: none!important;
-}
 
+.dropdown-menu li a {
+  color: #000000 !important;
+  &:focus {
+    color: #000000 !important;
+    background-color: #ffffff !important;
+  }
+  &:hover {
+    color: #000000 !important;
+    background: none !important;
+  }
+}
 
 footer.application-footer {
   width: 100%;
   height: 70px;
-  background-color: rgb(68,68,68);
-  position:absolute;
+  background-color: #444444;
+  position: absolute;
   bottom: 50px;
   left: 0;
   padding: 10px;
   .crafted {
     display: block;
     text-align: center;
-    color: @color-white;
+    color: #ffffff;
     font-size: 0.80em;
     font-weight: 400;
   }
@@ -256,7 +254,7 @@ footer.application-footer {
     line-height: 1.4em;
   }
   .joanneum {
-    color: @color-white;
+    color: #ffffff;
     font-size: 0.80em;
     font-weight: 400;
     display: block;
@@ -264,30 +262,18 @@ footer.application-footer {
   }
 }
 
-
-
 /** up to 992 **/
-@media (max-width: @screen-md-min) {
+@media (max-width: 992px) {
   #sidebar {
     width: 70px;
   }
-  .dashboard-link,
-  .profile-link,
-  .settings-link,
-  .new-product-link,
-  .messages-link,
-  .notifications-link {
+  .dashboard-link, .profile-link, .settings-link, .new-product-link, .messages-link, .notifications-link {
     position: absolute;
     left: 5000px;
   }
-  .fa-dashboard,
-  .fa-user,
-  .fa-cogs,
-  .fa-cubes,
-  .fa-comments,
-  .fa-envelope {
-    margin-left: 25px!important;
-    font-size: 1.5em!important;
+  .fa-dashboard, .fa-user, .fa-cogs, .fa-cubes, .fa-comments, .fa-envelope {
+    margin-left: 25px !important;
+    font-size: 1.5em !important;
   }
   .dashboard-block a {
     padding: 14px 23px 19px 0;
@@ -308,18 +294,17 @@ footer.application-footer {
     padding: 19px 23px 10px 0;
   }
   .notifications-counter {
-    top: 279px!important;
-    left: 30px!important;
+    top: 279px !important;
+    left: 30px !important;
   }
   .dropdown-menu {
-    position: relative!important;
-    left: 70px!important;
-    top: 5px!important;
+    position: relative !important;
+    left: 70px !important;
+    top: 5px !important;
     margin-right: -219px !important;
-    z-index: 999!important;
-    opacity: 1!important;
+    z-index: 999 !important;
+    opacity: 1 !important;
   }
-
   footer.application-footer {
     .crafted {
       font-size: 0.50em;
@@ -332,19 +317,16 @@ footer.application-footer {
     .joanneum {
       font-size: 0.50em;
       font-weight: 400;
-
     }
   }
 }
 
 /** from 992px up to 1200 **/
-@media (min-width: @screen-md-min) and (max-width: @screen-lg-min){
+@media (min-width: 992px) and (max-width: 1200px) {
   #sidebar {
     width: 220px;
   }
   .navbar-toggle .icon-bar {
-    background-color: @color-white;
+    background-color: #ffffff;
   }
 }
-
-

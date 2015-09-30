@@ -1,29 +1,22 @@
-@import "library";
-
-.input-group .form-control {
-}
-
 iframe.wysihtml5-sandbox {
-  width: 350px!important;
+  width: 350px !important;
 }
 
 form.main {
-  background-color: @color-content;
+  background-color: #f9f9f9;
   margin: 30px auto;
   padding-bottom: 20px;
-  border: solid 1px @gray-light;
+  border: solid 1px #eeeeee;
   border-radius: 3px;
-  width: 400px!important;
+  width: 400px !important;
   h2 {
     margin-left: 20px;
-    margin-top: 0!important;
+    margin-top: 0 !important;
   }
   #title-input {
-    border-radius: 0 50px 50px 0!important;
+    border-radius: 0 50px 50px 0 !important;
   }
-  .alert,
-  .alert-info,
-  .alert-dismissable  {
+  .alert, .alert-info, .alert-dismissable {
     position: relative;
     top: 10px;
     left: 0;
@@ -45,7 +38,6 @@ form.main {
     border: 1px solid #DDDDDD;
     background-color: #C9EFF9;
   }
-
   #member-multiple-select {
     background-color: #4FC1E9;
     padding: 3px;
@@ -53,46 +45,67 @@ form.main {
     margin-bottom: 3px;
     border-radius: 4px;
   }
-
   button.glyphicon:nth-child(1) {
     border: none;
     border-radius: 5px;
   }
   #add-to-development-team {
-    width: 100%!important;
-    position: relative!important;
-
+    width: 100% !important;
+    position: relative !important;
   }
 }
 
-input#userSearch[type=text],
-input#title-input[type=text],
-textarea#userSearch,
-textarea#title-input {
-  .transition(all 0.30s ease-in-out);
-  outline: none;
-  border: 1px solid #DDDDDD;
+input {
+  &#userSearch[type=text], &#title-input[type=text] {
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    outline: none;
+    border: 1px solid #DDDDDD;
+  }
 }
 
-input#userSearch[type=text]:focus,
-input#title-input[type=text]:focus,
-textarea#userSearch:focus,
-textarea#title-input:focus,
+textarea {
+  &#userSearch, &#title-input {
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    outline: none;
+    border: 1px solid #DDDDDD;
+  }
+}
+
+input {
+  &#userSearch[type=text]:focus, &#title-input[type=text]:focus {
+    box-shadow: 0 0 5px #51cbee !important;
+    border: 1px solid #51cbee !important;
+  }
+}
+
+textarea {
+  &#userSearch:focus, &#title-input:focus {
+    box-shadow: 0 0 5px #51cbee !important;
+    border: 1px solid #51cbee !important;
+  }
+}
+
 #vision-input:focus {
-  box-shadow: 0 0 5px rgba(81, 203, 238, 1)!important;
-  border: 1px solid rgba(81, 203, 238, 1)!important;
+  box-shadow: 0 0 5px #51cbee !important;
+  border: 1px solid #51cbee !important;
 }
-
 
 div.col-md-6:nth-child(2) {
   padding-left: 0;
 }
 
 .form-control-feedback {
- visibility: hidden;
+  visibility: hidden;
 }
 
 /* colors */
+
 #panel-administrator > div:nth-child(1) {
   background-color: #A0D468;
 }
@@ -111,7 +124,7 @@ textarea {
 
 #assign-as-scrum-master {
   position: relative;
-  width: 100%!important;
+  width: 100% !important;
   right: 0;
   bottom: 0;
   margin-top: 10px;

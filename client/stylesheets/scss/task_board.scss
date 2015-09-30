@@ -1,0 +1,198 @@
+.editableform {
+  .form-control {
+    height: 26px !important;
+  }
+  option {
+    padding: 3px;
+    -moz-appearance: none !important;
+  }
+}
+
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+
+.scrum-board-table {
+  width: 100%;
+  background-color: #fcf8e3;
+}
+
+.scrum-board-header {
+  background-color: #e1e1e1;
+  z-index: 100;
+}
+
+.table-stories, .table-plus, .table-to-do, .table-started, .table-verify, .table-done {
+  height: 40px;
+  background-color: #e1e1e1;
+  text-align: center;
+  border-left: solid 1px #ccc;
+  border-right: solid 1px #ccc;
+}
+
+td {
+  .to-do, .started, .verify, .done {
+    padding: 5px;
+  }
+}
+
+.table-plus, .plus {
+  width: 40px;
+  background-color: #e1e1e1;
+  padding: 5px;
+}
+
+.stories {
+  width: 200px;
+  min-width: 120px;
+  .story {
+    width: 80%;
+    margin: 0 auto;
+    p {
+      font-size: 0.85em;
+    }
+  }
+}
+
+.panel-title {
+  font-weight: bold;
+  text-align: center;
+}
+
+.editable-click {
+  border: none;
+}
+
+.sticky-element {
+  width: 150px;
+  float: left;
+  margin: 5px;
+  p {
+    font-size: 0.85em;
+  }
+  .editable-empty {
+    border: none;
+  }
+  .assigned-to {
+    font-size: 0.85em;
+  }
+}
+
+#new-user-story-editable {
+  display: block;
+  margin: 15px auto;
+}
+
+input {
+  color: #656D78;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: none;
+}
+
+.editableform .form-control {
+  height: 60px;
+  -webkit-border-radius: 4px !important;
+  -moz-border-radius: 4px !important;
+  border-radius: 4px !important;
+  -moz-background-clip: padding !important;
+  -webkit-background-clip: padding-box !important;
+  background-clip: padding-box !important;
+}
+
+.table-header {
+  background-color: #eeeeee !important;
+}
+
+.popover {
+  padding: 1px 1px 0 1px;
+  color: #000000 !important;
+  .popover-title {
+    font-size: 0.90em;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #000000;
+    padding-bottom: 2px;
+    padding-top: 2px;
+  }
+  .input-small {
+    background-color: #eeeeee;
+    border: solid 1px #eeeeee;
+  }
+}
+
+/* labels */
+
+div {
+  &.editable-user-story {
+    &:nth-child(1) > label:nth-child(1) > span:nth-child(1), &:nth-child(2) > label:nth-child(1) > span:nth-child(1) {
+      font-size: 0.85em !important;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    }
+  }
+  &.editable-sticky {
+    &:nth-child(1) > label:nth-child(1) > span:nth-child(1), &:nth-child(2) > label:nth-child(1) > span:nth-child(1), &:nth-child(3) > label:nth-child(1) > span:nth-child(1) {
+      font-size: 0.85em !important;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    }
+  }
+  &.editable-user-story {
+    &:nth-child(1) > label:nth-child(1) > input:nth-child(2), &:nth-child(2) > label:nth-child(1) > input:nth-child(2) {
+      color: black;
+      padding-left: 10px;
+      font-size: 0.8em;
+      font-weight: 500;
+      height: 18px;
+    }
+  }
+  &.editable-sticky {
+    &:nth-child(1) > label:nth-child(1) > input:nth-child(2), &:nth-child(2) > label:nth-child(1) > input:nth-child(2) {
+      color: black;
+      padding-left: 10px;
+      font-size: 0.8em;
+      font-weight: 500;
+      height: 18px;
+    }
+  }
+}
+
+/* input */
+
+.editable-cancel, .editable-submit {
+  height: 25px;
+  width: 35px;
+}
+
+.glyphicon-ok {
+  top: -2px;
+  font-size: 1.1em;
+}
+
+i.glyphicon-remove {
+  top: -1px;
+  font-size: 1.1em;
+}
+
+.editable {
+  border: none !important;
+}
+
+/* export pdf button */
+
+button.btn-block:nth-child(2) {
+  position: relative;
+  width: 200px !important;
+  float: right;
+  right: 15px;
+  margin-top: 15px;
+}
+
+.edit-btn {
+  position: absolute;
+  right: 20px;
+  margin-top: 60px;
+}

@@ -1,32 +1,40 @@
-@import "library.less";
-
 .page-content-profile {
   margin-left: 220px;
 }
 
 .cover-picture {
+  width: 100%;
   .cover-picture-shadow {
     width: 100%;
     height: 80px;
     background-color: #000000;
     background: rgba(0, 0, 0, 0.5);
     position: relative;
-    bottom: 80px;
+    margin-bottom: 30px;
   }
-  width: 100%;
   .profile-pic-wrapper {
     position: relative;
     bottom: -15px;
     margin-left: 20px;
-    background-color: @color-white;
+    background-color: #ffffff;
     width: 56px;
     height: 56px;
-    .border-radius(90px);
+    -webkit-border-radius: 90px;
+    -moz-border-radius: 90px;
+    border-radius: 90px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
   }
   .profile-img {
     width: 50px;
     height: 50px;
-    .border-radius(90px);
+    -webkit-border-radius: 90px;
+    -moz-border-radius: 90px;
+    border-radius: 90px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
     margin-top: 3px;
     margin-left: 3px;
   }
@@ -34,13 +42,11 @@
     position: relative;
     bottom: 30px;
     margin-left: 90px;
-    color: @color-white;
+    color: #ffffff;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     .organisation-name {
       display: block;
       margin-left: 20px;
-    }
-    .display-username {
     }
   }
 }
@@ -50,30 +56,27 @@
   height: 320px;
   margin-top: 5px;
   margin-left: 15px;
-  background-color: @color-white;
+  background-color: #ffffff;
   float: left;
-  z-index: 100!important;
+  z-index: 100 !important;
   .statistics-header-title {
     text-align: center;
-    color: @gray-darker;
+    color: #444444;
     position: relative;
     top: 15px;
   }
   .statistics-profile-content {
     width: 100%;
     height: 270px;
-    background-color: @color-content;
+    background-color: #f9f9f9;
   }
 }
 
-
-#profile-roles-polar-area-chart,
-#profile-products-doughnut-charts {
+#profile-roles-polar-area-chart, #profile-products-doughnut-charts {
   width: 60%;
   height: 230px;
   margin: 0 auto;
   padding-top: 20px;
-
 }
 
 #profile-activity-overview-bar-chart {
@@ -83,8 +86,7 @@
   padding-top: 20px;
 }
 
-
-@media (max-width: @screen-md-min) {
+@media (max-width: 992px) {
   .page-content-profile {
     margin-left: 70px;
   }
@@ -93,19 +95,19 @@
     height: 270px;
     margin-top: 5px;
     margin-left: 15px;
-    background-color: @color-white;
+    background-color: #ffffff;
     float: left;
-    z-index: 100!important;
+    z-index: 100 !important;
     .statistics-header-title {
       text-align: center;
-      color: @gray-darker;
+      color: #444444;
       position: relative;
       top: 15px;
     }
     .statistics-profile-content {
       width: 100%;
       height: 250px;
-      background-color: @color-content;
+      background-color: #f9f9f9;
     }
   }
 }

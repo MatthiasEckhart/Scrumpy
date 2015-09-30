@@ -35,3 +35,5 @@ spacebars
 check
 ecmascript
 reywood:publish-composite
+fourseven:scss
+meteorhacks:fast-render
