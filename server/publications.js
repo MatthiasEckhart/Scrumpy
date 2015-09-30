@@ -215,12 +215,19 @@ Meteor.publish('userProfile', function (username) {
     return Users.find({username: username}, {fields: {'profile': 1, 'username': 1, 'roles': 1}});
 });
 
-Meteor.reactivePublish('privateMessages', function (userId) {
-    var user = Users.findOne({_id: userId}, {reactive: true});
-    if (user) {
-        return PrivateMessages.find({_id: {$in: user.privateMessages}}, {reactive: true});
+Meteor.publishComposite('privateMessages', function(userId) {
+    return {
+        find: function() {
+            return Users.find({_id: userId}, {limit: 1});
+        },
+        children: [
+            {
+                find: function(user) {
+                    return PrivateMessages.find({_id: {$in: user.privateMessages}});
+                }
+            }
+        ]
     }
-    this.ready();
 });
 
 Meteor.publish('privateMessageForProduct', function (slug) {
@@ -276,24 +283,30 @@ Meteor.publish('participantsAvatars', function (slug) {
     this.ready();
 });
 
-Meteor.reactivePublish('allParticipantsAvatarsInvolved', function (userId) {
-    var user = Users.findOne({_id: userId}, {reactive: true}),
-        participantsArr;
-    if (user) {
-        participantsArr = [];
-        PrivateMessages.find({_id: {$in: user.privateMessages}}, {reactive: true}).forEach(function (message) {
-            participantsArr = _.union(participantsArr, message.participants);
-        });
-        return Users.find({_id: {$in: participantsArr}}, {
-            fields: {
-                'profile.image': 1,
-                'username': 1,
-                'profile.online': 1,
-                'profile.color': 1
+Meteor.publishComposite('allParticipantsAvatarsInvolved', function(userId) {
+    return {
+        find: function() {
+            return Users.find({_id: userId}, {limit: 1});
+        },
+        children: [
+            {
+                find: function(user) {
+                    var participantsArr = [];
+                    PrivateMessages.find({_id: {$in: user.privateMessages}}).forEach(function (message) {
+                        participantsArr = _.union(participantsArr, message.participants);
+                    });
+                    return Users.find({_id: {$in: participantsArr}}, {
+                        fields: {
+                            'profile.image': 1,
+                            'username': 1,
+                            'profile.online': 1,
+                            'profile.color': 1
+                        }
+                    });
+                }
             }
-        }, {reactive: true});
+        ]
     }
-    this.ready();
 });
 
 Meteor.publish('usersInProductRole', function (slug) {
