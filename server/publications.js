@@ -68,24 +68,9 @@ Meteor.publish(null, function () {
 });
 
 Meteor.publish('invitations', function (slug) {
-    var product = Products.findOne({slug: slug}),
-        invIds = [],
-        pm;
+    var product = Products.findOne({slug: slug});
     if (product) {
-        pm = PrivateMessages.findOne({productId: product._id});
-        _.each(pm.messages, function (m) {
-            if (_.has(m, 'invitations')) {
-                if (_.has(m.invitations, 'developmentTeam')) {
-                    invIds = _.union(invIds, m.invitations.developmentTeam);
-                }
-                if (_.has(m.invitations, 'scrumMaster')) {
-                    invIds = _.union(invIds, m.invitations.scrumMaster);
-                }
-            }
-        });
-        if (invIds.length > 0) {
-            return Invitations.find({_id: {$in: invIds}});
-        }
+        return Invitations.find({productId: product._id, status: {$ne: 2}});
     }
     this.ready();
 });

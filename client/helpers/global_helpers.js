@@ -57,11 +57,11 @@ UI.registerHelper('navTabIsActive', function (navTab) {
     return Session.equals('activeNavTab', navTab);
 });
 
-UI.registerHelper('advancedMode', function () {
+UI.registerHelper('advancedMode', function (formId) {
     if (_.has(this, "advancedMode")) {
         return this.advancedMode;
     }
-    return Session.equals('advancedMode', true);
+    return AutoForm.getFieldValue('advancedMode', formId);
 });
 
 UI.registerHelper('totalDevTeamMember', function () {
@@ -360,6 +360,11 @@ createStory = function (story, titleInput, descInput) {
 
 setSessionForActiveNavTab = function(name) {
     Session.set('activeNavTab', name);
+};
+
+/* Returns slug from router parameters. */
+getRouteSlug = function() {
+    return Router.current().params.slug;
 };
 
 function highlightWarningForRegisterPasswordFields() {

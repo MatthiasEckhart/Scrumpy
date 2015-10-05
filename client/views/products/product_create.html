@@ -1,178 +1,38 @@
 <template name="productCreate">
     <div class="page-content">
-        <form class="main">
-            <div class="header">
-                <h2>New product</h2>
-            </div>
-            <div class="padding-20 margin-top-20">
+        <div class="header">
+            <h2>New product</h2>
+        </div>
+        <div class="padding-20 margin-top-20">
+            {{#autoForm collection="Products" id="insert-products-form" type="insert"}}
                 <div class="control-group">
                     <div class="controls">
                         <div class="input-group">
-                            <span class="input-group-addon">Title</span>
-                            <input id="title-input" name="title" class="form-control" type="text" value=""
-                                   placeholder="Name your product"/>
+                            {{> afQuickField name='title' placeholder='Name your product'}}
                         </div>
                     </div>
                 </div>
-
                 <div class="control-group">
                     <label class="control-label" for="mode">Advanced mode</label>
 
                     <div class="controls">
-                        <label class="toggle">
-                            <input type="checkbox" name="advancedMode">
-                            <span class="handle"></span>
-                        </label>
+                        {{> afQuickField name='advancedMode'}}
                     </div>
                 </div>
-
-                {{#if advancedMode}}
+                {{#if advancedMode 'insert-products-form'}}
                     <div class="control-group">
-                        <label class="control-label" for="vision">Vision</label>
-
                         <div class="controls">
-                            <textarea id="vision-input" name="vision" class="form-control" type="text" value=""
-                                      placeholder="Clear and stable vision of the product to be developed"></textarea>
+                            {{> afQuickField name='vision' placeholder='Clear and stable vision of the product to be developed'}}
                         </div>
                     </div>
-                    <br>
                 {{/if}}
-
-                <div class="control-group">
-                    <label class="control-label" for="members">Build your team</label>
-
-                    <div class="controls">
-                        {{> memberSearch}}
-                        {{> memberMultipleSelect}}
-                        <br />
-                    </div>
-                    {{#if advancedMode}}
-                        <button id="assign-as-scrum-master" type="button" class="btn btn-info btn-block">Assign as Scrum
-                            Master
-                        </button>
-                        <br />
-                    {{/if}}
-                    <button id="add-to-development-team" type="button" class="btn btn-warning btn-block">Add to Development
-                        Team
-                    </button>
-                    <br />
-                </div>
-
-                {{#unless advancedMode}}
-
-                    <div id="panel-administrator" class="panel panel-success">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Administrator
-                                <span class="badge badge-default pull-right">1</span>
-                            </h3>
-                        </div>
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Username</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>{{currentUserUsername}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                {{else}}
-
-                    <div id="panel-product-owner" class="panel panel-success">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Product Owner
-                                <span class="badge badge-default pull-right">1</span>
-                            </h3>
-                        </div>
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Username</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>{{currentUserUsername}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div id="panel-scrum-master" class="panel panel-info">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Scrum Master
-                                <span class="badge badge-default pull-right">{{totalScrumMaster}}</span>
-                            </h3>
-                        </div>
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Username</th>
-                                <th>Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {{#each scrumMaster}}
-                                <tr>
-                                    <td>{{index}}</td>
-                                    <td><a href="{{pathFor 'profilePage'}}" target="_blank">{{username}}</a></td>
-                                    <td>
-                                        {{> privateMessageCreateEditableButton}}
-                                        <button class="fa fa-remove dissociate-scrum-master"
-                                                name="{{_id}}"></button>
-                                    </td>
-                                </tr>
-                            {{/each}}
-                            </tbody>
-                        </table>
-                    </div>
-
-                {{/unless}}
-
-                <div id="panel-development-team" class="panel panel-warning">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Development Team<span
-                                class="badge badge-default pull-right">{{totalDevTeamMember}}</span></h3>
-                    </div>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Username</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {{#each devTeamMember}}
-                            <tr>
-                                <td>{{index}}</td>
-                                <td><a href="{{pathFor 'profilePage'}}" target="_blank">{{username}}</a></td>
-                                <td>
-                                    {{> privateMessageCreateEditableButton}}
-                                    <button class="fa fa-remove delete-member-from-development-team"
-                                            name="{{_id}}"></button>
-                                </td>
-                            </tr>
-                        {{/each}}
-                        </tbody>
-                    </table>
-                </div>
                 <div class="control-group">
                     <div class="controls">
-                        <input type="submit" value="Submit" class="btn btn-primary"/>
+                        <button id="submit-product-create" type="submit" class="btn btn-primary">Submit</button>
                         <a href="{{pathFor 'dashboard'}}" class="btn btn-default">Cancel</a>
                     </div>
                 </div>
-            </div>
-        </form>
+            {{/autoForm}}
+        </div>
     </div>
 </template>

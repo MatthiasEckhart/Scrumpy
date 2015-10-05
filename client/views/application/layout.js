@@ -2,7 +2,9 @@
 
 Template.layout.helpers({
     isLoginOrRegisterRoute: function () {
-        var routeName = Router.current().route.getName();
-        return (routeName === "login" || routeName === "register");
+        var route = Router.current().route;
+        if (!route) return false;
+        var routeName = route.getName();
+        return routeName  && (routeName === "login" || routeName === "register");
     }
 });

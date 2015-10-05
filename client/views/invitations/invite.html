@@ -1,0 +1,37 @@
+<template name="invite">
+    <div class="page-content">
+        <div class="header">
+            <h2>Invite users</h2>
+        </div>
+        <div class="padding-20 margin-top-20">
+            {{#if advancedMode 'insert-products-form'}}
+                {{#autoForm schema=userInvitationFormSchema id="insert-scrum-master-invitations-form" type="method" meteormethod="scrumMasterInvitation"}}
+                    <div class="control-group">
+                        <label class="control-label" for="mode">Scrum Master Team</label>
+
+                        <div class="controls">
+                            {{> afFieldInput name="users" type="select2" multiple=true}}
+                        </div>
+                    </div>
+                {{/autoForm}}
+            {{/if}}
+
+            {{#autoForm schema=userInvitationFormSchema id="insert-development-team-invitations-form" type="method" meteormethod="developmentTeamInvitation"}}
+                <div class="control-group">
+                    <label class="control-label" for="mode">Development Team</label>
+
+                    <div class="controls">
+                        {{> afFieldInput name="users" type="select2" multiple=true}}
+                    </div>
+                </div>
+            {{/autoForm}}
+            <div class="control-group">
+                <div class="controls">
+                    <button id="invite" type="submit" class="btn btn-primary">Invite</button>
+                    <a href="{{pathFor 'dashboard'}}" class="btn btn-default">Cancel</a>
+                </div>
+            </div>
+        </div>
+        {{>teamOverview}}
+    </div>
+</template>
