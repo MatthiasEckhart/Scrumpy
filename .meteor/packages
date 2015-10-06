@@ -15,7 +15,6 @@ mrt:jquery-ui
 matteodem:easy-search
 reactive-var
 multiply:iron-router-progress
-natestrauser:x-editable-bootstrap
 mizzao:sharejs-ace
 mrt:profile-online
 natestrauser:font-awesome
@@ -43,3 +42,5 @@ todda00:friendly-slugs
 natestrauser:select2
 zimme:select2-bootstrap3-css
 aldeed:autoform-select2
+natestrauser:x-editable-bootstrap
+workman:x-editable-reactive-template

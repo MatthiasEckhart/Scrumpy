@@ -38,18 +38,12 @@ UI.registerHelper('noAvatar', function (type) {
     var user;
     if (type === "assignee") {
         user = Users.findOne({_id: this.assigneeId});
-        if (user) {
-            return user.profile.image.length === 0;
-        }
-    } else if (type === "currentUser") {
-        return Meteor.user().profile.image.length === 0;
-    } else if (type === "profile") {
-        return this.profile.image.length === 0;
-    } else if (type === "productOwnerOrAdministrator") {
-        user = Users.findOne({username: this.author});
-        if (user) {
-            return user.profile.image.length === 0;
-        }
+        if (user) return user.profile.image.length === 0;
+    } else if (type === "currentUser") return Meteor.user().profile.image.length === 0;
+    else if (type === "profile") return this.profile.image.length === 0;
+    else if (type === "productOwnerOrAdministrator") {
+        user = Users.findOne({_id: this.userId});
+        if (user) return user.profile.image.length === 0;
     }
 });
 
@@ -115,7 +109,12 @@ UI.registerHelper('roleDevTeamCursorWithIndex', function () {
             if (DevelopmentTeam.find({username: item.username}).count() === 0) {
                 DevelopmentTeam.insert({username: item.username, isAlreadyInRole: true, isAlreadyInvited: true});
             } else {
-                DevelopmentTeam.update({username: item.username}, {$set: {isAlreadyInRole: true, isAlreadyInvited: true}});
+                DevelopmentTeam.update({username: item.username}, {
+                    $set: {
+                        isAlreadyInRole: true,
+                        isAlreadyInvited: true
+                    }
+                });
             }
         });
         var pm = PrivateMessages.findOne({productId: this._id}), devTeamInv = [];
@@ -358,12 +357,12 @@ createStory = function (story, titleInput, descInput) {
     $('#' + storyId + ' .story').effect('highlight');
 };
 
-setSessionForActiveNavTab = function(name) {
+setSessionForActiveNavTab = function (name) {
     Session.set('activeNavTab', name);
 };
 
 /* Returns slug from router parameters. */
-getRouteSlug = function() {
+getRouteSlug = function () {
     return Router.current().params.slug;
 };
 

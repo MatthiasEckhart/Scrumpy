@@ -27,7 +27,6 @@
                 </td>
                 <td>
                     {{#with productOwner}}
-                        {{> privateMessageCreateEditableButton}}
                     {{/with}}
                 </td>
                 <td><span class="fa fa-check"></span></td>
@@ -59,7 +58,6 @@
                         {{/if}}
                         <a href="{{pathFor 'profilePage'}}" target="_blank">{{username}}</a></td>
                     <td>
-                        {{> privateMessageCreateEditableButton}}
                     </td>
                     <td>
                         {{#unless isAlreadyInRole}}
@@ -97,7 +95,6 @@
                         {{/if}}
                         <a href="{{pathFor 'profilePage'}}" target="_blank">{{username}}</a></td>
                     <td>
-                        {{> privateMessageCreateEditableButton}}
                     </td>
                     <td>
                         {{#unless isAlreadyInRole}}

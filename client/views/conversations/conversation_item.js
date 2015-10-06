@@ -1,28 +1,27 @@
 "use strict";
 
-Template.privateMessageItem.helpers({
-    participants: function () {
-        return Users.find({_id: {$in: this.participants, $ne: Meteor.userId()}});
+Template.conversationItem.helpers({
+    recipients: function () {
+        let recipients = this.recipients;
+        recipients.push(this.userId);
+        return Users.find({_id: {$in: recipients, $ne: Meteor.userId()}});
     },
     user: function () {
         return Users.findOne({username: this.username});
     },
-    removeOrLeavePrivateMessage: function () {
-        if (this.author == Meteor.user().username) {
-            return "remove-pm";
-        } else {
-            return "leave-pm";
-        }
+    removeOrLeaveConversation: function () {
+        if (this.userId == Meteor.userId()) return "remove-pm";
+        else return "leave-pm";
     },
-    noParticipants: function () {
-        return Users.find({_id: {$in: this.participants, $ne: Meteor.userId()}}).count() == 0;
+    noRecipients: function () {
+        return Users.find({_id: {$in: this.recipients, $ne: Meteor.userId()}}).count() == 0;
     },
     userIsAuthor: function () {
-        return this.author == Meteor.user().username;
+        return this.userId == Meteor.userId();
     }
 });
 
-Template.privateMessageItem.events({
+Template.conversationItem.events({
     'click .remove-pm': function (e) {
         e.preventDefault();
         Meteor.call('removePrivateMessage', this._id, function (error) {

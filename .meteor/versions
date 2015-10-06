@@ -113,4 +113,5 @@ underscore@1.0.4
 url@1.0.5
 webapp@1.2.2
 webapp-hashing@1.0.5
+workman:x-editable-reactive-template@1.0.2
 zimme:select2-bootstrap3-css@0.1.1

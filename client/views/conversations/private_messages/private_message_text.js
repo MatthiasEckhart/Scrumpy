@@ -5,9 +5,9 @@ Template.privateMessageText.helpers({
         return moment(this.submitted).format('MMMM Do YYYY, h:mm:ss a');
     },
     user: function () {
-        return Users.findOne({username: this.author});
+        return Users.findOne({_id: this.userId});
     },
     authorIsCurrentUser: function () {
-        return this.author === Meteor.user().username;
+        return this.userId === Meteor.userId();
     }
 });

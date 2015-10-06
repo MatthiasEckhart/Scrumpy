@@ -8,9 +8,6 @@ Template.productItem.helpers({
         return Roles.userIsInRole(Meteor.user(), [this._id], 'administrator') || Roles.userIsInRole(Meteor.user(), [this._id], 'productOwner');
     },
     avatar: function () {
-        return Users.findOne({username: this.author}).profile.image;
-    },
-    user: function () {
-        return Meteor.user();
+        return Users.findOne({_id: this.userId}).profile.image;
     }
 });

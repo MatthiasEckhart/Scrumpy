@@ -29,7 +29,12 @@ Meteor.publish('statisticsForProfilePage', function (username) {
     if (user) {
         productIds = _.union(Roles.getRolesForUser(user._id, "administrator"), Roles.getRolesForUser(user._id, "developmentTeam"), Roles.getRolesForUser(user._id, "productOwner"), Roles.getRolesForUser(user._id, "scrumMaster"));
         if (productIds.length > 0) {
-            return [Products.find({_id: {$in: productIds}}, {fields: {advancedMode: 1, author: 1}}), Sprints.find({author: user.username}, {fields: {author: 1}}), UserStories.find({author: user.username}, {fields: {author: 1}}), Stickies.find({author: user.username}, {fields: {author: 1}})];
+            return [Products.find({_id: {$in: productIds}}, {
+                fields: {
+                    advancedMode: 1,
+                    author: 1
+                }
+            }), Sprints.find({author: user.username}, {fields: {author: 1}}), UserStories.find({author: user.username}, {fields: {author: 1}}), Stickies.find({author: user.username}, {fields: {author: 1}})];
         }
         this.ready();
     } else {
@@ -200,19 +205,8 @@ Meteor.publish('userProfile', function (username) {
     return Users.find({username: username}, {fields: {'profile': 1, 'username': 1, 'roles': 1}});
 });
 
-Meteor.publishComposite('privateMessages', function(userId) {
-    return {
-        find: function() {
-            return Users.find({_id: userId}, {limit: 1});
-        },
-        children: [
-            {
-                find: function(user) {
-                    return PrivateMessages.find({_id: {$in: user.privateMessages}});
-                }
-            }
-        ]
-    }
+Meteor.publish('conversations', function (userId) {
+    return Conversations.find({$or: [{'userId': userId}, {'recipients': userId}]});
 });
 
 Meteor.publish('privateMessageForProduct', function (slug) {
@@ -229,12 +223,8 @@ Meteor.publish('usernames', function () {
     });
 });
 
-Meteor.publish('privateMessage', function (slug) {
-    var pm = PrivateMessages.find({slug: slug});
-    if (pm.count() > 0) {
-        return pm;
-    }
-    this.ready();
+Meteor.publish('conversation', function (slug) {
+    return Conversations.find({slug: slug});
 });
 
 Meteor.publish('documents', function (slug) {
@@ -245,18 +235,25 @@ Meteor.publish('documents', function (slug) {
     this.ready();
 });
 
-Meteor.publish('privateMessageParticipants', function (slug) {
-    var pm = PrivateMessages.find({slug: slug}, {fields: {'participants': 1}});
-    if (pm.count() > 0) {
-        return pm;
-    }
+Meteor.publish('conversationParticipants', function (slug) {
+    var conversations = Conversations.find({slug: slug}, {fields: {'recipients': 1}});
+    if (conversations.count() == 1) return conversations;
     this.ready();
 });
 
-Meteor.publish('participantsAvatars', function (slug) {
-    var pm = PrivateMessages.findOne({slug: slug});
-    if (pm) {
-        return Users.find({_id: {$in: pm.participants}}, {
+Meteor.publish('privateMessages', function (slug) {
+    var conversation = Conversations.findOne({slug: slug});
+    if (conversation) return PrivateMessages.find({conversationId: conversation._id});
+    this.ready();
+});
+
+Meteor.publish('recipientsAvatars', function (slug) {
+    let recipients = [];
+    let conversation = Conversations.findOne({slug: slug});
+    if (conversation) {
+        recipients = _.union(recipients, conversation.recipients);
+        recipients.push(conversation.userId);
+        return Users.find({_id: {$in: recipients}}, {
             fields: {
                 'profile.image': 1,
                 'username': 1,
@@ -268,19 +265,17 @@ Meteor.publish('participantsAvatars', function (slug) {
     this.ready();
 });
 
-Meteor.publishComposite('allParticipantsAvatarsInvolved', function(userId) {
+Meteor.publishComposite('allRecipientsAvatarsInvolved', function (userId) {
     return {
-        find: function() {
-            return Users.find({_id: userId}, {limit: 1});
+        find: function () {
+            return Conversations.find({$or: [{'userId': userId}, {'recipients': userId}]});
         },
         children: [
             {
-                find: function(user) {
-                    var participantsArr = [];
-                    PrivateMessages.find({_id: {$in: user.privateMessages}}).forEach(function (message) {
-                        participantsArr = _.union(participantsArr, message.participants);
-                    });
-                    return Users.find({_id: {$in: participantsArr}}, {
+                find: function (conversation) {
+                        let recipients = conversation.recipients;
+                        recipients.push(conversation.userId);
+                    return Users.find({_id: {$in: recipients}}, {
                         fields: {
                             'profile.image': 1,
                             'username': 1,
