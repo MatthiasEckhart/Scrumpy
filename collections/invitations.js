@@ -64,8 +64,30 @@ Invitations.attachSchema(new SimpleSchema({
 
 Schema = {};
 Schema.invitationUser = new SimpleSchema({
-    users: {
+    scrumMaster: {
         type: [String],
+        optional: true,
+        autoform: {
+            type: "select2",
+            options: function () {
+                /* Find corresponding product. */
+                let product = Products.findOne({slug: getRouteSlug()});
+                /* Get array with user ids which have an invitation for the current product and either received or accepted the invitation. */
+                let invalidUserIds = Invitations.find({productId: product._id}, {$and: [{status: 0}, {status: 1}]}).map(function (invitation) {
+                    return invitation.userId;
+                });
+                /* We add the current user's id to the array, because we don't want to add ourselves to the project. */
+                invalidUserIds.push(Meteor.userId());
+                /* Return all users as options which do not have an invitation or declined a previous invitation. */
+                return Users.find({_id: {$nin: invalidUserIds}}).map(function (user) {
+                    return {label: user.username, value: user._id};
+                });
+            }
+        }
+    },
+    developmentTeam: {
+        type: [String],
+        optional: true,
         autoform: {
             type: "select2",
             options: function () {
@@ -100,26 +122,3 @@ Schema.invitationUser = new SimpleSchema({
         }
     }
 });
-
-if (Meteor.isServer) {
-    Meteor.methods({
-        scrumMasterInvitation: function (doc) {
-            /* Important server-side check for security and data integrity. */
-            check(doc, Schema.invitationUser);
-            var product = Products.findOne({slug: doc.slug});
-            _.each(doc.users, function (userId) {
-                let invitation = {status: 0, userId: userId, productId: product._id, role: 2}; // 0 = admin, 1 = po, 2 = sm, 3 = devTeam
-                Invitations.insert(invitation);
-            });
-        },
-        developmentTeamInvitation: function (doc) {
-            /* Important server-side check for security and data integrity. */
-            check(doc, Schema.invitationUser);
-            var product = Products.findOne({slug: doc.slug});
-            _.each(doc.users, function (userId) {
-                let invitation = {status: 0, userId: userId, productId: product._id, role: 3};
-                Invitations.insert(invitation);
-            });
-        }
-    });
-}
