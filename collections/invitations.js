@@ -1,9 +1,9 @@
 Invitations = new Meteor.Collection('invitations');
 
 Invitations.allow({
-    insert: allowPermission,
-    update: allowPermission,
-    remove: allowPermission
+    insert: ownsDocument,
+    update: ownsDocument,
+    remove: ownsDocument
 });
 
 Invitations.attachSchema(new SimpleSchema({

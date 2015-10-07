@@ -2,7 +2,6 @@
 
 Accounts.onCreateUser(function (options, user) {
     user.profile = {firstName: "", lastName: "", organization: "", image: "", color: getRandomColor()};
-    user.privateMessages = [];
     user.notifications = [];
     return user;
 });

@@ -10,7 +10,6 @@
             <tr>
                 <th>#</th>
                 <th>Username</th>
-                <th>Actions</th>
                 <th>Status</th>
             </tr>
             </thead>
@@ -23,10 +22,6 @@
                             <span class="fa fa-circle circle-online"></span>
                         {{/if}}
                         <a href="{{pathFor 'profilePage'}}" target="_blank">{{username}}</a>
-                    {{/with}}
-                </td>
-                <td>
-                    {{#with productOwner}}
                     {{/with}}
                 </td>
                 <td><span class="fa fa-check"></span></td>
@@ -44,12 +39,11 @@
             <tr>
                 <th>#</th>
                 <th>Username</th>
-                <th>Actions</th>
                 <th>Status</th>
             </tr>
             </thead>
             <tbody>
-            {{#each roleScrumMasterCursorWithIndex}}
+            {{#each teamOverview '2'}}
                 <tr>
                     <td>{{index}}</td>
                     <td>
@@ -57,8 +51,6 @@
                             <span class="fa fa-circle circle-online"></span>
                         {{/if}}
                         <a href="{{pathFor 'profilePage'}}" target="_blank">{{username}}</a></td>
-                    <td>
-                    </td>
                     <td>
                         {{#unless isAlreadyInRole}}
                             <span class="fa fa-question"></span>
@@ -81,12 +73,11 @@
             <tr>
                 <th>#</th>
                 <th>Username</th>
-                <th>Actions</th>
                 <th>Status</th>
             </tr>
             </thead>
             <tbody>
-            {{#each roleDevTeamCursorWithIndex}}
+            {{#each teamOverview '3'}}
                 <tr>
                     <td>{{index}}</td>
                     <td>
@@ -94,8 +85,6 @@
                             <span class="fa fa-circle circle-online"></span>
                         {{/if}}
                         <a href="{{pathFor 'profilePage'}}" target="_blank">{{username}}</a></td>
-                    <td>
-                    </td>
                     <td>
                         {{#unless isAlreadyInRole}}
                             <span class="fa fa-question"></span>

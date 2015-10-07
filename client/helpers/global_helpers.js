@@ -59,87 +59,19 @@ UI.registerHelper('advancedMode', function (formId) {
 });
 
 UI.registerHelper('totalDevTeamMember', function () {
-    return DevelopmentTeam.find().count();
+    return Invitations.find({productId: this._id, role: 3}, {$and: [{status: 0}, {status: 1}]}).count();
 });
 
 UI.registerHelper('totalScrumMaster', function () {
-    return ScrumMaster.find().count();
+    return Invitations.find({productId: this._id, role: 2}, {$and: [{status: 0}, {status: 1}]}).count();
 });
 
-UI.registerHelper('roleScrumMasterCursorWithIndex', function () {
-    if (Session.equals('scrumTeamStaleState', false)) {
-        Roles.getUsersInRole(this._id, 'scrumMaster').forEach(function (item) {
-            if (ScrumMaster.find({username: item.username}).count() === 0) {
-                ScrumMaster.insert({username: item.username, isAlreadyInRole: true, isAlreadyInvited: true});
-            } else {
-                ScrumMaster.update({username: item.username}, {$set: {isAlreadyInRole: true, isAlreadyInvited: true}});
-            }
-        });
-        var pm = PrivateMessages.findOne({productId: this._id}), scrumMasterInv = [];
-        _.each(pm.messages, function (m) {
-            if (_.has(m, 'invitations') && _.has(m.invitations, 'scrumMaster')) {
-                Invitations.find({_id: m.invitations.scrumMaster}).forEach(function (inv) {
-                    scrumMasterInv.push(inv);
-                });
-            }
-        });
-        if (scrumMasterInv.length > 0) {
-            _.each(scrumMasterInv, function (u) {
-                if (u.status == 2) {
-                    ScrumMaster.remove({username: u.username});
-                } else if (u.status == 0 && ScrumMaster.find({username: u.username}).count() === 0) {
-                    ScrumMaster.insert({
-                        username: u.username,
-                        isAlreadyInRole: false,
-                        isAlreadyInvited: true
-                    });
-                }
-            });
-        }
-    }
-    return ScrumMaster.find().map(function (document, index) {
-        document.index = index + 1;
-        return document;
-    });
-});
-
-UI.registerHelper('roleDevTeamCursorWithIndex', function () {
-    if (Session.equals('scrumTeamStaleState', false)) {
-        Roles.getUsersInRole(this._id, 'developmentTeam').forEach(function (item) {
-            if (DevelopmentTeam.find({username: item.username}).count() === 0) {
-                DevelopmentTeam.insert({username: item.username, isAlreadyInRole: true, isAlreadyInvited: true});
-            } else {
-                DevelopmentTeam.update({username: item.username}, {
-                    $set: {
-                        isAlreadyInRole: true,
-                        isAlreadyInvited: true
-                    }
-                });
-            }
-        });
-        var pm = PrivateMessages.findOne({productId: this._id}), devTeamInv = [];
-        _.each(pm.messages, function (m) {
-            if (_.has(m, 'invitations') && _.has(m.invitations, 'developmentTeam')) {
-                Invitations.find({_id: {$in: m.invitations.developmentTeam}}).forEach(function (inv) {
-                    devTeamInv.push(inv);
-                });
-            }
-        });
-        if (devTeamInv.length > 0) {
-            _.each(devTeamInv, function (u) {
-                if (u.status == 2) {
-                    DevelopmentTeam.remove({username: u.username});
-                } else if (u.status == 0 && DevelopmentTeam.find({username: u.username}).count() === 0) {
-                    DevelopmentTeam.insert({
-                        username: u.username,
-                        isAlreadyInRole: false,
-                        isAlreadyInvited: true
-                    });
-                }
-            });
-        }
-    }
-    return DevelopmentTeam.find().map(function (document, index) {
+UI.registerHelper('teamOverview', function (role) {
+    return Invitations.find({productId: this._id, role: parseInt(role, 10)}).map(function (document, index) {
+        document.isAlreadyInRole = document.status == 1;
+        let user = Users.findOne({_id: document.userId});
+        if (user) document.username = user.username;
+        else document.username = "Anonymous";
         document.index = index + 1;
         return document;
     });
@@ -177,6 +109,11 @@ UI.registerHelper('sprintStartDateFormatted', function () {
 
 UI.registerHelper('sprintEndDateFormatted', function () {
     return moment(this.endDate).format('YYYY-MM-DD');
+});
+
+UI.registerHelper('fullName', function () {
+    if (this && _.has(this.profile, 'firstName') && _.has(this.profile, 'lastName')) return this.profile.firstName + " " + this.profile.lastName;
+    else return "";
 });
 
 UI.registerHelper('userIsProductOwner', function (template) {

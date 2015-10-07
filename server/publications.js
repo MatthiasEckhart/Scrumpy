@@ -72,7 +72,7 @@ Meteor.publish(null, function () {
     this.ready();
 });
 
-Meteor.publish('invitations', function (slug) {
+Meteor.publish('productInvitations', function (slug) {
     var product = Products.findOne({slug: slug});
     if (product) {
         return Invitations.find({productId: product._id, status: {$ne: 2}});
@@ -118,8 +118,19 @@ Meteor.publish('productStat', function () {
     return Stickies.find({productId: product._id}, {fields: {productId: 1, status: 1, assigneeId: 1}});
 });
 
-Meteor.publish('ownUser', function (id) {
-    return Users.find({_id: id});
+Meteor.publish('ownUser', function (userId) {
+    return Users.find({_id: userId});
+});
+
+Meteor.publish('invitations', function (userId) {
+    return Invitations.find({userId: userId}, {$and: [{status: 0}, {status: 1}]});
+});
+
+Meteor.publish('productInvitationData', function (userId) {
+    let productIds = Invitations.find({userId: userId}, {$and: [{status: 0}, {status: 1}]}).map(function (invitations) {
+        return invitations.productId;
+    });
+    return Products.find({_id: {$in: productIds}}, {fields: {title: 1, userId: 1}});
 });
 
 Meteor.publish('comments', function (slug) {
@@ -209,14 +220,6 @@ Meteor.publish('conversations', function (userId) {
     return Conversations.find({$or: [{'userId': userId}, {'recipients': userId}]});
 });
 
-Meteor.publish('privateMessageForProduct', function (slug) {
-    var product = Products.findOne({slug: slug});
-    if (product) {
-        return PrivateMessages.find({productId: product._id});
-    }
-    this.ready();
-});
-
 Meteor.publish('usernames', function () {
     return Users.find({}, {
         fields: {'username': 1}
@@ -247,6 +250,25 @@ Meteor.publish('privateMessages', function (slug) {
     this.ready();
 });
 
+Meteor.publish('usersInvitationAuthors', function (userId) {
+    let productIds = Invitations.find({userId: userId}).map(function (invitation) {
+        return invitation.productId;
+    });
+    let userIds = Products.find({_id: {$in: productIds}}).map(function (product) {
+        return product.userId;
+    });
+    return Users.find({_id: {$in: userIds}}, {
+        fields: {
+            'profile.image': 1,
+            'username': 1,
+            'profile.firstName': 1,
+            'profile.lastName': 1,
+            'profile.online': 1,
+            'profile.color': 1
+        }
+    });
+});
+
 Meteor.publish('recipientsAvatars', function (slug) {
     let recipients = [];
     let conversation = Conversations.findOne({slug: slug});
@@ -273,8 +295,8 @@ Meteor.publishComposite('allRecipientsAvatarsInvolved', function (userId) {
         children: [
             {
                 find: function (conversation) {
-                        let recipients = conversation.recipients;
-                        recipients.push(conversation.userId);
+                    let recipients = conversation.recipients;
+                    recipients.push(conversation.userId);
                     return Users.find({_id: {$in: recipients}}, {
                         fields: {
                             'profile.image': 1,
@@ -289,30 +311,21 @@ Meteor.publishComposite('allRecipientsAvatarsInvolved', function (userId) {
     }
 });
 
-Meteor.publish('usersInProductRole', function (slug) {
+Meteor.publish('usersInvited', function (slug) {
     var product = Products.findOne({slug: slug});
     if (product) {
-        return Users.find(
-            {
-                $or: [
-                    {'roles.administrator': {$in: [product._id]}},
-                    {'roles.developmentTeam': {$in: [product._id]}},
-                    {'roles.scrumMaster': {$in: [product._id]}},
-                    {'roles.productOwner': {$in: [product._id]}}
-                ]
-            }, {fields: {'profile.image': 1, 'username': 1, 'roles': 1, 'profile.online': 1, 'profile.color': 1}});
-    }
-    this.ready();
-});
-
-Meteor.publish('usersDeclinedInv', function (slug) {
-    var product = Products.findOne({slug: slug}),
-        usrDeclinedInvIds = [];
-    if (product) {
-        ActivityStreamElements.find({productId: product._id, status: 0}).forEach(function (act) {
-            usrDeclinedInvIds.push(act.userId);
+        let userIds = Invitations.find({productId: product._id}).map(function (invitation) {
+            return invitation.userId;
         });
-        return Users.find({_id: {$in: usrDeclinedInvIds}});
+        return Users.find({_id: {$in: userIds}}, {
+            fields: {
+                'profile.image': 1,
+                'username': 1,
+                'roles': 1,
+                'profile.online': 1,
+                'profile.color': 1
+            }
+        });
     }
     this.ready();
 });
