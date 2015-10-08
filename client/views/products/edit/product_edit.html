@@ -1,0 +1,31 @@
+<template name="productEdit">
+    <div class="page-content">
+        <div class="header">
+            <h2>Edit product</h2>
+        </div>
+        <div class="padding-20 margin-top-20">
+            {{#autoForm collection="Products" id="update-products-form" type="update" doc=this}}
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="input-group">
+                            {{> afQuickField name='title' placeholder='Name your product'}}
+                        </div>
+                    </div>
+                </div>
+                {{#if advancedMode}}
+                    <div class="control-group">
+                        <div class="controls">
+                            {{> afQuickField name='vision' placeholder='Clear and stable vision of the product to be developed'}}
+                        </div>
+                    </div>
+                {{/if}}
+                <div class="control-group">
+                    <div class="controls">
+                        <button id="submit-product-Update" type="submit" class="btn btn-primary">Submit</button>
+                        <a href="{{pathFor 'productDashboard'}}" class="btn btn-default btn-xs">Cancel</a>
+                    </div>
+                </div>
+            {{/autoForm}}
+        </div>
+    </div>
+</template>

@@ -1,3 +1,8 @@
+/* Register underscore helper. */
+Template.registerHelper('_', function(){
+    return _;
+});
+
 UI.registerHelper('titleShort', function (type) {
     var short = this.title;
     if (short) {
@@ -89,7 +94,7 @@ UI.registerHelper('isOnline', function () {
 });
 
 UI.registerHelper('avatar', function () {
-    if (this.profile.image) return this.profile.image;
+    if (_.has(this, 'profile') && _.has(this, 'image')) return this.profile.image;
     else return DEFAULTAVATAR;
 });
 
@@ -110,7 +115,7 @@ UI.registerHelper('sprintEndDateFormatted', function () {
 });
 
 UI.registerHelper('fullName', function () {
-    if (this && _.has(this.profile, 'firstName') && _.has(this.profile, 'lastName')) return this.profile.firstName + " " + this.profile.lastName;
+    if (_.has(this, 'profile') && _.has(this.profile, 'firstName') && _.has(this.profile, 'lastName')) return this.profile.firstName + " " + this.profile.lastName;
     else return "";
 });
 
@@ -123,95 +128,6 @@ UI.registerHelper('userIsProductOwner', function (template) {
     }
     return Roles.userIsInRole(Meteor.user(), [productId], 'productOwner');
 });
-
-checkMemberDuplicates = function (compareString, table) {
-    var dupl = false;
-    $(table).each(function () {
-        if ($(this).text() == compareString) {
-            dupl = true;
-        }
-    });
-    return dupl;
-};
-
-highlightCounterOnPanel = function (type) {
-    if (type == 'DevelopmentTeam') {
-        $('div#panel-development-team.panel.panel-warning div.panel-heading h3.panel-title span.badge.badge-default.pull-right').effect('highlight');
-    } else if (type == 'ScrumMaster') {
-        $('div#panel-scrum-master.panel.panel-info div.panel-heading h3.panel-title span.badge.badge-default.pull-right').effect('highlight');
-    } else if (type == 'Recipients') {
-        $('div#panel-recipients.panel.panel-success div.panel-heading h3.panel-title span.badge.badge-default.pull-right').effect('highlight');
-    }
-};
-
-dissociateScrumMaster = function (e) {
-    e.preventDefault();
-    ScrumMaster.remove({_id: $(e.target).attr('name')});
-    highlightCounterOnPanel("ScrumMaster");
-    $('#assign-as-scrum-master').removeClass('disabled');
-};
-
-var checkboxSelector = '.checkbox-multiple-select';
-
-assignAsScrumMaster = function () {
-    $(checkboxSelector).each(function () {
-        if (this.checked) {
-            if (ScrumMaster.find().count() === 0) {
-                if (DevelopmentTeam.find({username: $(this).val()}).count() === 0) {
-                    ScrumMaster.insert({username: $(this).val(), isAlreadyInRole: false, isAlreadyInvited: false});
-                    $('#assign-as-scrum-master').addClass('disabled');
-                    highlightCounterOnPanel("ScrumMaster");
-                } else {
-                    throwAlert('error', 'Sorry!', "You can't have the same person as Scrum Master and part of the Development Team.");
-                }
-            } else {
-                throwAlert('error', 'Sorry!', 'You can assign only one person as scrum master.');
-            }
-        }
-    });
-};
-
-deleteMemberFromDevelopmentTeam = function (e) {
-    e.preventDefault();
-    DevelopmentTeam.remove({_id: $(e.target).attr('name')});
-    highlightCounterOnPanel("DevelopmentTeam");
-};
-
-addToDevelopmentTeam = function () {
-    $(checkboxSelector).each(function () {
-        if (this.checked) {
-            if (DevelopmentTeam.find({username: $(this).val()}).count() === 0) {
-                if (ScrumMaster.find({username: $(this).val()}).count() === 0) {
-                    DevelopmentTeam.insert({username: $(this).val(), isAlreadyInRole: false, isAlreadyInvited: false});
-                    highlightCounterOnPanel("DevelopmentTeam");
-                } else {
-                    throwAlert('error', 'Sorry!', "You can't have the same person as Scrum Master and part of the Development Team.");
-                }
-            } else {
-                throwAlert('error', 'Sorry!', "You can't add the same person twice.");
-            }
-        }
-    });
-};
-
-addToRecipientsList = function () {
-    $(checkboxSelector).each(function () {
-        if (this.checked) {
-            if (Recipients.find({username: $(this).val()}).count() === 0) {
-                Recipients.insert({username: $(this).val()});
-                highlightCounterOnPanel("Recipients");
-            } else {
-                throwAlert('error', 'Sorry!', "You can't add the same person twice.");
-            }
-        }
-    });
-};
-
-removeRecipient = function (e) {
-    e.preventDefault();
-    Recipients.remove({_id: $(e.target).attr('name')});
-    highlightCounterOnPanel("Recipients");
-};
 
 operateDatepicker = function (datepickerStatus, selector) {
     if (!datepickerStatus) {
@@ -275,14 +191,6 @@ areValidPasswords = function (password, confirm) {
     return true;
 };
 
-operateMultipleSelect = function (selector) {
-    if (!selector.hasClass('selected')) {
-        selector.addClass('selected');
-    } else {
-        selector.removeClass('selected');
-    }
-};
-
 createStory = function (story, titleInput, descInput) {
     var storyId = UserStories.insert(story);
     titleInput.value = "";
@@ -299,6 +207,10 @@ setSessionForActiveNavTab = function (name) {
 /* Returns slug from router parameters. */
 getRouteSlug = function () {
     return Router.current().params.slug;
+};
+
+productIsAdvancedModeStartDateEndDate = function (advancedMode) {
+    return advancedMode && Router.current().params.startDate && Router.current().params.endDate;
 };
 
 function highlightWarningForRegisterPasswordFields() {

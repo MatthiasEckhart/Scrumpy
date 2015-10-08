@@ -43,7 +43,7 @@
                                                 <span class="label {{statusCss}}">{{statusFormatted}}</span>
                                             </td>
                                             <td style="width: 20%;">
-                                                {{#if invitationPending}}
+                                                {{#if _.isEqual status 0}}
                                                     <a href="#" class="table-link accept-invitation">
                                             <span class="fa-stack">
                                                 <i class="fa fa-square fa-stack-2x"></i>
@@ -51,7 +51,7 @@
                                             </span>
                                                     </a>
                                                 {{/if}}
-                                                {{#unless invitationDeclined}}
+                                                {{#unless _.isEqual status 2}}
                                                     <a href="#" class="table-link danger decline-invitation">
                                             <span class="fa-stack">
                                                 <i class="fa fa-square fa-stack-2x"></i>

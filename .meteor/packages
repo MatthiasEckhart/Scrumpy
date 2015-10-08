@@ -9,10 +9,8 @@ email
 mrt:chartjs
 iron:router
 mizzao:bootstrap-3
-elie:bootflat
 jquery
 mrt:jquery-ui
-matteodem:easy-search
 reactive-var
 multiply:iron-router-progress
 mizzao:sharejs-ace

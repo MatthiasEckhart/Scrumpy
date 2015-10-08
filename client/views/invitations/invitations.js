@@ -28,12 +28,6 @@ Template.invitations.helpers({
         if (this.status == 0) return "label-default";
         else if (this.status == 1) return "label-success";
         else return "label-danger";
-    },
-    invitationPending: function () {
-        return this.status == 0;
-    },
-    invitationDeclined: function () {
-        return this.status == 2;
     }
 });
 

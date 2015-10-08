@@ -78,3 +78,7 @@ Conversations.attachSchema(new SimpleSchema({
         optional: true
     }
 }));
+
+Conversations.simpleSchema().messages({
+    "required recipients": "Please select at least one recipient!"
+});

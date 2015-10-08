@@ -181,18 +181,12 @@ i.glyphicon-remove {
   border: none !important;
 }
 
-/* export pdf button */
-
-button.btn-block:nth-child(2) {
-  position: relative;
-  width: 200px !important;
+#control-project-task-board {
   float: right;
-  right: 15px;
   margin-top: 15px;
+  margin-right: 5px;
 }
 
-.edit-btn {
-  position: absolute;
-  right: 20px;
-  margin-top: 60px;
+#control-project-product-dashboard {
+  float: right;
 }

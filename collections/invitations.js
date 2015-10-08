@@ -1,9 +1,9 @@
 Invitations = new Meteor.Collection('invitations');
 
 Invitations.allow({
-    insert: ownsDocument,
-    update: ownsDocument,
-    remove: ownsDocument
+    insert: ownsProduct,
+    update: ownsDocumentOrAdminOrProductOwner,
+    remove: denyPermission
 });
 
 Invitations.attachSchema(new SimpleSchema({
@@ -73,7 +73,7 @@ Schema.invitationUser = new SimpleSchema({
                 /* Find corresponding product. */
                 let product = Products.findOne({slug: getRouteSlug()});
                 /* Get array with user ids which have an invitation for the current product and either received or accepted the invitation. */
-                let invalidUserIds = Invitations.find({productId: product._id}, {$and: [{status: 0}, {status: 1}]}).map(function (invitation) {
+                let invalidUserIds = Invitations.find({$and:[{productId: product._id}, {$or: [{status: 0}, {status: 1}]}]}).map(function (invitation) {
                     return invitation.userId;
                 });
                 /* We add the current user's id to the array, because we don't want to add ourselves to the project. */
@@ -94,7 +94,7 @@ Schema.invitationUser = new SimpleSchema({
                 /* Find corresponding product. */
                 let product = Products.findOne({slug: getRouteSlug()});
                 /* Get array with user ids which have an invitation for the current product and either received or accepted the invitation. */
-                let invalidUserIds = Invitations.find({productId: product._id}, {$and: [{status: 0}, {status: 1}]}).map(function (invitation) {
+                let invalidUserIds = Invitations.find({$and:[{productId: product._id}, {$or: [{status: 0}, {status: 1}]}]}).map(function (invitation) {
                     return invitation.userId;
                 });
                 /* We add the current user's id to the array, because we don't want to add ourselves to the project. */

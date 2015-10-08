@@ -75,7 +75,7 @@ Meteor.publish(null, function () {
 Meteor.publish('productInvitations', function (slug) {
     var product = Products.findOne({slug: slug});
     if (product) {
-        return Invitations.find({productId: product._id, status: {$ne: 2}});
+        return Invitations.find({productId: product._id});
     }
     this.ready();
 });
@@ -327,6 +327,30 @@ Meteor.publishComposite('usersInvitationAuthors', function (userId) {
                         }
                     }
                 ]
+            }
+        ]
+    }
+});
+
+Meteor.publishComposite('usersInvitationRecipient', function (productSlug) {
+    return {
+        find: function () {
+            return Products.find({slug: productSlug}, {limit: 1});
+        },
+        children: [
+            {
+                find: function (invitation) {
+                    return Users.find({_id: invitation.userId}, {
+                        fields: {
+                            'profile.image': 1,
+                            'username': 1,
+                            'profile.firstName': 1,
+                            'profile.lastName': 1,
+                            'profile.online': 1,
+                            'profile.color': 1
+                        }
+                    });
+                }
             }
         ]
     }
