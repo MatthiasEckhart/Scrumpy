@@ -114,8 +114,9 @@ Meteor.publish('dashboardStatistics', function () {
 });
 
 Meteor.publish('productStat', function () {
-    var product = Products.findOne({}, {sort: {lastModified: -1}, limit: 1});
-    return Stickies.find({productId: product._id}, {fields: {productId: 1, status: 1, assigneeId: 1}});
+    let product = Products.findOne({}, {sort: {lastModified: -1}, limit: 1});
+    if (product) return Stickies.find({productId: product._id}, {fields: {productId: 1, status: 1, assigneeId: 1}});
+    this.ready();
 });
 
 Meteor.publish('ownUser', function (userId) {
@@ -124,13 +125,6 @@ Meteor.publish('ownUser', function (userId) {
 
 Meteor.publish('invitations', function (userId) {
     return Invitations.find({userId: userId}, {$and: [{status: 0}, {status: 1}]});
-});
-
-Meteor.publish('productInvitationData', function (userId) {
-    let productIds = Invitations.find({userId: userId}, {$and: [{status: 0}, {status: 1}]}).map(function (invitations) {
-        return invitations.productId;
-    });
-    return Products.find({_id: {$in: productIds}}, {fields: {title: 1, userId: 1}});
 });
 
 Meteor.publish('comments', function (slug) {
@@ -250,25 +244,6 @@ Meteor.publish('privateMessages', function (slug) {
     this.ready();
 });
 
-Meteor.publish('usersInvitationAuthors', function (userId) {
-    let productIds = Invitations.find({userId: userId}).map(function (invitation) {
-        return invitation.productId;
-    });
-    let userIds = Products.find({_id: {$in: productIds}}).map(function (product) {
-        return product.userId;
-    });
-    return Users.find({_id: {$in: userIds}}, {
-        fields: {
-            'profile.image': 1,
-            'username': 1,
-            'profile.firstName': 1,
-            'profile.lastName': 1,
-            'profile.online': 1,
-            'profile.color': 1
-        }
-    });
-});
-
 Meteor.publish('recipientsAvatars', function (slug) {
     let recipients = [];
     let conversation = Conversations.findOne({slug: slug});
@@ -311,21 +286,109 @@ Meteor.publishComposite('allRecipientsAvatarsInvolved', function (userId) {
     }
 });
 
-Meteor.publish('usersInvited', function (slug) {
-    var product = Products.findOne({slug: slug});
-    if (product) {
-        let userIds = Invitations.find({productId: product._id}).map(function (invitation) {
-            return invitation.userId;
-        });
-        return Users.find({_id: {$in: userIds}}, {
-            fields: {
-                'profile.image': 1,
-                'username': 1,
-                'roles': 1,
-                'profile.online': 1,
-                'profile.color': 1
+Meteor.publishComposite('productInvitationData', function (userId) {
+    return {
+        find: function () {
+            return Invitations.find({userId: userId}, {$and: [{status: 0}, {status: 1}]});
+        },
+        children: [
+            {
+                find: function (invitation) {
+                    return Products.find({_id: invitation.productId}, {fields: {title: 1, userId: 1}});
+                }
             }
-        });
+        ]
     }
-    this.ready();
+});
+
+Meteor.publishComposite('usersInvitationAuthors', function (userId) {
+    return {
+        find: function () {
+            return Invitations.find({userId: userId});
+        },
+        children: [
+            {
+                find: function (invitation) {
+                    return Products.find({_id: invitation.productId}, {fields: {title: 1, userId: 1}});
+                },
+                children: [
+                    {
+                        find: function (product) {
+                            return Users.find({_id: product.userId}, {
+                                fields: {
+                                    'profile.image': 1,
+                                    'username': 1,
+                                    'profile.firstName': 1,
+                                    'profile.lastName': 1,
+                                    'profile.online': 1,
+                                    'profile.color': 1
+                                }
+                            });
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+});
+
+Meteor.publishComposite('usersInvitationAcceptedAuthors', function (userId) {
+    return {
+        find: function () {
+            return Invitations.find({userId: userId, status: 1});
+        },
+        children: [
+            {
+                find: function (invitation) {
+                    return Products.find({_id: invitation.productId}, {fields: {title: 1, userId: 1}});
+                },
+                children: [
+                    {
+                        find: function (product) {
+                            return Users.find({_id: product.userId}, {
+                                fields: {
+                                    'profile.image': 1,
+                                    'username': 1,
+                                    'profile.firstName': 1,
+                                    'profile.lastName': 1,
+                                    'profile.online': 1,
+                                    'profile.color': 1
+                                }
+                            });
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+});
+
+Meteor.publishComposite('usersInvited', function (slug) {
+    return {
+        find: function () {
+            return Products.find({slug: slug}, {limit: 1});
+        },
+        children: [
+            {
+                find: function (product) {
+                    return Invitations.find({productId: product._id});
+                },
+                children: [
+                    {
+                        find: function (invitation) {
+                            return Users.find({_id: invitation.userId}, {
+                                fields: {
+                                    'profile.image': 1,
+                                    'username': 1,
+                                    'roles': 1,
+                                    'profile.online': 1,
+                                    'profile.color': 1
+                                }
+                            });
+                        }
+                    }
+                ]
+            }
+        ]
+    }
 });

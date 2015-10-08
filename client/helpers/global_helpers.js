@@ -89,10 +89,8 @@ UI.registerHelper('isOnline', function () {
 });
 
 UI.registerHelper('avatar', function () {
-    if (this.profile.image != "") {
-        return this.profile.image;
-    }
-    return DEFAULTAVATAR;
+    if (this.profile.image) return this.profile.image;
+    else return DEFAULTAVATAR;
 });
 
 UI.registerHelper('userIsScrumMaster', function (template) {

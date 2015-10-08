@@ -18,6 +18,7 @@ var productsHooks = {
                         throwAlert('error', error.reason, error.details);
                         return;
                     }
+                    Session.set('productCreate', true);
                     Router.go('invite', {slug: response});
                 });
             });

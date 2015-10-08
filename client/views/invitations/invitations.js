@@ -31,26 +31,33 @@ Template.invitations.helpers({
     },
     invitationPending: function () {
         return this.status == 0;
+    },
+    invitationDeclined: function () {
+        return this.status == 2;
     }
 });
 
 Template.invitations.events({
     'click .accept-invitation': function () {
-        Meteor.call('addUserToRole', this.productId, Meteor.userId(), this.role, (error) => {
-            if (error) {
-                throwAlert('error', error.reason, error.details);
-                return;
-            }
-            Invitations.update({_id: this._id}, {$set: {status: 1}});
-        });
+        if (this.status == 0) {
+            Meteor.call('addUserToRole', this.productId, Meteor.userId(), this.role, (error) => {
+                if (error) {
+                    throwAlert('error', error.reason, error.details);
+                    return;
+                }
+                Invitations.update({_id: this._id}, {$set: {status: 1}});
+            });
+        }
     },
     'click .decline-invitation': function () {
-        Meteor.call('removeUserFromRole', this.productId, Meteor.userId(), this.role, (error) => {
-            if (error) {
-                throwAlert('error', error.reason, error.details);
-                return;
-            }
-            Invitations.update({_id: this._id}, {$set: {status: 2}});
-        });
+        if (this.status == 0 || this.status == 1) {
+            Meteor.call('removeUserFromRole', this.productId, Meteor.userId(), this.role, (error) => {
+                if (error) {
+                    throwAlert('error', error.reason, error.details);
+                    return;
+                }
+                Invitations.update({_id: this._id}, {$set: {status: 2}});
+            });
+        }
     }
 });
