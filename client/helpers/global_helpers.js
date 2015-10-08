@@ -1,5 +1,5 @@
 /* Register underscore helper. */
-Template.registerHelper('_', function(){
+Template.registerHelper('_', function () {
     return _;
 });
 
@@ -20,15 +20,10 @@ UI.registerHelper('titleShort', function (type) {
 });
 
 UI.registerHelper('representative', function () {
-    if (!_.isUndefined(Products) && !_.isNull(Products)) {
-        var product = Products.findOne({_id: this._id});
-        if (!_.isNull(product)) {
-            if (product.advancedMode) {
-                return 'Product Owner';
-            }
-            return 'Administrator';
-        }
-    }
+    if (this._id) {
+        let product = Products.findOne({_id: this._id});
+        if (product) return product.advancedMode ? 'Product Owner' : 'Administrator';
+    } else return "Anonymous";
 });
 
 UI.registerHelper('currentUserUsername', function () {
