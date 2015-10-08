@@ -1,8 +1,9 @@
 "use strict";
 
-var commentsHooks = {
+var commentsInsertHooks = {
     before: {
         insert: function (doc) {
+            /* Extend our document (comment) with a reference to the corresponding activity stream element. */
             doc.actElId = this.currentDoc._id;
             return doc;
         }
@@ -16,4 +17,12 @@ var commentsHooks = {
     }
 };
 
-AutoForm.addHooks('insert-comment-form', commentsHooks);
+var commentsUpdateHooks = {
+    onSuccess: function (formType, result) {
+        /* After comment has been successfully updated, we set our reactive var to false in order to hide the form. */
+        this.template.parent().isEditing.set(false);
+    }
+};
+
+AutoForm.addHooks('insert-comment-form', commentsInsertHooks);
+AutoForm.addHooks('update-comment-form', commentsUpdateHooks);

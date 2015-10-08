@@ -31,15 +31,7 @@ Template.comment.events({
         e.preventDefault();
         t.isEditing.set(true);
     },
-
-    'click .edit-comment-submit-button': function (e, t) {
-        e.preventDefault();
-        var editCommentInput = t.find('[name=edit-comment-input]');
-        Comments.update({_id: this._id}, {$set: {body: editCommentInput.value}});
-        t.isEditing.set(false);
-    },
-
-    'click .edit-comment-cancel-button': function (e, t) {
+    'click .edit-comment-cancel': function (e, t) {
         t.isEditing.set(false);
     }
 });

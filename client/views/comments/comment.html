@@ -11,7 +11,7 @@
             <span class="date">on {{submittedFormatted}}</span>
         </li>
         {{#if productOwnerOrOwnerOfComment}}
-            <button type="button" class="fa fa-remove btn btn-danger btn-xs delete-comment"></button>
+            <button type="button" class="fa fa-trash btn btn-danger btn-xs delete-comment"></button>
             <button type="button" class="fa fa-pencil-square-o btn btn-default btn-xs edit-comment"></button>
             <br>
         {{/if}}
@@ -19,15 +19,23 @@
 
 
     {{#if editComment}}
-        <form>
-            <textarea name="edit-comment-input" type="text" class="edit-comment-input margin-left-40"
-                      value="{{body}}"></textarea>
-        </form>
-
-        <button name="edit-comment-cancel-button"
-                class="fa fa-remove btn btn-danger btn-xs edit-comment-cancel-button"></button>
-        <button name="edit-comment-submit-button"
-                class="fa fa-check btn btn-success btn-xs edit-comment-submit-button"></button>
+        {{#autoForm collection="Comments" id="update-comment-form" type="update" doc=this}}
+            <div class="control-group">
+                <div class="controls">
+                    <div class="input-group">
+                        {{> afQuickField name='body'}}
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button name="submit-product-update" type="submit"
+                            class="fa fa-check btn btn-success btn-xs edit-comment-submit"></button>
+                    <button name="edit-comment-cancel" type="button"
+                            class="fa fa-remove btn btn-default btn-xs edit-comment-cancel"></button>
+                </div>
+            </div>
+        {{/autoForm}}
     {{else}}
         <div class="commentBody">
             <p>{{body}}</p>

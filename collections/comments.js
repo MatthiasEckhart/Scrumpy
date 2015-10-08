@@ -1,4 +1,4 @@
-Comments = new Meteor.Collection('comments');
+Comments = new Mongo.Collection('comments');
 
 Comments.attachSchema(new SimpleSchema({
     body: {
