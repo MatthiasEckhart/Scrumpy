@@ -1,68 +1,66 @@
 Comments = new Meteor.Collection('comments');
 
-Meteor.methods({
-    createComment: function (commentAttributes) {
-        if (Meteor.isServer) {
-            var user = Meteor.user(),
-                actEl,
-                comment,
-                commentId,
-                participantsIds,
-                notificationId;
-            if (!user) {
-                throw new Meteor.Error(401, "You need to login to make comments");
+Comments.attachSchema(new SimpleSchema({
+    body: {
+        type: String,
+        label: "Add a message for other Scrum team members",
+        autoform: {
+            afFieldInput: {
+                type: "textarea",
+                rows: 2
             }
-            if (!commentAttributes.body) {
-                throw new Meteor.Error(422, 'Please write some content');
-            }
-            actEl = ActivityStreamElements.findOne({_id: commentAttributes.actElId});
-            comment = _.extend(_.pick(commentAttributes, 'actElId', 'body'), {
-                userId: user._id,
-                submitted: new Date(),
-                productId: actEl.productId
-            });
-            commentId = Comments.insert(comment);
-            participantsIds = [];
-            Comments.find({actElId: commentAttributes.actElId}).forEach(function (comment) {
-                participantsIds.push(comment.userId);
-            });
-            if (actEl) {
-                participantsIds.push(actEl.userId);
-            }
-            if (participantsIds.length > 0) {
-                notificationId = Notifications.insert({
-                    userId: user._id,
-                    type: 2,
-                    commentId: commentId,
-                    submitted: new Date(),
-                    productId: actEl.productId
-                });
-                Users.update({_id: {$in: _.without(participantsIds, user._id)}}, {$push: {notifications: notificationId}}, {multi: true});
-            }
-            return commentId;
         }
+    },
+    actElId: {
+        type: String,
+        denyUpdate: true,
+        autoform: {
+            omit: true
+        }
+    },
+    userId: {
+        type: String,
+        autoValue: function () {
+            if (this.isInsert) {
+                if (!this.isFromTrustedCode) {
+                    return this.userId;
+                }
+            } else
+            /* Prevent user from supplying their own user ID. */
+                this.unset();
+        },
+        denyUpdate: true,
+        autoform: {
+            omit: true
+        }
+    },
+    createdAt: {
+        type: Date,
+        autoValue: function () {
+            if (this.isInsert) return new Date;
+            else if (this.isUpsert) return {$setOnInsert: new Date};
+            else
+            /* Prevent user from supplying their own date. */
+                this.unset();
+        },
+        autoform: {
+            omit: true
+        }
+    },
+    updatedAt: {
+        type: Date,
+        autoValue: function () {
+            if (this.isUpdate) {
+                return new Date();
+            }
+        },
+        denyInsert: true,
+        optional: true
     }
-});
+}));
 
 Comments.allow({
-    update: ownsDocumentOrAdmin,
-    remove: ownsDocumentOrAdmin
-});
-
-Comments.before.insert(function (userId, doc) {
-    if (Meteor.isServer) {
-        updateLastModifiedForProduct(doc.productId);
-    }
-});
-
-Comments.before.update(function (userId, doc, fieldNames, modifier, options) {
-    if (Meteor.isServer) {
-        updateLastModifiedForProduct(doc.productId);
-    }
-});
-
-Comments.before.remove(function (userId, doc) {
-    if (Meteor.isServer) {
-        updateLastModifiedForProduct(doc.productId);
-    }
+    insert: ownsDocument,
+    update: ownsDocumentOrProductOwner,
+    remove: ownsDocumentOrProductOwner
 });

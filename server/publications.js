@@ -244,6 +244,21 @@ Meteor.publish('privateMessages', function (slug) {
     this.ready();
 });
 
+Meteor.publish('userProductAuthor', function (productSlug) {
+    let product = Products.findOne({slug: productSlug});
+    if (product) return Users.find({_id: product.userId}, {
+        fields: {
+            'profile.image': 1,
+            'username': 1,
+            'profile.firstName': 1,
+            'profile.lastName': 1,
+            'profile.online': 1,
+            'profile.color': 1
+        }
+    });
+    else this.ready();
+});
+
 Meteor.publish('recipientsAvatars', function (slug) {
     let recipients = [];
     let conversation = Conversations.findOne({slug: slug});

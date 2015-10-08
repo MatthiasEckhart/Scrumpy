@@ -6,12 +6,8 @@ Template.comment.helpers({
     },
     productOwnerOrOwnerOfComment: function () {
         var actEl = ActivityStreamElements.findOne({_id: this.actElId});
-        if (actEl) {
-            return (this.userId == Meteor.userId()) || Roles.userIsInRole(Meteor.userId(), [actEl.productId], 'productOwner');
-        }
-    },
-    author: function () {
-        return Users.findOne({_id: this.userId}).username;
+        if (actEl) return (this.userId == Meteor.userId()) || Roles.userIsInRole(Meteor.userId(), [actEl.productId], 'productOwner');
+        return false;
     },
     user: function () {
         return Users.findOne({_id: this.userId});

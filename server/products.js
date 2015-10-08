@@ -1,5 +1,3 @@
-"use strict";
-
 Meteor.methods({
     getProductSlug: function (productId) {
         let product = Products.findOne({_id: productId});
@@ -73,3 +71,7 @@ Products.before.remove(function (userId, doc) {
     var dashboardStats = DashboardStatistics.findOne();
     DashboardStatistics.update({_id: dashboardStats._id}, {$inc: {totalProducts: -1}});
 });
+
+updateLastModifiedForProduct = function (productId) {
+    Products.update({_id: productId}, {$set: {updatedAt: new Date()}});
+};

@@ -1,35 +1,37 @@
 <template name="comment">
 
-        {{#with user}}
-            <a class="pull-left" href="{{pathFor 'profilePage'}}">
-                <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
-            </a>
-        {{/with}}
-        <div class="comment-header margin-left-40">
-            <li class="no-style">
-                <span class="author">{{author}}</span>
-                <span class="date">on {{submittedFormatted}}</span>
-            </li>
-            {{#if productOwnerOrOwnerOfComment}}
-                <button class="fa fa-remove btn btn-danger btn-xs delete-comment"></button>
-                <button class="fa fa-pencil-square-o btn btn-default btn-xs edit-comment"></button><br>
-            {{/if}}
-        </div>
-
-
-        {{#if editComment}}
-            <form>
-                <textarea name="edit-comment-input" type="text" class="edit-comment-input margin-left-40" value="{{body}}"></textarea>
-            </form>
-
-            <button name="edit-comment-cancel-button"
-                    class="fa fa-remove btn btn-danger btn-xs edit-comment-cancel-button"></button>
-            <button name="edit-comment-submit-button"
-                    class="fa fa-check btn btn-success btn-xs edit-comment-submit-button"></button>
-        {{else}}
-            <div class="commentBody">
-                <p>{{body}}</p>
-            </div>
+    {{#with user}}
+        <a class="pull-left" href="{{pathFor 'profilePage'}}">
+            <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
+        </a>
+    {{/with}}
+    <div class="comment-header margin-left-40">
+        <li class="no-style">
+            <span class="author">{{#with user}}{{username}}{{/with}}</span>
+            <span class="date">on {{submittedFormatted}}</span>
+        </li>
+        {{#if productOwnerOrOwnerOfComment}}
+            <button type="button" class="fa fa-remove btn btn-danger btn-xs delete-comment"></button>
+            <button type="button" class="fa fa-pencil-square-o btn btn-default btn-xs edit-comment"></button>
+            <br>
         {{/if}}
+    </div>
+
+
+    {{#if editComment}}
+        <form>
+            <textarea name="edit-comment-input" type="text" class="edit-comment-input margin-left-40"
+                      value="{{body}}"></textarea>
+        </form>
+
+        <button name="edit-comment-cancel-button"
+                class="fa fa-remove btn btn-danger btn-xs edit-comment-cancel-button"></button>
+        <button name="edit-comment-submit-button"
+                class="fa fa-check btn btn-success btn-xs edit-comment-submit-button"></button>
+    {{else}}
+        <div class="commentBody">
+            <p>{{body}}</p>
+        </div>
+    {{/if}}
 
 </template>

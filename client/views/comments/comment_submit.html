@@ -1,20 +1,18 @@
 <template name="commentSubmit">
-    <form name="comment" class="comment-form">
-        <div class="control-group">
-            <div class="controls">
-                <label for="body">Add a message for other Scrum team members</label>
-                <form>
-                    <textarea name="body" rows="4" cols="40"></textarea>
-                </form>
-
+    <div class="control-group">
+        {{#autoForm collection="Comments" id="insert-comment-form" type="insert" doc=this}}
+            <div class="control-group">
+                <div class="controls">
+                    <div class="input-group">
+                        {{> afQuickField name='body'}}
+                    </div>
+                </div>
             </div>
-        </div>
-        <br>
-
-        <div class="control-group">
-            <div class="controls">
-                <button type="submit" class="btn">Add Comment</button>
+            <div class="control-group">
+                <div class="controls">
+                    <button id="submit-product-create" type="submit" class="btn btn-primary">Add comment</button>
+                </div>
             </div>
-        </div>
-    </form>
+        {{/autoForm}}
+    </div>
 </template>
