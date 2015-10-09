@@ -1,4 +1,4 @@
-Conversations = new Meteor.Collection('conversations');
+Conversations = new Mongo.Collection('conversations');
 
 Conversations.allow({
     insert: ownsDocument,

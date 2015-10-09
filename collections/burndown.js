@@ -1,4 +1,4 @@
-Burndown = new Meteor.Collection('burndown');
+Burndown = new Mongo.Collection('burndown');
 
 Burndown.allow({
     insert: allowPermission,

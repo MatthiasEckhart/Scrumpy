@@ -1,4 +1,4 @@
-ActivityStreamElements = new Meteor.Collection('activityStreamElements');
+ActivityStreamElements = new Mongo.Collection('activityStreamElements');
 
 ActivityStreamElements.deny({
     insert: denyPermission,

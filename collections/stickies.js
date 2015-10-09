@@ -1,4 +1,4 @@
-Stickies = new Meteor.Collection('stickies');
+Stickies = new Mongo.Collection('stickies');
 
 Stickies.allow({
     insert: scrumTeam,

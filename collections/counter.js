@@ -1,1 +1,1 @@
-Counter = new Meteor.Collection('counter');
+Counter = new Mongo.Collection('counter');

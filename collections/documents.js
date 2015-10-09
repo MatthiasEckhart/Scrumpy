@@ -1,4 +1,4 @@
-Documents = new Meteor.Collection('documents');
+Documents = new Mongo.Collection('documents');
 
 Documents.allow({
     insert: scrumTeam,

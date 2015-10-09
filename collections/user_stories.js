@@ -1,4 +1,4 @@
-UserStories = new Meteor.Collection('userStories');
+UserStories = new Mongo.Collection('userStories');
 
 UserStories.allow({
     insert: scrumTeam,

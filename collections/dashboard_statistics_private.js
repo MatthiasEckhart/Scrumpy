@@ -1,5 +1,5 @@
 // Private statistics for dashboard (effort line chart)
-DashboardStatisticsPrivate = new Meteor.Collection('dashboardStatisticsPrivate');
+DashboardStatisticsPrivate = new Mongo.Collection('dashboardStatisticsPrivate');
 
 Meteor.methods({
     updateDashboardStatisticsPrivateInc: function (sticky) {

@@ -1,4 +1,4 @@
-Sprints = new Meteor.Collection('sprints');
+Sprints = new Mongo.Collection('sprints');
 
 Sprints.allow({
     insert: scrumTeam,

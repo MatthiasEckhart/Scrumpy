@@ -1,4 +1,4 @@
-Invitations = new Meteor.Collection('invitations');
+Invitations = new Mongo.Collection('invitations');
 
 Invitations.allow({
     insert: ownsProduct,

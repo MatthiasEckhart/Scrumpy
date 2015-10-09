@@ -1,4 +1,4 @@
-Notifications = new Meteor.Collection('notifications');
+Notifications = new Mongo.Collection('notifications');
 
 Notifications.allow({
     insert: ownsDocument,

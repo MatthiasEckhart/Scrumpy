@@ -1,4 +1,4 @@
-PrivateMessages = new Meteor.Collection('privateMessages');
+PrivateMessages = new Mongo.Collection('privateMessages');
 
 PrivateMessages.allow({
     insert: ownsDocument,
