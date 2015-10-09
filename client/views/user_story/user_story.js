@@ -10,7 +10,43 @@ Template.userStory.events({
     }
 });
 
-Template.userStory.rendered = function () {
+Template.userStory.helpers({
+    dragClass: function () {
+        var data = Template.instance().data;
+        if (data && data.isDrag)
+            return 'drag story-formatted';
+    },
+    userIsProductOwnerOrAdvancedModeOff: function () {
+        var product = Products.findOne({_id: this.productId});
+        return Roles.userIsInRole(Meteor.user(), [this.productId], 'productOwner') || !product.advancedMode;
+    },
+    advancedMode: function () {
+        return Template.parentData(2).advancedMode;
+    },
+    storyPointsFormatted: function () {
+        if (!_.has(this, "storyPoints") || !this.storyPoints) {
+            return "--";
+        }
+        return this.storyPoints;
+    },
+    businessValueFormatted: function () {
+        if (!_.has(this, "businessValue") || !this.businessValue) {
+            return "--";
+        }
+        return this.businessValue;
+    },
+    submittedFormatted: function () {
+        return moment(this.submitted).format('MMMM Do YYYY, h:mm:ss a');
+    },
+    author: function () {
+        return getUsername(this.userId);
+    },
+    lastEdited: function () {
+        return getUsername(this.lastEditedBy);
+    }
+});
+
+Template.userStory.onRendered(function () {
     var showInfoUserStoryPopoverSelector = $('#show-info-user-story-' + this.data._id),
         storyTitleEditableSelector = $('#editable-user-story-title-' + this.data._id),
         storyDescriptionEditableSelector = $('#editable-user-story-description-' + this.data._id),
@@ -101,7 +137,13 @@ Template.userStory.rendered = function () {
                 }
             });
 
-            var cohnFibonacciSequence = [{value: 0.5, text: "½"}, {value: 1, text: 1}, {value: 2, text: 2}, {value: 3, text: 3}, {value: 5, text: 5}, {value: 8, text: 8}, {value: 13, text: 13}, {value: 20, text: 20}, {value: 40, text: 40}, {value: 80, text: 80}];
+            var cohnFibonacciSequence = [{value: 0.5, text: "½"}, {value: 1, text: 1}, {value: 2, text: 2}, {
+                value: 3,
+                text: 3
+            }, {value: 5, text: 5}, {value: 8, text: 8}, {value: 13, text: 13}, {value: 20, text: 20}, {
+                value: 40,
+                text: 40
+            }, {value: 80, text: 80}];
 
             storyPointsEditableSelector.editable("destroy").editable({
                 emptytext: "--",
@@ -140,34 +182,10 @@ Template.userStory.rendered = function () {
             storyBusinessValueEditableSelector.editable("setValue", story.businessValue);
         }
     });
-};
-
-Template.userStory.helpers({
-    dragClass: function () {
-        var data = Template.instance().data;
-        if (data && data.isDrag)
-            return 'drag story-formatted';
-    },
-    userIsProductOwnerOrAdvancedModeOff: function () {
-        var product = Products.findOne({_id: this.productId});
-        return Roles.userIsInRole(Meteor.user(), [this.productId], 'productOwner') || !product.advancedMode;
-    },
-    advancedMode: function () {
-        return Template.parentData(2).advancedMode;
-    },
-    storyPointsFormatted: function () {
-        if (!_.has(this, "storyPoints") || !this.storyPoints) {
-            return "--";
-        }
-        return this.storyPoints;
-    },
-    businessValueFormatted: function () {
-        if (!_.has(this, "businessValue") || !this.businessValue) {
-            return "--";
-        }
-        return this.businessValue;
-    },
-    submittedFormatted: function () {
-        return moment(this.submitted).format('MMMM Do YYYY, h:mm:ss a');
-    }
 });
+
+function getUsername(userId) {
+    let user = Users.findOne({_id: userId});
+    if (user) return user.username;
+    else return "Anonymous";
+}

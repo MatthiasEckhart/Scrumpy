@@ -6,20 +6,112 @@ UserStories.allow({
     remove: scrumTeam
 });
 
-UserStories.before.insert(function (userId, doc) {
-    if (Meteor.isServer) {
-        updateLastModifiedForProduct(doc.productId);
+UserStories.attachSchema(new SimpleSchema({
+    title: {
+        type: String,
+        label: "Title",
+        max: 20
+    },
+    productId: {
+        type: String,
+        autoform: {
+            omit: true
+        },
+        denyUpdate: true
+    },
+    sprintId: {
+        type: String,
+        autoform: {
+            omit: true
+        },
+        optional: true
+    },
+    userId: {
+        type: String,
+        autoValue: function () {
+            if (this.isInsert) {
+                if (!this.isFromTrustedCode) {
+                    return this.userId;
+                }
+            } else
+            /* Prevent user from supplying their own user ID. */
+                this.unset();
+        },
+        denyUpdate: true,
+        autoform: {
+            omit: true
+        }
+    },
+    lastEditedBy: {
+        type: String,
+        autoValue: function () {
+            if (this.isUpdate) {
+                return new this.userId;
+            }
+        },
+        denyInsert: true,
+        optional: true,
+        autoform: {
+            omit: true
+        }
+    },
+    description: {
+        type: String,
+        label: "Description"
+    },
+    priority: {
+        type: Number,
+        label: "Priority",
+        optional: true
+    },
+    storyPoints: {
+        type: Number,
+        label: "Story Points",
+        allowedValues: [0.5, 1, 2, 3, 5, 8, 13, 20, 40, 80],
+        autoform: {
+            options: [
+                {label: "½", value: 0.5},
+                {label: "1", value: 1},
+                {label: "2", value: 2},
+                {label: "3", value: 3},
+                {label: "5", value: 5},
+                {label: "8", value: 8},
+                {label: "13", value: 13},
+                {label: "20", value: 20},
+                {label: "40", value: 40},
+                {label: "80", value: 80}
+            ]
+        },
+        optional: true
+    },
+    businessValue: {
+        type: Number,
+        label: "Business Value",
+        min: 1,
+        max: 1000,
+        optional: true
+    },
+    createdAt: {
+        type: Date,
+        autoValue: function () {
+            if (this.isInsert) return new Date;
+            else if (this.isUpsert) return {$setOnInsert: new Date};
+            else
+            /* Prevent user from supplying their own date. */
+                this.unset();
+        },
+        autoform: {
+            omit: true
+        }
+    },
+    updatedAt: {
+        type: Date,
+        autoValue: function () {
+            if (this.isUpdate) {
+                return new Date();
+            }
+        },
+        denyInsert: true,
+        optional: true
     }
-});
-
-UserStories.before.update(function (userId, doc, fieldNames, modifier, options) {
-    if (Meteor.isServer) {
-        updateLastModifiedForProduct(doc.productId);
-    }
-});
-
-UserStories.before.remove(function (userId, doc) {
-    if (Meteor.isServer) {
-        updateLastModifiedForProduct(doc.productId);
-    }
-});
+}));

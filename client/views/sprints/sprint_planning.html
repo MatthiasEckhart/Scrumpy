@@ -9,21 +9,19 @@
                             <h3 class="panel-title">Add story</h3>
                         </div>
                         <div class="panel-body">
-                            <div class="input-group">
-                                <span class="input-group-addon">Title</span>
-                                <input type="text" name="new-story-title-input" class="form-control input-custom"
-                                       placeholder="Name your story.">
-                            </div>
-                            <br/>
+                            {{#autoForm collection="UserStories" id="insert-user-story-form" type="insert" doc=this}}
 
-                            <div class="input-group">
-                                <span class="input-group-addon">Description</span>
-                                <input type="text" name="new-story-description-input" class="form-control input-custom"
-                                       placeholder="As a <role>, I want <goal> so that <benefit>.">
-                            </div>
-                            <br/>
-                            <button type="button" class="btn btn-success btn-block new-story-submit">Create story
-                            </button>
+                                <div class="input-group">
+                                    {{> afQuickField name='title' placeholder='Name your story.'}}
+                                </div>
+                                <br/>
+
+                                <div class="input-group">
+                                    {{> afQuickField name='description' placeholder='As a <role>, I want <goal> so that <benefit>.'}}
+                                </div>
+
+                                <button id="submit-user-story-create" type="submit" class="btn btn-primary">Create User Story</button>
+                            {{/autoForm}}
                         </div>
                     </div>
                     <div class="panel panel-default">
@@ -73,12 +71,12 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                        <div class="panel panel-info">
-                            <div class="panel-heading">Add sprint</div>
-                            <div class="panel-body">
-                                {{> sprintCreate}}
-                            </div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Add sprint</div>
+                        <div class="panel-body">
+                            {{> sprintCreate}}
                         </div>
+                    </div>
                     {{#each sprints}}
                         {{> sprint}}
                     {{/each}}

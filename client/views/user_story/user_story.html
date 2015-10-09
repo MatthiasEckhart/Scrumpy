@@ -40,7 +40,7 @@
                         <div id="popover-content-{{_id}}" style="display: none">
                             <p>
                                 <b>Author:</b> {{author}}<br/>
-                                <b>Last edited:</b> {{lastEdited}}<br/>
+                                {{#if _.has this 'lastEditedBy'}}<b>Last edited:</b> {{lastEdited}}<br/>{{/if}}
                                 <b>Created:</b> {{submittedFormatted}}<br/>
                             </p>
                         </div>

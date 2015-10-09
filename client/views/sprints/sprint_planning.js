@@ -32,40 +32,7 @@ Template.sprintPlanning.helpers({
     }
 });
 
-Template.sprintPlanning.events({
-    'click .new-story-submit': function (e, t) {
-        e.preventDefault();
-        var newStoryTitleInput = t.find('[name=new-story-title-input]'),
-            titleInputValue = $.trim(newStoryTitleInput.value),
-            newStoryDescInput = t.find('[name=new-story-description-input]'),
-            descInputValue = $.trim(newStoryDescInput.value),
-            newStory;
-
-        if (titleInputValue.length > 0 && descInputValue.length > 0) {
-            newStory = {
-                userId: Meteor.userId(),
-                title: titleInputValue,
-                description: descInputValue,
-                productId: this._id,
-                submitted: new Date(),
-                author: Meteor.user().username,
-                lastEdited: Meteor.user().username
-            };
-            createStory(newStory, newStoryTitleInput, newStoryDescInput);
-            Meteor.call('createActElUserStory', newStory.productId, Meteor.user()._id, newStory.title, function (error) {
-                if (error) {
-                    throwAlert('error', error.reason, error.details);
-                    return null;
-                }
-            });
-            Session.set("staleUserStoryOrSprint", true);
-        } else {
-            alert('Choose a title that reflect the feature to be implemented', 'Choose a title');
-        }
-    }
-});
-
-Template.sprintPlanning.rendered = function () {
+Template.sprintPlanning.onRendered(function () {
     Session.set('activeNavTab', 'sprintPlanning');
 
     REDIPS.drag.init();
@@ -172,4 +139,4 @@ Template.sprintPlanning.rendered = function () {
             rd.deleteObject(rd.obj);
         }
     };
-};
+});
