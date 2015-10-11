@@ -3,7 +3,7 @@
 var invitationsHooks = {
     before: {
         method: function (doc) {
-            doc.slug = Router.current().params.slug;
+            doc.productId = this.currentDoc._id;
             return doc;
         }
     },

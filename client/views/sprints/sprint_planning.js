@@ -29,6 +29,11 @@ Template.sprintPlanning.helpers({
     },
     userIsProductOwner: function () {
         return Roles.userIsInRole(Meteor.user(), [this._id], 'productOwner');
+    },
+    /* Returns an object with the product's ID.
+     * We cannot set 'doc=this' in our User Story AutoForm, because the product as well as user stories have the 'title' attribute and we do not want to set it automatically. */
+    productForAutoForm: function () {
+        return {'_id': this._id};
     }
 });
 

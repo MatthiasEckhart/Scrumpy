@@ -11,11 +11,7 @@ Template.activityStreamElement.helpers({
         return Users.findOne({_id: this.userId});
     },
     roleFormatted: function () {
-        if (this.role == 1) {
-            return "part of the development team";
-        } else if (this.role == 2) {
-            return "Scrum Master";
-        }
+        return (this.role == 2) ? "Scrum Master" :  "part of the development team";
     },
     sprintStartDate: function () {
         return moment(this.sprintStartDate).format('YYYY-MM-DD');
@@ -51,8 +47,5 @@ Template.activityStreamElement.helpers({
     },
     comments: function () {
         return Comments.find({actElId: this._id});
-    },
-    productTitle: function () {
-        return Products.findOne({_id: this.productId}).title;
     }
 });

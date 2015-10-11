@@ -73,15 +73,14 @@ Schema.invitationUser = new SimpleSchema({
                 /* Find corresponding product. */
                 let product = Products.findOne({slug: getRouteSlug()});
                 /* Get array with user ids which have an invitation for the current product and either received or accepted the invitation. */
-                let invalidUserIds = Invitations.find({$and:[{productId: product._id}, {$or: [{status: 0}, {status: 1}]}]}).map(function (invitation) {
-                    return invitation.userId;
-                });
+                let invalidUserIds = Invitations.find({$and: [{productId: product._id}, {$or: [{status: 0}, {status: 1}]}]}).map((invitation) => invitation.userId);
                 /* We add the current user's id to the array, because we don't want to add ourselves to the project. */
                 invalidUserIds.push(Meteor.userId());
                 /* Return all users as options which do not have an invitation or declined a previous invitation. */
-                return Users.find({_id: {$nin: invalidUserIds}}).map(function (user) {
-                    return {label: user.username, value: user._id};
-                });
+                return Users.find({_id: {$nin: invalidUserIds}}).map((user) =>  ({
+                    label: user.username,
+                    value: user._id
+                }));
             }
         }
     },
@@ -94,19 +93,18 @@ Schema.invitationUser = new SimpleSchema({
                 /* Find corresponding product. */
                 let product = Products.findOne({slug: getRouteSlug()});
                 /* Get array with user ids which have an invitation for the current product and either received or accepted the invitation. */
-                let invalidUserIds = Invitations.find({$and:[{productId: product._id}, {$or: [{status: 0}, {status: 1}]}]}).map(function (invitation) {
-                    return invitation.userId;
-                });
+                let invalidUserIds = Invitations.find({$and: [{productId: product._id}, {$or: [{status: 0}, {status: 1}]}]}).map((invitation) => invitation.userId);
                 /* We add the current user's id to the array, because we don't want to add ourselves to the project. */
                 invalidUserIds.push(Meteor.userId());
                 /* Return all users as options which do not have an invitation or declined a previous invitation. */
-                return Users.find({_id: {$nin: invalidUserIds}}).map(function (user) {
-                    return {label: user.username, value: user._id};
-                });
+                return Users.find({_id: {$nin: invalidUserIds}}).map((user) => ({
+                    label: user.username,
+                    value: user._id
+                }));
             }
         }
     },
-    slug: {
+    productId: {
         type: String,
         autoform: {
             omit: true
@@ -116,7 +114,7 @@ Schema.invitationUser = new SimpleSchema({
             /* Inserts */
             if (!this.operator) {
                 if (!this.isSet || this.value === null || this.value === "") return "required";
-                var product = Products.findOne({slug: this.value});
+                var product = Products.findOne({_id: this.value});
                 if (!product) return "invalid product";
             }
         }

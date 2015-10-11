@@ -9,7 +9,7 @@
                             <h3 class="panel-title">Add story</h3>
                         </div>
                         <div class="panel-body">
-                            {{#autoForm collection="UserStories" id="insert-user-story-form" type="insert" doc=this}}
+                            {{#autoForm collection="UserStories" id="insert-user-story-form" type="insert" doc=productForAutoForm}}
 
                                 <div class="input-group">
                                     {{> afQuickField name='title' placeholder='Name your story.'}}

@@ -5,9 +5,7 @@ Template.userStory.events({
         e.preventDefault();
         throwDialog('warning', 'Wait!', 'Are you sure you want delete the user story ' + this.title + '?', 'Sure, delete it', 'No, do not delete', 'delete-user-story-confirm', this);
     },
-    'click .show-info-user-story': function (e) {
-        e.preventDefault();
-    }
+    'click .show-info-user-story': (e) => e.preventDefault()
 });
 
 Template.userStory.helpers({
@@ -20,9 +18,7 @@ Template.userStory.helpers({
         var product = Products.findOne({_id: this.productId});
         return Roles.userIsInRole(Meteor.user(), [this.productId], 'productOwner') || !product.advancedMode;
     },
-    advancedMode: function () {
-        return Template.parentData(2).advancedMode;
-    },
+    advancedMode:  () => Template.parentData(2).advancedMode,
     storyPointsFormatted: function () {
         if (!_.has(this, "storyPoints") || !this.storyPoints) {
             return "--";
@@ -61,18 +57,18 @@ Template.userStory.onRendered(function () {
             display: false,
             placement: 'right',
             title: "Update user story title",
-            validate: function (value) {
+            validate: (value) => {
                 if ($.trim(value) === '') {
                     return 'Please fill in a title.';
                 }
             },
-            success: function (response, newValue) {
+            success: (response, newValue) => {
                 if (newValue) {
                     var oldUserStoryTitle = UserStories.findOne({_id: storyId}).title;
-                    UserStories.update({_id: storyId}, {$set: {title: newValue, lastEdited: Meteor.user().username}});
+                    UserStories.update({_id: storyId}, {$set: {title: newValue}});
                     throwAlert('success', 'Yes!', 'Story title edited.');
                     if (advancedMode) {
-                        Meteor.call('createActElUserStoryEditTitle', product._id, Meteor.user()._id, oldUserStoryTitle, newValue, function (error) {
+                        Meteor.call('createActElUserStoryEditTitle', product._id, Meteor.user()._id, oldUserStoryTitle, newValue, (error) => {
                             if (error) {
                                 throwAlert('error', error.reason, error.details);
                                 return null;
@@ -86,23 +82,18 @@ Template.userStory.onRendered(function () {
             display: false,
             placement: 'right',
             title: "Update user story description",
-            validate: function (value) {
+            validate: (value) => {
                 if ($.trim(value) === '') {
                     return 'Please fill in a description.';
                 }
             },
-            success: function (response, newValue) {
+            success: (response, newValue) => {
                 if (newValue) {
                     var oldUserStoryDescription = UserStories.findOne({_id: storyId}).title;
-                    UserStories.update({_id: storyId}, {
-                        $set: {
-                            description: newValue,
-                            lastEdited: Meteor.user().username
-                        }
-                    });
+                    UserStories.update({_id: storyId}, {$set: {description: newValue}});
                     throwAlert('success', 'Yes!', 'Story description edited.');
                     if (advancedMode) {
-                        Meteor.call('createActElUserStoryEditDescription', product._id, Meteor.user()._id, oldUserStoryDescription, newValue, function (error) {
+                        Meteor.call('createActElUserStoryEditDescription', product._id, Meteor.user()._id, oldUserStoryDescription, newValue, (error) => {
                             if (error) {
                                 throwAlert('error', error.reason, error.details);
                                 return null;
@@ -117,21 +108,16 @@ Template.userStory.onRendered(function () {
                 emptytext: "--",
                 placement: 'right',
                 title: "Update user story business value",
-                validate: function (value) {
+                validate: (value) => {
                     if (!$.isNumeric($.trim(value))) {
                         return 'Please fill in a business value.';
                     } else if (value > 1000) {
                         return 'Business value must be less than or equal to 1000.';
                     }
                 },
-                success: function (response, newValue) {
+                success: (response, newValue) => {
                     if (newValue) {
-                        UserStories.update({_id: storyId}, {
-                            $set: {
-                                businessValue: parseInt(newValue, 10),
-                                lastEdited: Meteor.user().username
-                            }
-                        });
+                        UserStories.update({_id: storyId}, {$set: {businessValue: parseInt(newValue, 10)}});
                         throwAlert('success', 'Yes!', 'Story business value changed.');
                     }
                 }
@@ -150,7 +136,7 @@ Template.userStory.onRendered(function () {
                 placement: 'right',
                 title: "Planning poker estimation",
                 source: cohnFibonacciSequence,
-                success: function (response, result) {
+                success: (response, result) => {
                     if (result) {
                         UserStories.update({_id: userStoryId}, {$set: {storyPoints: parseInt(result, 10)}});
                         throwAlert("success", "Success!", "Story points changed.");
@@ -160,22 +146,18 @@ Template.userStory.onRendered(function () {
         }
     }
     var data = Template.instance().data;
-    if (data && data.isDrag) {
-        REDIPS.drag.init();
-    }
+    if (data && data.isDrag) REDIPS.drag.init();
     var userStoryId = this.data._id;
     showInfoUserStoryPopoverSelector.popover({
         html: true,
         title: 'Details',
         placement: 'right',
-        content: function () {
-            return $("#popover-content-" + userStoryId).html();
-        }
+        content: () => $("#popover-content-" + userStoryId).html()
     });
 
     var cursor = UserStories.find({_id: userStoryId});
     cursor.observe({
-        changed: function (story) {
+        changed: (story) => {
             storyTitleEditableSelector.editable("setValue", story.title);
             storyDescriptionEditableSelector.editable("setValue", story.description);
             storyPointsEditableSelector.editable("setValue", story.storyPoints);

@@ -46,8 +46,10 @@ UserStories.attachSchema(new SimpleSchema({
         type: String,
         autoValue: function () {
             if (this.isUpdate) {
-                return new this.userId;
-            }
+                return this.userId;
+            } else
+            /* Prevent user from supplying their own user ID. */
+                this.unset();
         },
         denyInsert: true,
         optional: true,

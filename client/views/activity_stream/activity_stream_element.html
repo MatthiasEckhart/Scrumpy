@@ -23,7 +23,7 @@
                 <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
             </a>
         {{/with}}
-        <p class="text-info text-information"><b>{{author}}</b> accepted to work on {{productTitle}} as {{roleFormatted}}.</p>
+        <p class="text-info text-information"><b>{{author}}</b> accepted to work as {{roleFormatted}}.</p>
         <p class="date margin-left-40">{{submittedFormatted}}</p>
     {{/if}}
     {{#if elType '4'}}
@@ -31,7 +31,7 @@
             <a class="pull-left" href="{{pathFor 'profilePage'}}">
             <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
         </a>{{/with}}
-        <p class="text-info text-information"><span class="author">{{author}}</span> declined to work on {{productTitle}}.</p>
+        <p class="text-info text-information"><span class="author">{{author}}</span> declined to work as {{roleFormatted}}.</p>
         <p class="date margin-left-40">{{submittedFormatted}}</p>
     {{/if}}
     {{#if elType '5'}}

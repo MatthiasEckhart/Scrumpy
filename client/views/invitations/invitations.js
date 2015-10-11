@@ -39,7 +39,13 @@ Template.invitations.events({
                     throwAlert('error', error.reason, error.details);
                     return;
                 }
-                Invitations.update({_id: this._id}, {$set: {status: 1}});
+                Meteor.call('createActElUserInvitationAccepted', this.productId, Meteor.userId(), this.role, (error) => {
+                    if (error) {
+                        throwAlert('error', error.reason, error.details);
+                        return;
+                    }
+                    Invitations.update({_id: this._id}, {$set: {status: 1}});
+                });
             });
         }
     },
@@ -50,7 +56,13 @@ Template.invitations.events({
                     throwAlert('error', error.reason, error.details);
                     return;
                 }
-                Invitations.update({_id: this._id}, {$set: {status: 2}});
+                Meteor.call('createActElUserInvitationDeclined', this.productId, Meteor.userId(), this.role, (error) => {
+                    if (error) {
+                        throwAlert('error', error.reason, error.details);
+                        return;
+                    }
+                    Invitations.update({_id: this._id}, {$set: {status: 2}});
+                });
             });
         }
     }
