@@ -39,7 +39,8 @@ Meteor.publish('userProductAuthor', function (productSlug) {
             'profile.firstName': 1,
             'profile.lastName': 1,
             'profile.online': 1,
-            'profile.color': 1
+            'profile.color': 1,
+            'roles': 1
         }
     });
     else this.ready();

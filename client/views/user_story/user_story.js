@@ -51,8 +51,8 @@ Template.userStory.onRendered(function () {
         advancedMode = Products.findOne({_id: this.data.productId}).advancedMode,
         product = Products.findOne({_id: this.data.productId}),
         storyId;
-    if (Roles.userIsInRole(Meteor.user(), [this.data.productId], 'productOwner') || !product.advancedMode) {
         storyId = this.data._id;
+
         storyTitleEditableSelector.editable({
             display: false,
             placement: 'right',
@@ -144,7 +144,6 @@ Template.userStory.onRendered(function () {
                 }
             });
         }
-    }
     var data = Template.instance().data;
     if (data && data.isDrag) REDIPS.drag.init();
     var userStoryId = this.data._id;
