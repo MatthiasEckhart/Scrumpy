@@ -1,15 +1,15 @@
 "use strict";
 
-Template.productHistory.rendered = function () {
-    var routerStartDate = moment(Router.current().params.startDate).toDate(),
-        routerEndDate = moment(Router.current().params.endDate).toDate(), selectedSprint;
+Template.productHistory.onRendered(function () {
+    var routerStartDate = moment.utc(Router.current().params.startDate).toDate(),
+        routerEndDate = moment.utc(Router.current().params.endDate).toDate(), selectedSprint;
     if (routerStartDate && routerEndDate) {
         selectedSprint = Sprints.findOne({startDate: routerStartDate, endDate: routerEndDate});
         if (selectedSprint) {
             $(getProductHistorySelectorString(selectedSprint._id)).addClass('disabled');
         }
     }
-};
+});
 
 Template.productHistory.helpers({
     sprints: function () {
@@ -38,41 +38,7 @@ Template.productHistory.helpers({
     }
 });
 
-Template.productHistory.events({
-    'click #activate-sprint': function (e) {
-        e.preventDefault();
-        var selectorForSelectedElement = $(getSelectMultipleSprintElementSelectorString()),
-            len = selectorForSelectedElement.length,
-            sprintId,
-            sprint;
-        if (len == 1) {
-            sprintId = selectorForSelectedElement.val();
-            sprint = Sprints.findOne({_id: sprintId});
-            if (sprint) {
-                $('#activate-sprint').addClass('disabled');
-                selectorForSelectedElement.removeClass('selected');
-                $(getProductHistorySelectorString(sprintId)).addClass('disabled');
-                Router.go('taskBoardPage', {
-                    slug: this.slug,
-                    startDate: moment(sprint.startDate).format('YYYY-MM-DD'),
-                    endDate: moment(sprint.endDate).format('YYYY-MM-DD')
-                });
-            }
-        } else {
-            throwAlert('error', 'Ops!', 'Something went wrong.');
-        }
-    }
-});
-
 function formatDate(date, isUrl) {
     if (isUrl) return moment(date).format('YYYY-MM-DD');
     return moment(date).format('MMMM D, YYYY');
-}
-
-function getProductHistorySelectorString(sprintId) {
-    return '#select-multiple-product-history option[value=' + sprintId + ']';
-}
-
-function getSelectMultipleSprintElementSelectorString() {
-    return 'option.select-multiple-sprint-element.selected';
 }

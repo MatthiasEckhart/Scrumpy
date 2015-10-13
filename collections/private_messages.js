@@ -47,28 +47,3 @@ PrivateMessages.attachSchema(new SimpleSchema({
         }
     }
 }));
-
-createPrivateMessageNotification = function (slug, userId) {
-    if (Meteor.isServer) {
-        var pm = PrivateMessages.findOne({slug: slug}),
-            participantsIds,
-            newParticipants,
-            notificationId;
-        if (Notifications.find({pmId: pm._id}).count() > 0) {
-            Notifications.update({pmId: pm._id}, {$set: {userId: userId, submitted: new Date}});
-        } else {
-            participantsIds = PrivateMessages.findOne({_id: pm._id}).participants;
-            newParticipants = _.without(participantsIds, userId);
-            if (newParticipants.length > 0) {
-                notificationId = Notifications.insert({
-                    userId: userId,
-                    pmId: pm._id,
-                    pmSubject: pm.subject,
-                    type: 1,
-                    submitted: new Date()
-                });
-                Users.update({_id: {$in: newParticipants}}, {$push: {notifications: notificationId}}, {multi: true});
-            }
-        }
-    }
-};

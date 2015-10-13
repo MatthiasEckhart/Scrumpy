@@ -6,7 +6,7 @@ Template.settingsPage.helpers({
     }
 });
 
-Template.settingsPage.rendered = function () {
+Template.settingsPage.onRendered(function () {
     var colorpickerEl = $('select[name="colorpicker-bootstrap3-form"]');
     colorpickerEl.simplecolorpicker();
     colorpickerEl.simplecolorpicker('selectColor', this.data.profile.color);
@@ -20,4 +20,4 @@ Template.settingsPage.rendered = function () {
             }
         });
     });
-};
+});

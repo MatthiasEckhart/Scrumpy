@@ -1,6 +1,6 @@
 "use strict";
 
-Template.productDashboardBarChart.rendered = function () {
+Template.productDashboardBarChart.onRendered(function () {
     var productId = this.data._id;
     Tracker.autorun(function () {
         var countData = [], toDoCount, startedCount, verifyCount, doneCount, data, storyIdsObj, storyIds, sprint;
@@ -57,4 +57,4 @@ Template.productDashboardBarChart.rendered = function () {
             }
         });
     });
-};
+});

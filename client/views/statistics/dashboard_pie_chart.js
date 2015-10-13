@@ -1,6 +1,6 @@
 "use strict";
 
-Template.dashboardPieChart.rendered = function () {
+Template.dashboardPieChart.onRendered(function () {
     var dashStats = DashboardStatistics.findOne();
     if (dashStats) {
         Tracker.autorun(function () {
@@ -41,4 +41,4 @@ Template.dashboardPieChart.rendered = function () {
             });
         });
     }
-};
+});

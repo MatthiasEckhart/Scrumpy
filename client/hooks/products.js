@@ -44,5 +44,5 @@ var updateProductHooks = {
     }
 };
 
-AutoForm.addHooks('insert-products-form', insertProductHooks);
-AutoForm.addHooks('update-products-form', updateProductHooks);
+AutoForm.addHooks('insert-product-form', insertProductHooks);
+AutoForm.addHooks('update-product-form', updateProductHooks);

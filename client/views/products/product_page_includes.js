@@ -14,8 +14,8 @@ Template.productPageIncludes.events({
         });
         Router.go('taskBoardPage', {
             slug: this.slug,
-            startDate: moment(sprint.startDate).format('YYYY-MM-DD'),
-            endDate: moment(sprint.endDate).format('YYYY-MM-DD')
+            startDate: moment.utc(sprint.startDate).format('YYYY-MM-DD'),
+            endDate: moment.utc(sprint.endDate).format('YYYY-MM-DD')
         });
     }
 });

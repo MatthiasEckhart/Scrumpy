@@ -1,6 +1,6 @@
 "use strict";
 
-Template.newSticky.rendered = function () {
+Template.newSticky.onRendered(function () {
     var parentDataContext = Template.parentData(1),
         storyId = this.data._id,
         newStickyEditableSelector = $('#new-sticky-' + storyId);
@@ -58,7 +58,7 @@ Template.newSticky.rendered = function () {
             }
         }
     });
-};
+});
 
 // x-editable custom field for new sticky button
 (function($) {

@@ -1,3 +1,5 @@
+"use strict";
+
 Comments.before.insert(function (userId, doc) {
     updateLastModifiedForProduct(doc.productId);
 });

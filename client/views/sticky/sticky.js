@@ -1,6 +1,6 @@
 "use strict";
 
-Template.sticky.rendered = function () {
+Template.sticky.onRendered(function () {
     var assignStickyToEditableSelector = this.$("#assign-sticky-to-" + this.data._id),
         stickyTitleEditableSelector = this.$("#editable-sticky-title-" + this.data._id),
         stickyDescriptionEditableSelector = this.$("#editable-sticky-description-" + this.data._id),
@@ -212,7 +212,7 @@ Template.sticky.rendered = function () {
             return $("#popover-content-" + stickyId).html();
         }
     });
-};
+});
 
 Template.sticky.events({
     'click .delete-sticky': function (e) {

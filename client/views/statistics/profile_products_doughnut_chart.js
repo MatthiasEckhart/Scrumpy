@@ -1,6 +1,6 @@
 "use strict";
 
-Template.profileProductsDoughnutChart.rendered = function () {
+Template.profileProductsDoughnutChart.onRendered(function () {
     var userId = this.data._id;
     Tracker.autorun(function () {
         var productIdsArr = _.union(Roles.getRolesForUser(userId, "developmentTeam"), Roles.getRolesForUser(userId, "productOwner"), Roles.getRolesForUser(userId, "scrumMaster"), Roles.getRolesForUser(userId, "administrator")),
@@ -36,4 +36,4 @@ Template.profileProductsDoughnutChart.rendered = function () {
             }
         });
     });
-};
+});

@@ -1,115 +1,115 @@
 "use strict";
 
-Template.sprint.rendered = function () {
+Template.sprint.onRendered(function () {
     REDIPS.drag.init();
     var sprintId = this.data._id,
         productId = this.data.productId;
-    if (Roles.userIsInRole(Meteor.user(), [productId], 'scrumMaster')) {
-        $('.editable-sprint-goal').editable({
-            display: false,
-            title: "Update sprint goal",
-            validate: function (value) {
-                if ($.trim(value) === '') {
-                    return 'Please fill in a sprint goal.';
-                }
-            },
-            success: function (response, newValue) {
-                if (newValue) {
-                    var oldSprintGoal = Sprints.findOne({_id: sprintId}).goal;
-                    Sprints.update({_id: sprintId}, {$set: {goal: newValue}});
-                    throwAlert('success', 'Yes!', 'Sprint goal edited.');
-                    Meteor.call('createActElSprintEditGoal', productId, Meteor.user()._id, oldSprintGoal, newValue, function (error) {
-                        if (error) {
-                            throwAlert('error', error.reason, error.details);
-                            return null;
-                        }
-                    });
-                }
+    $('.editable-sprint-goal').editable({
+        display: false,
+        title: "Update sprint goal",
+        validate: function (value) {
+            if ($.trim(value) === '') {
+                return 'Please fill in a sprint goal.';
             }
-        });
-        $('.editable-sprint-start-date').editable({
-            display: false,
-            title: "Update sprint start date",
-            format: 'yyyy-mm-dd',
-            datepicker: {
-                weekStart: 1
-            },
-            validate: function (value) {
-                if ($.trim(value) === '') {
-                    return 'Please fill in a sprint start date.';
-                }
-                if (moment(value).isAfter(Sprints.findOne({_id: sprintId}).endDate)) {
-                    return 'Sprint start date is after end date.';
-                }
-            },
-            success: function (response, newValue) {
-                if (newValue) {
-                    var oldSprintStartDate = Sprints.findOne({_id: sprintId}).startDate;
-                    Sprints.update({_id: sprintId}, {$set: {startDate: newValue}});
-                    throwAlert('success', 'Yes!', 'Sprint start date edited.');
-                    Meteor.call('createActElSprintEditStartDate', productId, Meteor.user()._id, oldSprintStartDate, newValue, function (error) {
-                        if (error) {
-                            throwAlert('error', error.reason, error.details);
-                            return null;
-                        }
-                    });
-                }
+        },
+        success: function (response, newValue) {
+            if (newValue) {
+                var oldSprintGoal = Sprints.findOne({_id: sprintId}).goal;
+                Sprints.update({_id: sprintId}, {$set: {goal: newValue}});
+                throwAlert('success', 'Yes!', 'Sprint goal edited.');
+                Meteor.call('createActElSprintEditGoal', productId, Meteor.user()._id, oldSprintGoal, newValue, function (error) {
+                    if (error) {
+                        throwAlert('error', error.reason, error.details);
+                        return null;
+                    }
+                });
             }
-        });
-        $('.editable-sprint-end-date').editable({
-            display: false,
-            title: "Update sprint end date",
-            format: 'yyyy-mm-dd',
-            datepicker: {
-                weekStart: 1
-            },
-            validate: function (value) {
-                if ($.trim(value) === '') {
-                    return 'Please fill in a sprint end date.';
-                }
-                if (moment(value).isBefore(Sprints.findOne({_id: sprintId}).startDate)) {
-                    return 'Sprint end date is before end date.';
-                }
-            },
-            success: function (response, newValue) {
-                if (newValue) {
-                    var oldSprintEndDate = Sprints.findOne({_id: sprintId}).endDate;
-                    Sprints.update({_id: sprintId}, {$set: {endDate: newValue}});
-                    throwAlert('success', 'Yes!', 'Sprint end date edited.');
-                    Meteor.call('createActElSprintEditEndDate', productId, Meteor.user()._id, oldSprintEndDate, newValue, function (error) {
-                        if (error) {
-                            throwAlert('error', error.reason, error.details);
-                            return null;
-                        }
-                    });
-                }
+        }
+    });
+    $('.editable-sprint-start-date').editable({
+        display: false,
+        title: "Update sprint start date",
+        format: 'yyyy-mm-dd',
+        datepicker: {
+            weekStart: 1
+        },
+        validate: function (value) {
+            if ($.trim(value) === '') {
+                return 'Please fill in a sprint start date.';
             }
-        });
-    }
-};
+            if (moment(value).isAfter(Sprints.findOne({_id: sprintId}).endDate)) {
+                return 'Sprint start date is after end date.';
+            }
+        },
+        success: function (response, newValue) {
+            if (newValue) {
+                var oldSprintStartDate = Sprints.findOne({_id: sprintId}).startDate;
+                Sprints.update({_id: sprintId}, {$set: {startDate: newValue}});
+                throwAlert('success', 'Yes!', 'Sprint start date edited.');
+                Meteor.call('createActElSprintEditStartDate', productId, Meteor.user()._id, oldSprintStartDate, newValue, function (error) {
+                    if (error) {
+                        throwAlert('error', error.reason, error.details);
+                        return null;
+                    }
+                });
+            }
+        }
+    });
+    $('.editable-sprint-end-date').editable({
+        display: false,
+        title: "Update sprint end date",
+        format: 'yyyy-mm-dd',
+        datepicker: {
+            weekStart: 1
+        },
+        validate: function (value) {
+            if ($.trim(value) === '') {
+                return 'Please fill in a sprint end date.';
+            }
+            if (moment(value).isBefore(Sprints.findOne({_id: sprintId}).startDate)) {
+                return 'Sprint end date is before end date.';
+            }
+        },
+        success: function (response, newValue) {
+            if (newValue) {
+                var oldSprintEndDate = Sprints.findOne({_id: sprintId}).endDate;
+                Sprints.update({_id: sprintId}, {$set: {endDate: newValue}});
+                throwAlert('success', 'Yes!', 'Sprint end date edited.');
+                Meteor.call('createActElSprintEditEndDate', productId, Meteor.user()._id, oldSprintEndDate, newValue, function (error) {
+                    if (error) {
+                        throwAlert('error', error.reason, error.details);
+                        return null;
+                    }
+                });
+            }
+        }
+    });
+});
 
 Template.sprint.helpers({
     userStories: function () {
         return UserStories.find({
             sprintId: this._id,
             priority: {$exists: true}
-        }, {sort: {priority: 1}}).map(function (userStory) {
+        }, {sort: {priority: 1}}).map((userStory) => {
             userStory.isDrag = true;
             return userStory;
         });
     },
-    sumBusinessValue: function() {
-        var sumBusinessValue = 0;
-        UserStories.find({sprintId: this._id, businessValue: {$exists: true}}).forEach(function(story) {
-            sumBusinessValue += parseInt(story.businessValue);
-        });
+    sumBusinessValue: function () {
+        let sumBusinessValue = 0;
+        UserStories.find({
+            sprintId: this._id,
+            businessValue: {$exists: true}
+        }).forEach((story) => sumBusinessValue += parseInt(story.businessValue));
         return sumBusinessValue;
     },
-    sumStoryPoints: function() {
-        var sumStoryPoints = 0;
-        UserStories.find({sprintId: this._id, storyPoints: {$exists: true}}).forEach(function(story) {
-            sumStoryPoints += parseFloat(story.storyPoints);
-        });
+    sumStoryPoints: function () {
+        let sumStoryPoints = 0;
+        UserStories.find({
+            sprintId: this._id,
+            storyPoints: {$exists: true}
+        }).forEach((story) => sumStoryPoints += parseFloat(story.storyPoints));
         return sumStoryPoints;
     }
 });

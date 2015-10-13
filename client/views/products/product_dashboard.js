@@ -49,18 +49,18 @@ Template.productDashboard.helpers({
     }
 });
 
-Template.productDashboard.rendered = function () {
+Template.productDashboard.onRendered(function () {
     Session.set('activeNavTab', 'productDashboard');
     if (Session.equals('noSprintsError', true)) {
         throwAlert('error', 'Ooops!', 'You cannot access the task board, because there are no sprints!');
     }
     Session.set('showBarChartForCurrentSprint', true);
     Session.set('showBarChartForAllSprints', false);
-};
+});
 
-Template.productDashboard.destroyed = function () {
+Template.productDashboard.onDestroyed(function () {
     Session.set('noSprintsError', false);
-};
+});
 
 Template.productDashboard.events({
     'click input[name=showBarChartForCurrentSprint]': function () {

@@ -6,12 +6,11 @@ Meteor.methods({
     },
     deleteProduct: function (data) {
         var {productId, userId} = data,
-            product = Products.findOne({_id: productId}),
+            product = getProduct(productId),
             documentIds,
             db;
 
-        /* Do some server-side checks. */
-        if (!product) throw new Meteor.Error(500, "Product not found.", "Please contact support team.");
+        /* Do a server-side check. */
         if (product.userId != userId) throw new Meteor.Error(500, "Insufficient permissions.", "You are not allowed to delete this product");
 
         if (product.advancedMode) {
@@ -63,15 +62,11 @@ Meteor.methods({
 });
 
 Products.before.insert(function (userId, doc) {
-    var dashboardStats = DashboardStatistics.findOne();
+    let dashboardStats = DashboardStatistics.findOne();
     DashboardStatistics.update({_id: dashboardStats._id}, {$inc: {totalProducts: 1}});
 });
 
 Products.before.remove(function (userId, doc) {
-    var dashboardStats = DashboardStatistics.findOne();
+    let dashboardStats = DashboardStatistics.findOne();
     DashboardStatistics.update({_id: dashboardStats._id}, {$inc: {totalProducts: -1}});
 });
-
-updateLastModifiedForProduct = function (productId) {
-    Products.update({_id: productId}, {$set: {updatedAt: new Date()}});
-};

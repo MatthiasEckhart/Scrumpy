@@ -1,6 +1,6 @@
 "use strict";
 
-Template.dashboard.rendered = function () {
+Template.dashboard.onRendered(function () {
     Session.set('activeNavTab', 'dashboard');
     if (Session.equals("loginSuccess", true)) {
         throwAlert('success', 'Howdy!', 'Welcome back to Scrumpy!');
@@ -16,8 +16,8 @@ Template.dashboard.rendered = function () {
         throwAlert('success', 'Work done!', 'You changed your password successfully.');
         Session.set('changePasswordSuccess', false);
     }
-};
+});
 
-Template.dashboard.destroyed = function () {
+Template.dashboard.onDestroyed(function () {
     Session.set('activeNavTab', null);
-};
+});

@@ -14,10 +14,10 @@ Template.activityStreamElement.helpers({
         return (this.role == 2) ? "Scrum Master" :  "part of the development team";
     },
     sprintStartDate: function () {
-        return moment(this.sprintStartDate).format('YYYY-MM-DD');
+        return moment.utc(this.sprintStartDate).format('YYYY-MM-DD');
     },
     sprintEndDate: function () {
-        return moment(this.sprintEndDate).format('YYYY-MM-DD');
+        return moment.utc(this.sprintEndDate).format('YYYY-MM-DD');
     },
     stickyStatusFormatted: function (type) {
         var status = 0;

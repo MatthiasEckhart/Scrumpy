@@ -30,13 +30,13 @@ Template.editAvatar.helpers({
     }
 });
 
-Template.editAvatar.rendered = function () {
+Template.editAvatar.onRendered(function () {
     saveAvatarButton = $('#save-avatar-button');
     realImage = this.find('#real-img');
     displayImage = $('#avatar-img');
     Session.set('removeAvatar', false);
     Session.set('changeAvatar', false);
-};
+});
 
 Template.editAvatar.events({
     "change input[name=image-upload]": function (e, t) {

@@ -102,11 +102,11 @@ UI.registerHelper('userIsScrumMaster', function (template) {
 });
 
 UI.registerHelper('sprintStartDateFormatted', function () {
-    return moment(this.startDate).format('YYYY-MM-DD');
+    return moment.utc(this.startDate).format('YYYY-MM-DD');
 });
 
 UI.registerHelper('sprintEndDateFormatted', function () {
-    return moment(this.endDate).format('YYYY-MM-DD');
+    return moment.utc(this.endDate).format('YYYY-MM-DD');
 });
 
 UI.registerHelper('fullName', function () {
@@ -123,17 +123,6 @@ UI.registerHelper('userIsProductOwner', function (template) {
     }
     return Roles.userIsInRole(Meteor.user(), [productId], 'productOwner');
 });
-
-operateDatepicker = function (datepickerStatus, selector) {
-    if (!datepickerStatus) {
-        $(selector).datepicker("show");
-        datepickerStatus = true;
-    } else {
-        $(selector).datepicker("hide");
-        datepickerStatus = false;
-    }
-    return datepickerStatus;
-};
 
 isNotEmpty = function (selector, value) {
     if (value && value !== '') {
@@ -206,6 +195,13 @@ getRouteSlug = function () {
 
 productIsAdvancedModeStartDateEndDate = function (advancedMode) {
     return advancedMode && Router.current().params.startDate && Router.current().params.endDate;
+};
+
+getSprintId = function (productId, routerStartDate, routerEndDate) {
+    if (productId && routerStartDate && routerEndDate) {
+        var sprint = Sprints.findOne({productId: productId, startDate: routerStartDate, endDate: routerEndDate});
+        if (sprint) return sprint._id;
+    }
 };
 
 function highlightWarningForRegisterPasswordFields() {

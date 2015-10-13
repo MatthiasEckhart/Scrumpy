@@ -1,11 +1,5 @@
 "use strict";
 
-Template.editor.helpers({
-    docid: function () {
-        return Session.get("document");
-    }
-});
-
 Template.editor.events = {
     "keydown input[name=title]": function (e) {
         var id;
@@ -37,5 +31,8 @@ Template.editor.helpers({
             ace.setShowPrintMargin(false);
             return ace.getSession().setUseWrapMode(true);
         };
+    },
+    docid: function () {
+        return Session.get("document");
     }
 });

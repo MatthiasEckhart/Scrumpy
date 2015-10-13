@@ -1,6 +1,6 @@
 "use strict";
 
-Template.dashboardLineChart.rendered = function () {
+Template.dashboardLineChart.onRendered(function () {
     if (DashboardStatisticsPrivate.find().count() > 0) {
         Tracker.autorun(function () {
             var labels = [], dataProduct1 = [], products = Products.find({}, {sort: {lastModified: -1}, limit: 1}).fetch(), product1 = products[0], dashboardStatsPrivate1, dateObj, i, data, lineChart, ctx, mom, effort;
@@ -58,7 +58,7 @@ Template.dashboardLineChart.rendered = function () {
             }
         });
     }
-};
+});
 
 function getEffortForDashboardStatsPrivate(dashboardStats, mom) {
     if (dashboardStats) {
@@ -72,6 +72,6 @@ function getEffortForDashboardStatsPrivate(dashboardStats, mom) {
     return 0;
 }
 
-Template.dashboardLineChart.destroyed = function () {
+Template.dashboardLineChart.onDestroyed(function () {
     Session.set("productStat", null);
-};
+});

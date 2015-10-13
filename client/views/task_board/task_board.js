@@ -5,7 +5,10 @@ var storyId, productId, routerStartDate, routerEndDate;
 Template.taskBoard.helpers({
     userStories: function () {
         if (productIsAdvancedModeStartDateEndDate(this.advancedMode)) {
-            return UserStories.find({productId: this._id, sprintId: getSprintId(this._id)}, {sort: {priority: 1}});
+            return UserStories.find({
+                productId: this._id,
+                sprintId: getSprintId(this._id, routerStartDate, routerEndDate)
+            }, {sort: {priority: 1}});
         }
         return UserStories.find({productId: this._id});
     },
@@ -17,10 +20,17 @@ Template.taskBoard.helpers({
             userStoryIdsArr;
         if (productIsAdvancedModeStartDateEndDate(this.advancedMode)) {
             userStoryIdsArr = [];
-            UserStories.find({productId: this._id, sprintId: getSprintId(this._id)}).forEach(function (story) {
-               userStoryIdsArr.push(story._id);
+            UserStories.find({
+                productId: this._id,
+                sprintId: getSprintId(this._id, routerStartDate, routerEndDate)
+            }).forEach(function (story) {
+                userStoryIdsArr.push(story._id);
             });
-            Stickies.find({productId: this._id, storyId: {$in: userStoryIdsArr}, status: parseInt(type, 10)}).forEach(function (sticky) {
+            Stickies.find({
+                productId: this._id,
+                storyId: {$in: userStoryIdsArr},
+                status: parseInt(type, 10)
+            }).forEach(function (sticky) {
                 sumEffort += parseInt(sticky.effort, 10);
             });
         } else {
@@ -32,14 +42,14 @@ Template.taskBoard.helpers({
     }
 });
 
-Template.taskBoard.created = function () {
+Template.taskBoard.onCreated(function () {
     if (productIsAdvancedModeStartDateEndDate(this.data.advancedMode)) {
-        routerStartDate = moment(Router.current().params.startDate).toDate();
-        routerEndDate = moment(Router.current().params.endDate).toDate();
+        routerStartDate = moment.utc(Router.current().params.startDate).toDate();
+        routerEndDate = moment.utc(Router.current().params.endDate).toDate();
     }
-};
+});
 
-Template.taskBoard.rendered = function () {
+Template.taskBoard.onRendered(function () {
     var productId = this.data._id;
     $('#new-user-story-editable').editable({
         title: 'New user story',
@@ -67,20 +77,12 @@ Template.taskBoard.rendered = function () {
             }
         }
     });
-};
-
-function getSprintId(productId) {
-    var sprint = Sprints.findOne({productId: productId, startDate: routerStartDate, endDate: routerEndDate});
-    if (sprint) {
-        return sprint._id;
-    }
-    return null;
-}
+});
 
 // x-editable custom field for new user story button
-(function($) {
+(function ($) {
 
-    var UserStory = function(options) {
+    var UserStory = function (options) {
         this.init('userStory', options, UserStory.defaults);
     };
 
@@ -93,7 +95,7 @@ function getSprintId(productId) {
 
          @method render()
          **/
-        render: function() {
+        render: function () {
             this.$input = this.$tpl.find('input');
         },
 
@@ -102,7 +104,7 @@ function getSprintId(productId) {
 
          @method value2html(value, element)
          **/
-        value2html: function(value, element) {
+        value2html: function (value, element) {
             if (!value) {
                 $(element).empty();
                 return;
@@ -117,7 +119,7 @@ function getSprintId(productId) {
 
          @method value2str(value)
          **/
-        value2str: function(value) {
+        value2str: function (value) {
             var str = '';
             if (value) {
                 for (var k in value) {
@@ -133,7 +135,7 @@ function getSprintId(productId) {
          @method value2input(value)
          @param {mixed} value
          **/
-        value2input: function(value) {
+        value2input: function (value) {
             if (!value) {
                 return;
             }
@@ -146,7 +148,7 @@ function getSprintId(productId) {
 
          @method input2value()
          **/
-        input2value: function() {
+        input2value: function () {
             return {
                 title: this.$input.filter('[name="title"]').val(),
                 description: this.$input.filter('[name="description"]').val()
@@ -158,7 +160,7 @@ function getSprintId(productId) {
 
          @method activate()
          **/
-        activate: function() {
+        activate: function () {
             this.$input.filter('[name="title"]').focus();
         },
 
@@ -167,8 +169,8 @@ function getSprintId(productId) {
 
          @method autosubmit()
          **/
-        autosubmit: function() {
-            this.$input.keydown(function(e) {
+        autosubmit: function () {
+            this.$input.keydown(function (e) {
                 if (e.which === 13) {
                     $(this).closest('form').submit();
                 }

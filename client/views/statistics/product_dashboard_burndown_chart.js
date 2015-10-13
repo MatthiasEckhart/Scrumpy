@@ -1,6 +1,6 @@
 "use strict";
 
-Template.productDashboardBurndownChart.rendered = function () {
+Template.productDashboardBurndownChart.onRendered(function () {
     var productId = this.data._id;
     Tracker.autorun(function () {
         var sprint = Sprints.findOne({
@@ -34,14 +34,14 @@ Template.productDashboardBurndownChart.rendered = function () {
                 actualEffort.pop();
             }
             burndownData = Burndown.findOne({sprintId: sprint._id});
-            daysDiff = moment(endDate).diff(moment(startDate), 'days');
+            daysDiff = moment.utc(endDate).diff(moment.utc(startDate), 'days');
 
             for (i = 0; i < daysDiff; i++) {
                 if (i !== 0 && i !== (daysDiff - 1)) {
                     idealEffortCounter -= (totalEstEffortInSprint / (daysDiff - 1));
                     idealEffort.push(idealEffortCounter);
                 }
-                labels.push(moment(startDate).add(i, 'days').format('L'));
+                labels.push(moment.utc(startDate).add(i, 'days').format('L'));
                 if (i === 0) {
                     idealEffort.push(idealEffortCounter);
                 }
@@ -51,11 +51,11 @@ Template.productDashboardBurndownChart.rendered = function () {
             if (burndownData && _.has(burndownData, 'data')) {
                 count = 0;
                 for (j = 0; j < burndownData.data.length; j++) {
-                    if (moment(burndownData.data[j].date).format('L') === moment(labels[j]).format('L')) {
+                    if (moment.utc(burndownData.data[j].date).format('L') === moment.utc(labels[j]).format('L')) {
                         actualEffort.push(burndownData.data[j].effort);
                         count++;
                     } else {
-                        while (moment(burndownData.data[j].date).format('L') !== moment(labels[count]).format('L')) {
+                        while (moment.utc(burndownData.data[j].date).format('L') !== moment.utc(labels[count]).format('L')) {
                             actualEffort.push(burndownData.data[j - 1].effort);
                             count++;
                         }
@@ -95,4 +95,4 @@ Template.productDashboardBurndownChart.rendered = function () {
             }
         }
     });
-};
+});

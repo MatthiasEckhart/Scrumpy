@@ -1,6 +1,6 @@
 "use strict";
 
-Template.profileActivityOverviewBarChart.rendered = function () {
+Template.profileActivityOverviewBarChart.onRendered(function () {
     var username = this.data.username, data;
     Tracker.autorun(function () {
         data = {
@@ -24,4 +24,4 @@ Template.profileActivityOverviewBarChart.rendered = function () {
             }
         });
     });
-};
+});

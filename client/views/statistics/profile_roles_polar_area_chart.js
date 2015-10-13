@@ -1,6 +1,6 @@
 "use strict";
 
-Template.profileRolesPolarAreaChart.rendered = function () {
+Template.profileRolesPolarAreaChart.onRendered(function () {
     var userId = this.data._id, data;
     Tracker.autorun(function () {
         data = [
@@ -37,4 +37,4 @@ Template.profileRolesPolarAreaChart.rendered = function () {
             }
         });
     });
-};
+});

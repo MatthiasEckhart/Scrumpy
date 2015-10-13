@@ -62,7 +62,7 @@ Template.dashboardContent.events({
     }
 });
 
-Template.dashboardContent.rendered = function () {
+Template.dashboardContent.onRendered(function () {
     this.autorun(function () {
         if (Template.currentData() && parseInt(DashboardStatistics.findOne().totalUsers, 10) && parseInt(DashboardStatistics.findOne().totalProducts, 10) && parseInt(DashboardStatistics.findOne().totalTasksDone, 10) && parseInt(DashboardStatistics.findOne().totalOrganizations, 10)) {
             $('.counter').counterUp({
@@ -71,4 +71,4 @@ Template.dashboardContent.rendered = function () {
             });
         }
     });
-};
+});
