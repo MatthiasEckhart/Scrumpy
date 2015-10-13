@@ -5,25 +5,17 @@
         </div>
         <div class="padding-20 margin-top-20">
             {{#autoForm collection="Products" id="update-product-form" type="update" doc=this}}
-                <div class="control-group">
-                    <div class="controls">
-                        <div class="input-group">
-                            {{> afQuickField name='title' placeholder='Name your product'}}
-                        </div>
-                    </div>
+                <div class="form-group">
+                    {{> afQuickField name='title' placeholder='Name your product'}}
                 </div>
                 {{#if advancedMode}}
-                    <div class="control-group">
-                        <div class="controls">
-                            {{> afQuickField name='vision' placeholder='Clear and stable vision of the product to be developed'}}
-                        </div>
+                    <div class="form-group">
+                        {{> afQuickField name='vision' placeholder='Clear and stable vision of the product to be developed'}}
                     </div>
                 {{/if}}
-                <div class="control-group">
-                    <div class="controls">
-                        <button id="submit-product-Update" type="submit" class="btn btn-primary">Submit</button>
-                        <a href="{{pathFor 'productDashboard'}}" class="btn btn-default btn-xs">Cancel</a>
-                    </div>
+                <div class="form-group">
+                    <button id="submit-product-Update" type="submit" class="btn btn-primary">Submit</button>
+                    <a href="{{pathFor 'productDashboard'}}" class="btn btn-default btn-xs">Cancel</a>
                 </div>
             {{/autoForm}}
             <button id="delete-product" type="button" class="btn btn-danger">Delete product</button>

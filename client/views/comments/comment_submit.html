@@ -1,18 +1,10 @@
 <template name="commentSubmit">
     <div class="control-group">
         {{#autoForm collection="Comments" id="insert-comment-form" type="insert" doc=this}}
-            <div class="control-group">
-                <div class="controls">
-                    <div class="input-group">
-                        {{> afQuickField name='body'}}
-                    </div>
-                </div>
+            <div class="form-group">
+                {{> afQuickField name='body'}}
             </div>
-            <div class="control-group">
-                <div class="controls">
-                    <button id="submit-product-create" type="submit" class="btn btn-primary">Add comment</button>
-                </div>
-            </div>
+            <button id="submit-product-create" type="submit" class="btn btn-primary">Add comment</button>
         {{/autoForm}}
     </div>
 </template>

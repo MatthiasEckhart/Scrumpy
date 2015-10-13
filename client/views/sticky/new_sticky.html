@@ -1,7 +1,5 @@
 <template name="newSticky">
     <div class="tooltip-wrapper">
-        <button id="new-sticky-{{_id}}" name="new-sticky" data-type="sticky"
-            class="btn btn-primary btn-block fa fa-plus new-sticky editable editable-click"
-            type="button"></button>
+        {{#afModal formId="insert-sticky-form" class="btn btn-primary btn-block fa fa-plus add-sticky" collection="Stickies" operation="insert" title="Create a new sticky"}}{{/afModal}}
     </div>
 </template>

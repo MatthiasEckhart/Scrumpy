@@ -17,12 +17,4 @@ var commentsInsertHooks = {
     }
 };
 
-var commentsUpdateHooks = {
-    onSuccess: function (formType, result) {
-        /* After comment has been successfully updated, we set our reactive var to false in order to hide the form. */
-        this.template.parent().isEditing.set(false);
-    }
-};
-
 AutoForm.addHooks('insert-comment-form', commentsInsertHooks);
-AutoForm.addHooks('update-comment-form', commentsUpdateHooks);

@@ -6,28 +6,17 @@
         <div class="padding-20 margin-top-20">
             {{#autoForm schema=userInvitationFormSchema id="insert-invitations-form" type="method" meteormethod="userInvitation" doc=this}}
                 {{#if advancedMode 'insert-products-form'}}
-                    <div class="control-group">
-                        <label class="control-label" for="mode">Scrum Master Team</label>
-
-                        <div class="controls">
-                            {{> afFieldInput name="scrumMaster" type="select2" multiple=true}}
-                        </div>
+                    <div class="form-group">
+                        <label for="scrumMaster">Scrum Master</label>
+                        {{> afFieldInput name="scrumMaster" type="select2" multiple=true}}
                     </div>
                 {{/if}}
-
-                <div class="control-group">
-                    <label class="control-label" for="mode">Development Team</label>
-
-                    <div class="controls">
-                        {{> afFieldInput name="developmentTeam" type="select2" multiple=true}}
-                    </div>
+                <div class="form-group">
+                    <label for="developmentTeam">Development Team</label>
+                    {{> afFieldInput name="developmentTeam" type="select2" multiple=true}}
                 </div>
-                <div class="control-group">
-                    <div class="controls">
-                        <button id="invite" type="submit" class="btn btn-primary">Invite</button>
-                        <button id="skip" type="button" class="btn btn-default btn-xs">{{textForCancelButton}}</button>
-                    </div>
-                </div>
+                <button id="invite" type="submit" class="btn btn-primary">Invite</button>
+                <button id="skip" type="button" class="btn btn-default btn-xs">{{textForCancelButton}}</button>
             {{/autoForm}}
         </div>
 

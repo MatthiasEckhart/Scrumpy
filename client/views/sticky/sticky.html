@@ -1,43 +1,33 @@
 <template name="sticky">
     <div class="panel panel-default sticky-element drag" id="{{_id}}">
         <div class="panel-heading" style="background-color: {{assigneeColor}}">
-            <h3 class="panel-title" id="editable-sticky-title-{{_id}}" data-type="text"
-                data-placeholder="Enter text" data-emptytext="Click to enter text"
-                data-pk="{{_id}}">{{titleShort 'sticky'}}</h3>
+            <h3 class="panel-title">{{titleShort 'sticky'}}</h3>
         </div>
         <div class="panel-body">
-            <p id="editable-sticky-description-{{_id}}" data-type="textarea" data-placeholder="Enter text"
-               data-row="2" data-pk="{{_id}}">{{description}}</p>
-            <a href="#" id="editable-sticky-effort-{{_id}}" data-type="select"
-               data-placeholder="Enter estimated effort" data-value="{{effort}}" data-pk="{{_id}}"></a> h
+            <p>{{description}}</p>
             <br/>
-            <span class="assigned-to">Assigned to: </span>
-            <a href="#" data-type="select" id="assign-sticky-to-{{_id}}" data-value="{{assigneeId}}"
-               data-pk="{{_id}}"></a>
-            {{#if noAvatar 'assignee'}}
-                {{#with user}}
-                    <a href="{{pathFor 'profilePage'}}"><img src="{{defaultAvatar}}" alt="{{currentUserUsername}}"
-                                                             width="30" height="30"/></a>
-                {{/with}}
-            {{else}}
-                {{#with user}}
-                    <a href="{{pathFor 'profilePage'}}"><img src="{{avatar}}" alt="{{currentUserUsername}}"
-                                                             width="30" height="30"/></a>
-                {{/with}}
-            {{/if}}
-
+            {{#with user}}
+                <a href="{{pathFor 'profilePage'}}"><img src="{{avatar}}" alt="{{username}}"
+                                                         width="30" height="30"/></a>
+            {{/with}}
             <div class="sticky-footer">
                 <div class="sticky-controls">
                     <div class="control-wrapper">
                         <button class="fa fa-remove btn btn-danger btn-xs delete-sticky nodrag"></button>
+                        {{#afModal formId="update-sticky-form" class="fa fa-pencil btn btn-warning btn-xs edit-sticky nodrag" collection="Stickies" operation="update" title="Update sticky" doc=_id}}{{/afModal}}
                         <button id="show-info-sticky-{{_id}}"
                                 class="fa fa-info-circle btn btn-default btn-xs show-info-sticky nodrag"></button>
                         <div id="popover-content-{{_id}}" style="display: none">
                             <p>
-                                <b>Author:</b> {{author}}<br/>
-                                <b>Last moved:</b> {{lastMoved}}<br/>
-                                <b>Last edited:</b> {{lastEdited}}<br/>
-                                <b>Created:</b> {{submitted}}<br/>
+                                <b>Created by:</b> {{userIdFormatted}}<br/>
+                                {{#if _.has this 'assigneeId'}}<b>Assigned to:</b> {{assigneeIdFormatted}}<br/>{{/if}}
+                                {{#if _.has this 'lastMovedBy'}}<b>Last moved by:</b> {{lastMovedByFormatted}}
+                                    <br/>{{/if}}
+                                {{#if _.has this 'lastEditedBy'}}<b>Last edited by:</b> {{lastEditedByFormatted}}
+                                    <br/>{{/if}}
+                                <b>Created at:</b> {{createdAt}}<br/>
+                                {{#if _.has this 'updatedAt'}}<b>Updated at:</b> {{updatedAt}}<br/>{{/if}}
+                                <b>Effort:</b> {{effort}} h<br/>
                             </p>
                         </div>
                     </div>

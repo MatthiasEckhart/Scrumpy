@@ -5,33 +5,19 @@
         </div>
         <div class="padding-20 margin-top-20">
             {{#autoForm collection="Products" id="insert-product-form" type="insert"}}
-                <div class="control-group">
-                    <div class="controls">
-                        <div class="input-group">
-                            {{> afQuickField name='title' placeholder='Name your product'}}
-                        </div>
-                    </div>
+                <div class="form-group">
+                    {{> afQuickField name='title' placeholder='Name your product'}}
                 </div>
-                <div class="control-group">
-                    <label class="control-label" for="mode">Advanced mode</label>
-
-                    <div class="controls">
-                        {{> afQuickField name='advancedMode'}}
-                    </div>
+                <div class="form-group">
+                    {{> afQuickField name='advancedMode'}}
                 </div>
-                {{#if advancedMode 'insert-products-form'}}
-                    <div class="control-group">
-                        <div class="controls">
-                            {{> afQuickField name='vision' placeholder='Clear and stable vision of the product to be developed'}}
-                        </div>
+                {{#if advancedMode 'insert-product-form'}}
+                    <div class="form-group">
+                        {{> afQuickField name='vision' placeholder='Clear and stable vision of the product to be developed'}}
                     </div>
                 {{/if}}
-                <div class="control-group">
-                    <div class="controls">
-                        <button id="submit-product-create" type="submit" class="btn btn-primary">Submit</button>
-                        <a href="{{pathFor 'dashboard'}}" class="btn btn-default btn-xs">Cancel</a>
-                    </div>
-                </div>
+                <button id="submit-product-create" type="submit" class="btn btn-primary">Submit</button>
+                <a href="{{pathFor 'dashboard'}}" class="btn btn-default btn-xs">Cancel</a>
             {{/autoForm}}
         </div>
     </div>

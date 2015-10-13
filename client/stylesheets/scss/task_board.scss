@@ -1,13 +1,3 @@
-.editableform {
-  .form-control {
-    height: 26px !important;
-  }
-  option {
-    padding: 3px;
-    -moz-appearance: none !important;
-  }
-}
-
 select:-moz-focusring {
   color: transparent;
   text-shadow: 0 0 0 #000;
@@ -79,30 +69,9 @@ td {
   }
 }
 
-#new-user-story-editable {
+.add-user-story {
   display: block;
   margin: 15px auto;
-}
-
-input {
-  color: #656D78;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  border: none;
-}
-
-.editableform .form-control {
-  height: 60px;
-  -webkit-border-radius: 4px !important;
-  -moz-border-radius: 4px !important;
-  border-radius: 4px !important;
-  -moz-background-clip: padding !important;
-  -webkit-background-clip: padding-box !important;
-  background-clip: padding-box !important;
 }
 
 .table-header {
@@ -125,48 +94,6 @@ input {
   }
 }
 
-/* labels */
-
-div {
-  &.editable-user-story {
-    &:nth-child(1) > label:nth-child(1) > span:nth-child(1), &:nth-child(2) > label:nth-child(1) > span:nth-child(1) {
-      font-size: 0.85em !important;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-    }
-  }
-  &.editable-sticky {
-    &:nth-child(1) > label:nth-child(1) > span:nth-child(1), &:nth-child(2) > label:nth-child(1) > span:nth-child(1), &:nth-child(3) > label:nth-child(1) > span:nth-child(1) {
-      font-size: 0.85em !important;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-    }
-  }
-  &.editable-user-story {
-    &:nth-child(1) > label:nth-child(1) > input:nth-child(2), &:nth-child(2) > label:nth-child(1) > input:nth-child(2) {
-      color: black;
-      padding-left: 10px;
-      font-size: 0.8em;
-      font-weight: 500;
-      height: 18px;
-    }
-  }
-  &.editable-sticky {
-    &:nth-child(1) > label:nth-child(1) > input:nth-child(2), &:nth-child(2) > label:nth-child(1) > input:nth-child(2) {
-      color: black;
-      padding-left: 10px;
-      font-size: 0.8em;
-      font-weight: 500;
-      height: 18px;
-    }
-  }
-}
-
-/* input */
-
-.editable-cancel, .editable-submit {
-  height: 25px;
-  width: 35px;
-}
-
 .glyphicon-ok {
   top: -2px;
   font-size: 1.1em;
@@ -175,10 +102,6 @@ div {
 i.glyphicon-remove {
   top: -1px;
   font-size: 1.1em;
-}
-
-.editable {
-  border: none !important;
 }
 
 #control-project-task-board {

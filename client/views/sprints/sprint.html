@@ -1,26 +1,27 @@
 <template name="sprint">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title editable-sprint-goal" data-type="text" data-placeholder="Enter text">{{goal}}</h3>
+            <h3 class="panel-title">{{goal}}</h3>
+
             <div class="sprint-date">
-                <span class="panel-title text-info editable-sprint-start-date" data-type="date">{{sprintStartDateFormatted}}</span>
-                <span> - </span>
-                <span class="panel-title ext-info editable-sprint-end-date" data-type="date">{{sprintEndDateFormatted}}</span>
+                <span class="panel-title text-info" data-type="date">{{sprintStartDateFormatted}} - {{sprintEndDateFormatted}}</span>
             </div>
 
             <span class="text-info">Total business value: {{sumBusinessValue}}</span>
-            <br />
+            <br/>
             <span class="text-info">Total story points: {{sumStoryPoints}}</span>
-                <button class="btn btn-danger btn-xs delete-sprint">Delete sprint</button>
+            <button class="btn btn-danger btn-xs fa fa-trash delete-sprint"></button>
+            {{#afModal formId="update-sprint-form" class="btn btn-warning btn-xs fa fa-pencil edit-sprint" collection="Sprints" operation="update" title="Update sprint" doc=_id}}{{/afModal}}
+
         </div>
         <div class="panel-body">
             <table>
                 <tr>
                     <td id="{{_id}}" class="user-story-sprint" style="width: 100px; height: 100px;">
                         {{#each userStories}}
-                        <span class="story-priority">
-                            {{priority}}
-                        </span>
+                            <span class="story-priority">
+                                {{priority}}
+                            </span>
                             {{> userStory}}
                         {{/each}}
                     </td>

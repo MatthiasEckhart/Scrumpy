@@ -204,6 +204,12 @@ getSprintId = function (productId, routerStartDate, routerEndDate) {
     }
 };
 
+getUsername = function (userId) {
+    let user = Users.findOne({_id: userId});
+    if (user) return user.username;
+    else return "Anonymous";
+};
+
 function highlightWarningForRegisterPasswordFields() {
     highlightWarningForField('#register-password');
     highlightWarningForField('#register-password-confirm');

@@ -67,6 +67,7 @@ Schema.invitationUser = new SimpleSchema({
     scrumMaster: {
         type: [String],
         optional: true,
+        label: "Scrum Master",
         autoform: {
             type: "select2",
             options: function () {
@@ -87,6 +88,7 @@ Schema.invitationUser = new SimpleSchema({
     developmentTeam: {
         type: [String],
         optional: true,
+        label: "Development team",
         autoform: {
             type: "select2",
             options: function () {

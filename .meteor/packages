@@ -40,8 +40,7 @@ todda00:friendly-slugs
 natestrauser:select2
 zimme:select2-bootstrap3-css
 aldeed:autoform-select2
-natestrauser:x-editable-bootstrap
-workman:x-editable-reactive-template
 rajit:bootstrap3-datepicker
 aldeed:autoform-bs-datepicker
 momentjs:moment
+yogiben:autoform-modals

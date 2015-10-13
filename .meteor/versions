@@ -73,18 +73,19 @@ momentjs:moment@2.10.6
 mongo@1.1.2
 mongo-id@1.0.1
 mongo-livedata@1.0.9
+mpowaga:string-template@0.1.0
 mrt:chartjs@0.0.6
 mrt:jquery-ui@1.9.2
 mrt:profile-online@0.1.9
 multiply:iron-router-progress@1.0.2
 natestrauser:font-awesome@4.4.0
 natestrauser:select2@4.0.0_1
-natestrauser:x-editable-bootstrap@1.5.2_3
 npm-bcrypt@0.7.8_2
 npm-mongo@1.4.39_1
 observe-sequence@1.0.7
 ordered-dict@1.0.4
 promise@0.5.0
+raix:handlebar-helpers@0.2.5
 rajit:bootstrap3-datepicker@1.4.1
 random@1.0.4
 rate-limit@1.0.0
@@ -110,5 +111,5 @@ underscore@1.0.4
 url@1.0.5
 webapp@1.2.2
 webapp-hashing@1.0.5
-workman:x-editable-reactive-template@1.0.2
+yogiben:autoform-modals@0.3.8
 zimme:select2-bootstrap3-css@0.1.1

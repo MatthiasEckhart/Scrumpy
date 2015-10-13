@@ -1,47 +1,29 @@
 <template name="userStory">
     <div class="panel panel-default story {{dragClass}}" id="{{_id}}">
         <div class="panel-heading">
-            {{#if userIsProductOwnerOrAdvancedModeOff}}
-                <h3 class="panel-title" id="editable-user-story-title-{{_id}}" data-type="text"
-                    data-placeholder="Enter text">{{titleShort 'story'}}</h3>
-            {{else}}
-                <h3 class="panel-title">{{titleShort 'story'}}</h3>
-            {{/if}}
+            <h3 class="panel-title">{{titleShort 'story'}}</h3>
         </div>
         <div class="panel-body">
-            {{#if userIsProductOwnerOrAdvancedModeOff}}
-                <p id="editable-user-story-description-{{_id}}" data-type="textarea" data-placeholder="Enter text"
-                   data-row="2">{{description}}</p>
-            {{else}}
-                <p>{{description}}</p>
-            {{/if}}
+            <p>{{description}}</p>
 
-            {{#if advancedMode}}
-                {{#if userIsProductOwner 'userStory'}}
-
-                    <a href="#" data-type="select" id="editable-story-points-{{_id}}" data-value="{{storyPoints}}"></a>
-                    <br/>
-                    <a href="#" data-type="text" id="editable-business-value-{{_id}}"
-                       data-value="{{businessValue}}"></a> / 1000
-                {{else}}
-                    {{storyPointsFormatted}}
-                    <br/>
-                    {{businessValueFormatted}} / 1000
-                {{/if}}
-            {{/if}}
             <div class="user-story-footer">
                 <div class="sticky-controls">
                     <div class="control-wrapper">
-                        {{#if userIsProductOwnerOrAdvancedModeOff}}
-                            <button class="fa fa-remove btn btn-danger btn-xs delete-user-story"></button>
-                        {{/if}}
+                        <button class="fa fa-remove btn btn-danger btn-xs delete-user-story"></button>
+                        {{#afModal formId="update-user-story-form" class="fa fa-pencil btn btn-warning btn-xs edit-user-story nodrag" collection="UserStories" operation="update" title="Update user story" doc=_id}}{{/afModal}}
                         <button id="show-info-user-story-{{_id}}"
                                 class="fa fa-info-circle btn btn-default btn-xs show-info-user-story"></button>
                         <div id="popover-content-{{_id}}" style="display: none">
                             <p>
-                                <b>Author:</b> {{author}}<br/>
-                                {{#if _.has this 'lastEditedBy'}}<b>Last edited:</b> {{lastEdited}}<br/>{{/if}}
-                                <b>Created:</b> {{submittedFormatted}}<br/>
+                                <b>Created by:</b> {{userIdFormatted}}<br/>
+                                {{#if _.has this 'lastEditedBy'}}<b>Last edited by:</b> {{lastEditedByFormatted}}
+                                    <br/>{{/if}}
+                                <b>Created at:</b> {{createdAt}}<br/>
+                                {{#if _.has this 'updatedAt'}}<b>Updated at:</b> {{updatedAt}}<br/>{{/if}}
+                                {{#if _.has this 'storyPoints'}}<b>Story points:</b> {{storyPoints}}
+                                    <br/>{{/if}}
+                                {{#if _.has this 'businessValue'}}<b>Business value:</b> {{businessValue}} /
+                                    1000{{/if}}
                             </p>
                         </div>
                     </div>

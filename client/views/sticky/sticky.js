@@ -1,20 +1,14 @@
 "use strict";
 
 Template.sticky.onRendered(function () {
-    var assignStickyToEditableSelector = this.$("#assign-sticky-to-" + this.data._id),
-        stickyTitleEditableSelector = this.$("#editable-sticky-title-" + this.data._id),
-        stickyDescriptionEditableSelector = this.$("#editable-sticky-description-" + this.data._id),
-        stickyEffortEditableSelector = this.$("#editable-sticky-effort-" + this.data._id),
-        showInfoStickyPopoverSelector = this.$("#show-info-sticky-" + this.data._id),
+    var showInfoStickyPopoverSelector = this.$("#show-info-sticky-" + this.data._id),
         sticky = this.data,
         stickyId = sticky._id,
         story = UserStories.findOne({_id: Template.parentData(1)._id}),
         advancedMode = Products.findOne({_id: story.productId}).advancedMode,
         sprint,
         rd;
-    if (advancedMode) {
-        sprint = Sprints.findOne({_id: story.sprintId});
-    }
+    if (advancedMode) sprint = Sprints.findOne({_id: story.sprintId});
 
     REDIPS.drag.init();
     REDIPS.drag.hover.colorTd = '#9BB3DA';
@@ -64,9 +58,10 @@ Template.sticky.onRendered(function () {
         Stickies.update({_id: stickyDroppedId}, {
             $set: {
                 storyId: stickyDroppedUserStory._id,
-                lastMoved: Meteor.user().username
+                lastMovedBy: Meteor.userId()
             }
         });
+
         Meteor.call('createActElStickyMoved', stickyDroppedUserStory.productId, Meteor.user()._id, stickyDropped.title, stickyOldStatus, stickyDropped.status, function (error) {
             if (error) {
                 throwAlert('error', error.reason, error.details);
@@ -74,136 +69,6 @@ Template.sticky.onRendered(function () {
             }
         });
     };
-
-    stickyTitleEditableSelector.editable("destroy").editable({
-        display: false,
-        placement: 'bottom',
-        title: "Update sticky title",
-        pk: sticky._id,
-        validate: function (value) {
-            if ($.trim(value) === '') {
-                return 'Please fill in a title.';
-            }
-        },
-        success: function (response, newValue) {
-            if (newValue) {
-                var oldStickyTitle = sticky.title;
-                Stickies.update({_id: stickyId}, {$set: {title: newValue, lastEdited: Meteor.user().username}});
-                throwAlert('success', 'Yes!', 'Sticky title edited.');
-                if (advancedMode) {
-                    Meteor.call('createActElStickyEditTitle', story.productId, Meteor.user()._id, oldStickyTitle, newValue, function (error) {
-                        if (error) {
-                            throwAlert('error', error.reason, error.details);
-                            return null;
-                        }
-                    });
-                }
-            }
-        }
-    });
-    stickyDescriptionEditableSelector.editable("destroy").editable({
-        display: false,
-        placement: 'bottom',
-        title: "Update sticky description",
-        pk: sticky._id,
-        validate: function (value) {
-            if ($.trim(value) == '') {
-                return 'Please fill in a description.';
-            }
-        },
-        success: function (response, newValue) {
-            if (newValue) {
-                var oldStickyDescription = sticky.description;
-                Stickies.update({_id: stickyId}, {$set: {description: newValue, lastEdited: Meteor.user().username}});
-                throwAlert('success', 'Yes!', 'Sticky description edited.');
-                if (advancedMode) {
-                    Meteor.call('createActElStickyEditDescription', story.productId, Meteor.user()._id, oldStickyDescription, newValue, function (error) {
-                        if (error) {
-                            throwAlert('error', error.reason, error.details);
-                            return null;
-                        }
-                    });
-                }
-            }
-        }
-    });
-
-    var stickyEffortArr = [{value: 2, text: 2}, {value: 4, text: 4}, {value: 6, text: 6}, {value: 8, text: 8}];
-
-    stickyEffortEditableSelector.editable("destroy").editable({
-        title: "Update estimated sticky effort (h)",
-        placement: 'bottom',
-        source: stickyEffortArr,
-        pk: sticky._id,
-        success: function (response, newValue) {
-            if (newValue) {
-                var oldValue = sticky.effort;
-                Stickies.update({_id: stickyId}, {
-                    $set: {
-                        effort: parseInt(newValue, 10),
-                        lastEdited: Meteor.user().username
-                    }
-                });
-                throwAlert('success', 'Yes!', 'Estimated effort updated.');
-                if (advancedMode) {
-                    Meteor.call('createActElStickyEffortChanged', story.productId, Meteor.user()._id, oldValue, newValue, sticky.title, function (error) {
-                        if (error) {
-                            throwAlert('error', error.reason, error.details);
-                            return null;
-                        }
-                    });
-                    Meteor.call('updateBurndown', sprint._id, function (error) {
-                        if (error) {
-                            throwAlert('error', error.reason, error.details);
-                        }
-                    });
-                }
-            }
-        }
-    });
-
-    var sourceUsers = [];
-    if (!Template.parentData(3).advancedMode) {
-        Roles.getUsersInRole([this.data.productId], 'administrator').forEach(function (user) {
-            sourceUsers.push({value: user._id, text: user.username});
-        });
-    } else {
-        Roles.getUsersInRole([this.data.productId], 'productOwner').forEach(function (user) {
-            sourceUsers.push({value: user._id, text: user.username});
-        });
-        Roles.getUsersInRole([this.data.productId], 'scrumMaster').forEach(function (user) {
-            sourceUsers.push({value: user._id, text: user.username});
-        });
-    }
-    Roles.getUsersInRole([this.data.productId], 'developmentTeam').forEach(function (user) {
-        sourceUsers.push({value: user._id, text: user.username});
-    });
-
-    assignStickyToEditableSelector.editable("destroy").editable({
-        emptytext: "nobody",
-        placement: 'bottom',
-        title: "Assign sticky to",
-        source: sourceUsers,
-        pk: sticky._id,
-        success: function (response, result) {
-            if (result) {
-                Stickies.update({_id: stickyId}, {$set: {assigneeId: result}});
-                throwAlert("success", "Yes!", "Sticky successfully assigned.");
-            }
-        }
-    });
-
-    setAssignStickyToCurrValue(this.data, assignStickyToEditableSelector);
-
-    var cursor = Stickies.find({_id: this.data._id});
-    cursor.observe({
-        changed: function (sticky) {
-            stickyTitleEditableSelector.editable("setValue", sticky.title);
-            stickyDescriptionEditableSelector.editable("setValue", sticky.description);
-            stickyEffortEditableSelector.editable("setValue", sticky.effort);
-            setAssignStickyToCurrValue(sticky, assignStickyToEditableSelector);
-        }
-    });
 
     showInfoStickyPopoverSelector.popover({
         html: true,
@@ -226,28 +91,35 @@ Template.sticky.events({
 
 Template.sticky.helpers({
     user: function () {
-        if (this.assigneeId === Meteor.user()._id) {
-            return Meteor.user();
-        } else {
+        if (this.assigneeId === Meteor.user()._id) return Meteor.user();
+        else {
             var user = Users.findOne({_id: this.assigneeId});
-            if (user) {
-                return user;
-            }
+            if (user) return user;
         }
     },
     assigneeColor: function () {
         var user = Users.findOne({_id: this.assigneeId});
-        if (user) {
-            return user.profile.color;
-        }
+        if (user) return user.profile.color;
     },
     advancedMode: function () {
         return Template.parentData(3).advancedMode;
+    },
+    userIdFormatted: function () {
+        return getUsername(this.userId);
+    },
+    lastMovedByFormatted: function () {
+        return getUsername(this.lastMovedBy);
+    },
+    lastEditedByFormatted: function () {
+        return getUsername(this.lastEditedBy);
+    },
+    assigneeIdFormatted: function () {
+        return getUsername(this.assigneeId);
     }
 });
 
 function updateStickyPosition(stickyId, location) {
-    Stickies.update({_id: stickyId}, {$set: {status: parseInt(location, 10), lastMoved: Meteor.user().username}});
+    Stickies.update({_id: stickyId}, {$set: {status: parseInt(location, 10), lastMovedBy: Meteor.userId()}});
 }
 
 function checkMovementBackFromDone(rd, sprintId) {
@@ -257,11 +129,5 @@ function checkMovementBackFromDone(rd, sprintId) {
                 alert(err);
             }
         });
-    }
-}
-
-function setAssignStickyToCurrValue(data, selector) {
-    if (data.assigneeId) {
-        selector.editable("setValue", data.assigneeId);
     }
 }

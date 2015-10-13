@@ -1,13 +1,13 @@
 <template name="sprintCreate">
     {{#autoForm collection="Sprints" id="insert-sprint-form" type="insert" doc=this}}
-        <div class="input-group">
+        <div class="form-group">
+            {{> afQuickField name='goal' placeholder='Specify your sprint goal.'}}
+        </div>
+        <div class="form-group">
             {{> afQuickField name='startDate'}}
         </div>
-        <div class="input-group">
+        <div class="form-group">
             {{> afQuickField name='endDate'}}
-        </div>
-        <div class="input-group">
-            {{> afQuickField name='goal' placeholder='Specify your sprint goal.'}}
         </div>
         <button id="submit-sprint-create" type="submit" class="btn btn-primary">Create Sprint</button>
     {{/autoForm}}

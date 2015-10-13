@@ -4,7 +4,9 @@ var userStoryInsertHooks = {
     before: {
         insert: function (doc) {
             /* Extend our document (user story) with a reference to the corresponding product. */
-            doc.productId = this.currentDoc._id;
+            let currentDoc = this.currentDoc;
+            if (currentDoc) doc.productId = currentDoc._id;
+            else doc.productId = Products.findOne({slug: Router.current().params.slug})._id;
             return doc;
         }
     },

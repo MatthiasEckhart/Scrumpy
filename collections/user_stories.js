@@ -64,12 +64,16 @@ UserStories.attachSchema(new SimpleSchema({
     priority: {
         type: Number,
         label: "Priority",
-        optional: true
+        optional: true,
+        autoform: {
+            omit: true
+        }
     },
     storyPoints: {
         type: Number,
         label: "Story Points",
         allowedValues: [0.5, 1, 2, 3, 5, 8, 13, 20, 40, 80],
+        decimal: true,
         autoform: {
             options: [
                 {label: "½", value: 0.5},
@@ -114,6 +118,9 @@ UserStories.attachSchema(new SimpleSchema({
             }
         },
         denyInsert: true,
-        optional: true
+        optional: true,
+        autoform: {
+            omit: true
+        }
     }
 }));

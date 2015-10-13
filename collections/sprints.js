@@ -80,7 +80,10 @@ Sprints.attachSchema(new SimpleSchema({
             }
         },
         denyInsert: true,
-        optional: true
+        optional: true,
+        autoform: {
+            omit: true
+        }
     }
 }));
 
@@ -108,7 +111,11 @@ function validateSprintDate(context, startDate, endDate) {
     /* Check if product exists. */
     if (!product) return "internalError";
     /* Check if start and end date combination is unique. */
-    if (Sprints.find({productId: product._id, startDate: startDate, endDate: endDate}).count() > 0) return "duplicateSprint";
+    if (Sprints.find({
+            productId: product._id,
+            startDate: startDate,
+            endDate: endDate
+        }).count() > 0) return "duplicateSprint";
 }
 
 Sprints.simpleSchema().messages({

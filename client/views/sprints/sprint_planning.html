@@ -11,16 +11,25 @@
                         <div class="panel-body">
                             {{#autoForm collection="UserStories" id="insert-user-story-form" type="insert" doc=productForAutoForm}}
 
-                                <div class="input-group">
+                                <div class="form-group">
                                     {{> afQuickField name='title' placeholder='Name your story.'}}
                                 </div>
-                                <br/>
 
-                                <div class="input-group">
+                                <div class="form-group">
                                     {{> afQuickField name='description' placeholder='As a <role>, I want <goal> so that <benefit>.'}}
                                 </div>
 
-                                <button id="submit-user-story-create" type="submit" class="btn btn-primary">Create User Story</button>
+                                <div class="form-group">
+                                    {{> afQuickField name='storyPoints'}}
+                                </div>
+
+                                <div class="form-group">
+                                    {{> afQuickField name='businessValue' placeholder="1-1000"}}
+                                </div>
+
+                                <button id="submit-user-story-create" type="submit" class="btn btn-primary">Create User
+                                    Story
+                                </button>
                             {{/autoForm}}
                         </div>
                     </div>

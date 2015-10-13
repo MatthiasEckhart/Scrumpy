@@ -55,7 +55,10 @@ Comments.attachSchema(new SimpleSchema({
             }
         },
         denyInsert: true,
-        optional: true
+        optional: true,
+        autoform: {
+            omit: true
+        }
     }
 }));
 
