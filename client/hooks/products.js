@@ -2,12 +2,11 @@
 
 var insertProductHooks = {
     onSuccess: function (formType, result) {
-        Meteor.call('getProductSlug', result, function (error, response) {
+        Meteor.call('getProductSlug', result, function (error, productSlug) {
             if (error) {
                 throwAlert("error", error.reason, error.details);
                 return;
             }
-            DashboardStatisticsPrivate.insert({productId: result, data: []});
             Meteor.call('createActElProductCreate', result, Meteor.userId(), function (error) {
                 if (error) {
                     throwAlert('error', error.reason, error.details);
@@ -18,8 +17,9 @@ var insertProductHooks = {
                         throwAlert('error', error.reason, error.details);
                         return;
                     }
+                    DashboardStatisticsPrivate.insert({productId: result, data: []})
                     Session.set('productCreate', true);
-                    Router.go('invite', {slug: response});
+                    Router.go('invite', {slug: productSlug});
                 });
             });
         });

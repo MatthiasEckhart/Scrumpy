@@ -34,6 +34,7 @@ ecmascript-collections@0.1.6
 ejson@1.0.7
 email@1.0.7
 fastclick@1.0.7
+fortawesome:fontawesome@4.4.0
 fourseven:scss@3.3.3_1
 geojson-utils@1.0.4
 handlebars@1.0.4

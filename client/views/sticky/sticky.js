@@ -9,10 +9,8 @@ Template.sticky.onRendered(function () {
         sprint,
         rd;
     if (advancedMode) sprint = Sprints.findOne({_id: story.sprintId});
-
     REDIPS.drag.init();
     REDIPS.drag.hover.colorTd = '#9BB3DA';
-
     // reference to the REDIPS.drag library
     rd = REDIPS.drag;
     // define event.dropped handler
@@ -22,7 +20,6 @@ Template.sticky.onRendered(function () {
             stickyDropped = Stickies.findOne({_id: stickyDroppedId}),
             stickyOldStatus = stickyDropped.status,
             stickyDroppedUserStory = UserStories.findOne({_id: stickyDropped.storyId});
-
         if (pos[2] === 2) {
             updateStickyPosition(stickyDroppedId, "1");
         } else if (pos[2] === 3) {
@@ -32,44 +29,30 @@ Template.sticky.onRendered(function () {
         } else if (pos[2] === 5) {
             updateStickyPosition(stickyDroppedId, "4");
             if (advancedMode) {
-                Meteor.call('updateBurndown', sprint._id, function (err) {
-                    if (err) {
-                        alert(err);
-                    }
+                Meteor.call('updateBurndown', sprint._id, (error) => {
+                    if (error) throwAlert('error', error.reason, error.details);
                 });
             }
-            Meteor.call('updateDashboardStatisticsPrivateInc', stickyDropped, function (err) {
-                if (err) {
-                    alert(err);
-                }
+            Meteor.call('updateDashboardStatisticsPrivateInc', stickyDropped, stickyDroppedUserStory, function (error) {
+                if (error) throwAlert('error', error.reason, error.details);
             });
         }
         if (pos[2] !== 5) {
-            Meteor.call('updateDashboardStatisticsPrivateDec', stickyDropped, function (err) {
-                if (err) {
-                    alert(err);
-                }
+            Meteor.call('updateDashboardStatisticsPrivateDec', stickyDropped, stickyDroppedUserStory, function (error) {
+                if (error) throwAlert('error', error.reason, error.details);
             });
-            if (advancedMode) {
-                checkMovementBackFromDone(rd, sprint._id);
-            }
+            if (advancedMode) checkMovementBackFromDone(rd, sprint._id);
         }
-
         Stickies.update({_id: stickyDroppedId}, {
             $set: {
                 storyId: stickyDroppedUserStory._id,
                 lastMovedBy: Meteor.userId()
             }
         });
-
         Meteor.call('createActElStickyMoved', stickyDroppedUserStory.productId, Meteor.user()._id, stickyDropped.title, stickyOldStatus, stickyDropped.status, function (error) {
-            if (error) {
-                throwAlert('error', error.reason, error.details);
-                return null;
-            }
+            if (error) throwAlert('error', error.reason, error.details);
         });
     };
-
     showInfoStickyPopoverSelector.popover({
         html: true,
         title: 'Details',
@@ -124,10 +107,8 @@ function updateStickyPosition(stickyId, location) {
 
 function checkMovementBackFromDone(rd, sprintId) {
     if (rd.td.source.className === "done") {
-        Meteor.call('updateBurndown', sprintId, function (err) {
-            if (err) {
-                alert(err);
-            }
+        Meteor.call('updateBurndown', sprintId, function (error) {
+            if (error) throwAlert('error', error.reason, error.details);
         });
     }
 }

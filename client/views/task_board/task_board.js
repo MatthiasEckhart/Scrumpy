@@ -16,28 +16,24 @@ Template.taskBoard.helpers({
         return Stickies.find({storyId: this._id, status: parseInt(type, 10)}, {sort: {lastModified: -1}});
     },
     sumEffort: function (type) {
-        var sumEffort = 0,
-            userStoryIdsArr;
-        if (productIsAdvancedModeStartDateEndDate(this.advancedMode)) {
+        let sumEffort = 0,
             userStoryIdsArr = [];
-            UserStories.find({
+        if (productIsAdvancedModeStartDateEndDate(this.advancedMode)) {
+            userStoryIdsArr = UserStories.find({
                 productId: this._id,
                 sprintId: getSprintId(this._id, routerStartDate, routerEndDate)
-            }).forEach(function (story) {
-                userStoryIdsArr.push(story._id);
-            });
-            Stickies.find({
-                productId: this._id,
-                storyId: {$in: userStoryIdsArr},
-                status: parseInt(type, 10)
-            }).forEach(function (sticky) {
-                sumEffort += parseInt(sticky.effort, 10);
-            });
+            }).map((story) => story._id);
         } else {
-            Stickies.find({productId: this._id, status: parseInt(type, 10)}).forEach(function (sticky) {
-                sumEffort += parseInt(sticky.effort, 10);
-            });
+            userStoryIdsArr = UserStories.find({
+                productId: this._id
+            }).map((story) => story._id);
         }
+        Stickies.find({
+            storyId: {$in: userStoryIdsArr},
+            status: parseInt(type, 10)
+        }).forEach(function (sticky) {
+            sumEffort += parseInt(sticky.effort, 10);
+        });
         return sumEffort;
     }
 });
