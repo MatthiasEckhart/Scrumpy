@@ -12,24 +12,26 @@ var stickyInsertHooks = {
     },
     onSuccess: function (formType, result) {
         let sticky = Stickies.findOne({_id: result});
-        let story = UserStories.findOne({_id: sticky.storyId});
-        if (story && sticky) {
-            let product = Products.findOne({_id: story.productId});
-            if (product.advancedMode) {
-                let sprint = Sprints.findOne({_id: story.sprintId});
-                Meteor.call('updateBurndown', sprint._id, function (error) {
-                    if (error) {
-                        throwAlert('error', error.reason, error.details);
-                        return;
-                    }
-                    Meteor.call('createActElStickyCreate', sticky.productId, Meteor.user()._id, sticky.title, story.title, sprint.goal, function (error) {
+        if (sticky) {
+            let story = UserStories.findOne({_id: sticky.storyId});
+            if (story) {
+                let product = Products.findOne({_id: story.productId});
+                if (product.advancedMode) {
+                    let sprint = Sprints.findOne({_id: story.sprintId});
+                    Meteor.call('updateBurndown', sprint._id, function (error) {
                         if (error) {
                             throwAlert('error', error.reason, error.details);
                             return;
                         }
-                        throwAlert("success", "Success", "Sticky added.");
+                        Meteor.call('createActElStickyCreate', sticky.productId, Meteor.user()._id, sticky.title, story.title, sprint.goal, function (error) {
+                            if (error) {
+                                throwAlert('error', error.reason, error.details);
+                                return;
+                            }
+                            throwAlert("success", "Success", "Sticky added.");
+                        });
                     });
-                });
+                }
             }
         }
     }

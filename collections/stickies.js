@@ -51,14 +51,19 @@ Stickies.attachSchema(new SimpleSchema({
                 /* Find corresponding product. */
                 let product = Products.findOne({slug: getRouteSlug()});
                 /* Get array with user IDs which have an invitation for the current product and accepted the invitation. */
-                let userIds = Invitations.find({productId: product._id, status: 1}).map((invitation) => invitation.userId);
-                /* We add the current user's id to the array, because users can assign stickies to themselves. */
-                userIds.push(Meteor.userId());
-                /* Return all users as options which accepted an invitation incl. our own user ID. */
-                return Users.find({_id: {$in: userIds}}).map((user) =>  ({
-                    label: user.username,
-                    value: user._id
-                }));
+                if (product) {
+                    let userIds = Invitations.find({
+                        productId: product._id,
+                        status: 1
+                    }).map((invitation) => invitation.userId);
+                    /* We add the current user's id to the array, because users can assign stickies to themselves. */
+                    userIds.push(Meteor.userId());
+                    /* Return all users as options which accepted an invitation incl. our own user ID. */
+                    return Users.find({_id: {$in: userIds}}).map((user) =>  ({
+                        label: user.username,
+                        value: user._id
+                    }));
+                }
             }
         }
     },

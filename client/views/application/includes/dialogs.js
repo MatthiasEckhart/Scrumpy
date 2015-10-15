@@ -37,22 +37,25 @@ Template.dialogs.events({
         });
     },
     'click .delete-sticky-confirm': function () {
-        var product = Products.findOne({_id: this.data.productId}), stickyTitle = this.data.title;
-        Stickies.remove({_id: this.data._id});
-        if (product.advancedMode) {
-            Meteor.call('updateBurndown', product._id, function (err) {
-                if (err) {
-                    throwAlert("error", "Error!", err);
-                }
-            });
-            Meteor.call('createActElStickyRemoved', product._id, Meteor.user()._id, stickyTitle, function (err) {
-                if (err) {
-                    throwAlert("error", "Error!", err);
-                }
-            });
+        let story = UserStories.findOne({_id: this.data.storyId});
+        if (story) {
+            let product = Products.findOne({_id: story.productId}), stickyTitle = this.data.title;
+            Stickies.remove({_id: this.data._id});
+            if (product.advancedMode) {
+                Meteor.call('updateBurndown', product._id, function (err) {
+                    if (err) {
+                        throwAlert("error", "Error!", err);
+                    }
+                });
+                Meteor.call('createActElStickyRemoved', product._id, Meteor.userId(), stickyTitle, function (err) {
+                    if (err) {
+                        throwAlert("error", "Error!", err);
+                    }
+                });
+            }
+            Dialogs.remove(this._id);
+            throwAlert('success', 'Yeah!', 'Sticky removed.');
         }
-        Dialogs.remove(this._id);
-        throwAlert('success', 'Yeah!', 'Sticky removed.');
     },
     'click .delete-user-story-confirm': function () {
         var product = Products.findOne({_id: this.data.productId}), storyTitle = this.data.title;
@@ -72,7 +75,7 @@ Template.dialogs.events({
                     throwAlert("error", "Error!", err);
                 }
             });
-            Meteor.call('createActElUserStoryRemoved', product._id, Meteor.user()._id, storyTitle, function (err) {
+            Meteor.call('createActElUserStoryRemoved', product._id, Meteor.userId(), storyTitle, function (err) {
                 if (err) {
                     throwAlert("error", "Error!", err);
                 }
@@ -95,7 +98,7 @@ Template.dialogs.events({
                 throwAlert("error", "Error!", err);
             }
         });
-        Meteor.call('createActElSprintRemoved', product._id, Meteor.user()._id, sprintGoal, function (err) {
+        Meteor.call('createActElSprintRemoved', product._id, Meteor.userId(), sprintGoal, function (err) {
             if (err) {
                 throwAlert("error", "Error!", err);
             }
@@ -103,7 +106,7 @@ Template.dialogs.events({
         Dialogs.remove(this._id);
         throwAlert('success', 'Yeah!', 'Sprint removed.');
     },
-    'click .delete-comment-confirm': function() {
+    'click .delete-comment-confirm': function () {
         Comments.remove(this.data._id);
         Dialogs.remove(this._id);
         throwAlert('success', 'Yeah!', 'Comment removed.');

@@ -1,21 +1,60 @@
 "use strict";
 
-Meteor.publish('stickiesByProductSlug', function (slug) {
-    let product = Products.findOne({slug: slug});
-    if (product) {
-        let storyIds = UserStories.find({productId: product._id}).map((story) => story._id);
-        return Stickies.find({storyId: {$in: storyIds}});
-    } else this.ready();
+Meteor.publishComposite('stickiesByProductSlug', function (productSlug) {
+    return {
+        find: function () {
+            return Products.find({slug: productSlug});
+        },
+        children: [
+            {
+                find: function (product) {
+                    return UserStories.find({productId: product._id});
+                },
+                children: [
+                    {
+                        find: function (userStory) {
+                            return Stickies.find({storyId: userStory._id});
+                        }
+                    }
+                ]
+            }
+        ]
+    }
 });
 
-Meteor.publish('stickiesAdvanced', function (storyIds) {
-    return Stickies.find({storyId: {$in: storyIds}});
+Meteor.publishComposite('stickiesAdvanced', function (sprintId) {
+    return {
+        find: function () {
+            return UserStories.find({sprintId: sprintId});
+        },
+        children: [
+            {
+                find: function (userStory) {
+                    return Stickies.find({storyId: userStory._id});
+                }
+            }
+        ]
+    }
 });
 
-Meteor.publish('productStat', function () {
-    let product = Products.findOne({}, {sort: {lastModified: -1}, limit: 1});
-    if (product) {
-        let storyIds = UserStories.find({productId: product._id}).map((story) => story._id);
-        return Stickies.find({storyId: {$in: storyIds}}, {fields: {productId: 1, status: 1, assigneeId: 1}});
-    } else this.ready();
+Meteor.publishComposite('productStat', function () {
+    return {
+        find: function () {
+            return Products.find({}, {sort: {lastModified: -1}, limit: 1});
+        },
+        children: [
+            {
+                find: function (product) {
+                    return UserStories.find({productId: product._id})
+                },
+                children: [
+                    {
+                        find: function (userStory) {
+                            return Stickies.find({storyId: userStory._id}, {fields: {productId: 1, status: 1, assigneeId: 1}});
+                        }
+                    }
+                ]
+            }
+        ]
+    }
 });
