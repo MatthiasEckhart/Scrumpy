@@ -6,10 +6,10 @@
         <div class="dropdown">
             {{#if currentUser}}
                 {{#with currentUser}}
-                    <div class="dropdown-toggle action-button avatar-container" data-toggle="dropdown">
+                    <div class="dropdown-toggle action-button avatar-container" data-toggle="dropdown" id="dropdown-avatar">
                         <img class="avatar-img" src="{{avatar}}" alt="{{username}}" width="35"/>
                     </div>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" aria-labelledby="dropdown-avatar">
                         <li>
                             {{#if displayChangePasswordForm}}
                                 {{> changePassword}}
