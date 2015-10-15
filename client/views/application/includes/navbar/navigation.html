@@ -1,5 +1,8 @@
 <template name="navigation">
     <div id="top-navigation" class="navbar navbar-default">
+        <div class="sidebar-top">
+            <a href="{{pathFor 'dashboard'}}"><img class="logo" src="/images/logo.png" width="40"></a>
+        </div>
         <div class="dropdown">
             {{#if currentUser}}
                 {{#with currentUser}}
