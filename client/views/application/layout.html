@@ -3,14 +3,15 @@
         {{> navigation}}
         {{> alerts}}
         {{> dialogs}}
-        {{> autoformModals}}
     </header>
     <div class="custom-container">
         <div class="page-wrapper">
             {{#unless isLoginOrRegisterRoute}}
                 {{> sidebar}}
             {{/unless}}
-                {{> yield}}
+            {{> autoformModals}}
+            {{> editYourAvatarModal}}
+            {{> yield}}
         </div>
     </div>
 </template>

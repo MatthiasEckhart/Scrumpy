@@ -1,25 +1,25 @@
 <template name="register">
     <div id="authentication-wrapper">
         <div id="register">
-            <form action="/register" id="register-form" method="post">
+            {{#autoForm schema=registerSchema id="register-form" type="method" meteormethod="doUserRegister"}}
                 <div class="athentication-header">
                     <p>REGISTER</p>
                 </div>
                 <div class="padding-20">
                     <div class="form-group">
-                        <input class="username form-control" id="register-username" name="username" placeholder="Username" type="text">
+                        {{> afQuickField name="username"}}
                     </div>
                     <div class="form-group">
-                        <input class="password form-control" id="register-password" name="password" placeholder="Password" type="password">
+                        {{> afQuickField name="password" type="password"}}
                     </div>
                     <div class="form-group">
-                        <input class="password-confirm form-control" id="register-password-confirm" name="password-confirm" placeholder="Confirm" type="password">
+                        {{> afQuickField name="passwordConfirmation" type="password"}}
                     </div>
                     <div class="form-group">
                         <input class="btn btn-primary btn-block" type="submit" value="Join Scrumpy">
                     </div>
                 </div>
-            </form>
+            {{/autoForm}}
         </div>
     </div>
 </template>

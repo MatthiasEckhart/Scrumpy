@@ -15,11 +15,11 @@
 
 #login-form {
   position: relative;
-  top: 38%;
+  top: 20%;
   background-color: #ffffff;
-  height: 220px;
   width: 100%;
-  .athentication-header {
+  padding: 5px;
+  .authentication-header {
     margin-bottom: 20px;
     background-color: #F9FAFC;
     width: 100%;
@@ -36,14 +36,5 @@
       margin-right: 10px;
       font-size: 1.4em;
     }
-  }
-  .has-warning, .has-error {
-    height: 34px;
-  }
-  #login-password {
-    position: relative;
-  }
-  .btn {
-    margin-top: 20px;
   }
 }

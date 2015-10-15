@@ -1,0 +1,41 @@
+<template name="userOverview">
+    <div class="navbar-content">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="profile-img-container">
+                    <img src={{avatar}}
+                                 alt="{{username}}" class="img-responsive img-navbar"/>
+                    <a href="#" id="upload-image"><span
+                            class="fa fa-upload fa-5x"></span></a>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <span>{{fullNameOrUsername 'true'}}</span>
+                {{#if _.has this.profile 'organization'}}
+                    <p class="text-muted small">
+                        {{organization}}</p>
+                {{/if}}
+                <div class="divider"></div>
+                <a href="{{pathFor 'profilePage'}}" class="btn btn-primary btn-sm active"><i
+                        class="fa fa-user"></i> View
+                    Profile</a>
+            </div>
+        </div>
+    </div>
+    <div class="navbar-footer">
+        <div class="navbar-footer-content">
+            <div class="row">
+                <div class="col-md-6">
+                    {{#afModal formId="update-user-form" class="btn btn-default btn-sm" collection="Users" operation="update" title="Settings" doc=_id}}
+                        <i class="fa fa-cog"></i>{{/afModal}}
+                    <a id="change-password" href="#" class="btn btn-default btn-sm"><i class="fa fa-key"></i></a>
+                </div>
+                <div class="col-md-6">
+                    <a id="sign-out" href="#"
+                       class="btn btn-danger btn-sm pull-right"><i
+                            class="fa fa-sign-out"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

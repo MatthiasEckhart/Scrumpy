@@ -1,21 +1,9 @@
 "use strict";
 
 Users.before.insert(function (userId, doc) {
-    var dashboardStats = DashboardStatistics.findOne();
+    let dashboardStats = DashboardStatistics.findOne();
     DashboardStatistics.update({_id: dashboardStats._id}, {$inc: {totalUsers: 1}});
 });
-
-Meteor._onLogin  = function () {
-    var dashStats = DashboardStatistics.findOne();
-    // increase public dashboard statistics counter onLogin
-    DashboardStatistics.update({_id: dashStats._id}, {$inc: {totalUsersOnline: 1}});
-};
-
-Meteor._onLogout = function () {
-    var dashStats = DashboardStatistics.findOne();
-    // decrease public dashboard statistics counter onLogout
-    DashboardStatistics.update({_id: dashStats._id}, {$inc: {totalUsersOnline: -1}});
-};
 
 Meteor.methods({
     markAllNotificationsAsRead: function (userId) {
@@ -37,49 +25,33 @@ Meteor.methods({
             Notifications.remove({_id: notificationId});
         }
     },
-    setDefaultAvatar: function (userId) {
-        Users.update({_id: userId}, {$set: {'profile.image': ""}});
+    changeUserPassword: function (doc) {
+        /* Important server-side check for security and data integrity. */
+        check(doc, Schema.changePassword);
+        let checkCurrentPassword = Accounts._checkPassword(Users.findOne({_id: doc.userId}), doc.currentPassword);
+        if (_.has(checkCurrentPassword, 'error')) throw checkCurrentPassword.error;
+        else Accounts.setPassword(checkCurrentPassword.userId, doc.newPassword, {logout: false});
     },
-    updateAvatar: function (base64) {
-        var id = this.userId;
-        if (!id) {
-            throw new Meteor.Error(403, "You must be logged in.");
-        }
-        try {
-            validateImgBase64(base64);
-            return Meteor.users.update({_id: id}, {$set: {'profile.image': base64}});
-        } catch (e) {
-            throw new Meteor.Error(403, e.message);
-        }
+    doUserRegister: function (doc) {
+        /* Important server-side check for security and data integrity. */
+        check(doc, Schema.register);
+        Accounts.createUser({username: doc.username, password: doc.password});
+        return doc;
     },
-    updatePersInfo: function (userId, info) {
-        var sumOrg = Users.find({'profile.organization': info["profile.organization"]}).count(),
-            user = Users.findOne({_id: userId}),
-            dashboardStats;
-        Users.update({_id: userId}, {$set: info});
-        dashboardStats = DashboardStatistics.findOne();
-        // profile organization attribute is not empty
-        if (!_.isEmpty(info["profile.organization"])) {
-            // no user with the same organization exists (increase counter)
-            if (sumOrg == 0) {
-                DashboardStatistics.update({_id: dashboardStats._id}, {$inc: {totalOrganizations: 1}});
-            }
-        } else {
-            // profile organization attribute is empty
-            if (user.profile.organization) {
-                // user had organization set (decrease counter)
-                DashboardStatistics.update({_id: dashboardStats._id}, {$inc: {totalOrganizations: -1}});
-            }
-        }
-    },
-    updateUserColor: function (userId, color) {
-        Users.update({_id: userId}, {$set: {"profile.color": color}});
+    isUsernameAvailable: function (username) {
+        if (Users.find({username: username}).count() > 0) throw new Meteor.Error(500, "Username already in use.", "Please choose a different username.");
     }
 });
 
-function validateImgBase64(src) {
-    if (!/^data:image\/png;base64,/i.test(src)) {
-        throw new Error("Image decoding error.");
-    }
-    return true;
+Accounts.config({forbidClientAccountCreation: true});
+
+Accounts.onCreateUser(function (options, user) {
+    user.profile = {color: getRandomColor()};
+    user.notifications = [];
+    return user;
+});
+
+function getRandomColor() {
+    let colors = ["#7bd148", "#5484ed", "#a4bdfc", "#46d6db", "#7ae7bf", "#51b749", "#fbd75b", "#ffb878", "#ff887c", "#dc2127", "#dbadff", "#e1e1e1"];
+    return colors[Math.floor(Math.random() * colors.length)];
 }

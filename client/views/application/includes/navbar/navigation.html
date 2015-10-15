@@ -1,0 +1,30 @@
+<template name="navigation">
+    <div id="top-navigation" class="navbar navbar-default">
+        <div class="dropdown">
+            {{#if currentUser}}
+                {{#with currentUser}}
+                    <div class="dropdown-toggle action-button avatar-container" data-toggle="dropdown">
+                        <img class="avatar-img" src="{{avatar}}" alt="{{username}}" width="35"/>
+                    </div>
+                    <ul class="dropdown-menu">
+                        <li>
+                            {{#if displayChangePasswordForm}}
+                                {{> changePassword}}
+                            {{else}}
+                                {{> userOverview}}
+                            {{/if}}
+                        </li>
+                    </ul>
+                {{/with}}
+            {{else}}
+                <div class="dropdown-toggle action-button avatar-container" data-toggle="dropdown">
+                    <img class="avatar-img" src="{{defaultAvatar}}" alt="Scrumpy User" width="35"/>
+                </div>
+                <ul class="dropdown-menu action-menu" role="menu">
+                    <li><a href="{{pathFor 'login'}}">Login</a></li>
+                    <li><a href="{{pathFor 'register'}}">Register</a></li>
+                </ul>
+            {{/if}}
+        </div>
+    </div>
+</template>

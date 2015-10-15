@@ -23,7 +23,7 @@ UI.registerHelper('representative', function () {
     if (this._id) {
         let product = Products.findOne({_id: this._id});
         if (product) return product.advancedMode ? 'Product Owner' : 'Administrator';
-    } else return "Anonymous";
+    } else return ANONYMOUS;
 });
 
 UI.registerHelper('currentUserUsername', function () {
@@ -31,19 +31,19 @@ UI.registerHelper('currentUserUsername', function () {
 });
 
 UI.registerHelper('defaultAvatar', function () {
-    return DEFAULTAVATAR;
+    return DEFAULT_AVATAR;
 });
 
 UI.registerHelper('noAvatar', function (type) {
     var user;
     if (type === "assignee") {
         user = Users.findOne({_id: this.assigneeId});
-        if (user) return user.profile.image.length === 0;
-    } else if (type === "currentUser") return Meteor.user().profile.image.length === 0;
-    else if (type === "profile") return this.profile.image.length === 0;
+        if (user) return !_.has(user.profile, 'image') || user.profile.image.length === 0;
+    } else if (type === "currentUser") return !_.has(Meteor.user().profile, 'image') || Meteor.user().profile.image.length === 0;
+    else if (type === "profile") return !_.has(this.profile, 'image') || this.profile.image.length === 0;
     else if (type === "productOwnerOrAdministrator") {
         user = Users.findOne({_id: this.userId});
-        if (user) return user.profile.image.length === 0;
+        if (user) return !_.has(user.profile, 'image') || user.profile.image.length === 0;
     }
 });
 
@@ -52,10 +52,8 @@ UI.registerHelper('navTabIsActive', function (navTab) {
 });
 
 UI.registerHelper('advancedMode', function (formId) {
-    if (_.has(this, "advancedMode")) {
-        return this.advancedMode;
-    }
-    return AutoForm.getFieldValue('advancedMode', formId);
+    if (_.has(this, "advancedMode"))return this.advancedMode;
+    else return AutoForm.getFieldValue('advancedMode', formId);
 });
 
 UI.registerHelper('totalDevTeamMember', function () {
@@ -71,7 +69,7 @@ UI.registerHelper('teamOverview', function (role) {
         document.isAlreadyInRole = document.status == 1;
         let user = Users.findOne({_id: document.userId});
         if (user) document.username = user.username;
-        else document.username = "Anonymous";
+        else document.username = ANONYMOUS;
         document.index = index + 1;
         return document;
     });
@@ -89,8 +87,14 @@ UI.registerHelper('isOnline', function () {
 });
 
 UI.registerHelper('avatar', function () {
-    if (_.has(this, 'profile') && _.has(this, 'image')) return this.profile.image;
-    else return DEFAULTAVATAR;
+    if (_.has(this, 'profile') && _.has(this.profile, 'image')) return this.profile.image;
+    else return DEFAULT_AVATAR;
+});
+
+UI.registerHelper('fullNameOrUsername', function (displayUsername) {
+    if (_.has(this, 'profile') && _.has(this.profile, 'firstName') && _.has(this.profile, 'lastName') && this.profile.firstName && this.profile.lastName) return this.profile.firstName + " " + this.profile.lastName;
+    else if (displayUsername == "true") return this.username;
+    else return ANONYMOUS;
 });
 
 UI.registerHelper('userIsScrumMaster', function (template) {
@@ -154,36 +158,6 @@ resetAlertsForFields = function () {
     });
 };
 
-isValidPassword = function (password) {
-    if (password.length < 6) {
-        highlightWarningForRegisterPasswordFields();
-        throwAlert('warning', 'Error', 'Your password should be 6 characters or longer.');
-        return false;
-    }
-    return true;
-};
-
-areValidPasswords = function (password, confirm) {
-    if (!isValidPassword(password)) {
-        return false;
-    }
-    if (password !== confirm) {
-        highlightWarningForRegisterPasswordFields();
-        throwAlert('warning', 'Error', 'Your two passwords are not equivalent.');
-        return false;
-    }
-    return true;
-};
-
-createStory = function (story, titleInput, descInput) {
-    var storyId = UserStories.insert(story);
-    titleInput.value = "";
-    descInput.value = "";
-
-    throwAlert('success', 'Yeah!', 'The story creation was successful.');
-    $('#' + storyId + ' .story').effect('highlight');
-};
-
 setSessionForActiveNavTab = function (name) {
     Session.set('activeNavTab', name);
 };
@@ -207,7 +181,7 @@ getSprintId = function (productId, routerStartDate, routerEndDate) {
 getUsername = function (userId) {
     let user = Users.findOne({_id: userId});
     if (user) return user.username;
-    else return "Anonymous";
+    else return ANONYMOUS;
 };
 
 function highlightWarningForRegisterPasswordFields() {

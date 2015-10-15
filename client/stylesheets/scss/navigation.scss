@@ -10,7 +10,6 @@
     float: right;
     margin-top: 50px;
     left: 55px;
-    width: 100px;
     background-color: #ffffff;
   }
 }
@@ -105,5 +104,88 @@
     width: 220px;
     height: 50px;
     border-right: dotted 1px #c8c8c8;
+  }
+}
+/* Special class on .container surrounding .navbar, used for positioning it into place. */
+
+.navbar-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  margin-top: 20px;
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .navbar {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+/* Flip around the padding for proper display in narrow viewports */
+
+.navbar-content {
+  width: 320px;
+  padding: 15px;
+  padding-bottom: 0px;
+  &:before, &:after {
+    display: table;
+    content: "";
+    line-height: 0;
+  }
+}
+
+.navbar-nav.navbar-right:last-child {
+  margin-right: 15px !important;
+}
+
+.navbar-footer {
+  background-color: #DDD;
+}
+
+.navbar-footer-content {
+  padding: 15px 15px 15px 15px;
+}
+
+.dropdown-menu {
+  padding: 0px;
+  overflow: hidden;
+}
+
+.profile-img-container {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  img {
+    width: 100%;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+  &:hover a {
+    opacity: 1;
+    top: 0;
+    z-index: 500;
+    span {
+      top: 50%;
+      position: absolute;
+      left: 0;
+      right: 0;
+      transform: translateY(-50%);
+    }
+  }
+  a {
+    display: block;
+    position: absolute;
+    top: -100%;
+    opacity: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    color: inherit;
   }
 }

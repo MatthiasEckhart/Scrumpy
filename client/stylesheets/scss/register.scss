@@ -15,10 +15,10 @@
 
 #register-form {
   position: relative;
-  top: 38%;
+  top: 20%;
   background-color: #ffffff;
-  height: 260px;
   width: 100%;
+  padding: 5px;
   .athentication-header {
     margin-bottom: 20px;
     background-color: #F9FAFC;
@@ -30,8 +30,5 @@
       margin-left: 20px;
       margin-top: 10px;
     }
-  }
-  .has-warning, .has-error {
-    height: 34px;
   }
 }
