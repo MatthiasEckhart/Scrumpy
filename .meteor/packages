@@ -8,7 +8,6 @@ alanning:roles
 email
 mrt:chartjs
 iron:router
-mizzao:bootstrap-3
 jquery
 mrt:jquery-ui
 reactive-var
@@ -38,6 +37,7 @@ aldeed:autoform
 aldeed:collection2
 todda00:friendly-slugs
 natestrauser:select2
+twbs:bootstrap
 zimme:select2-bootstrap3-css
 aldeed:autoform-select2
 rajit:bootstrap3-datepicker
