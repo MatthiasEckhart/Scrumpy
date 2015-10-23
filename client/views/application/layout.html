@@ -4,14 +4,9 @@
         {{> alerts}}
         {{> dialogs}}
     </header>
-    <div class="custom-container">
-        <div class="page-wrapper">
-            {{#unless isLoginOrRegisterRoute}}
-                {{> sidebar}}
-            {{/unless}}
-            {{> autoformModals}}
-            {{> editYourAvatarModal}}
-            {{> yield}}
-        </div>
+    <div class="page-wrapper">
+        {{> autoformModals}}
+        {{> editYourAvatarModal}}
+        {{> yield}}
     </div>
 </template>

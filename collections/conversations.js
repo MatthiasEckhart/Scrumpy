@@ -21,6 +21,7 @@ Conversations.attachSchema(new SimpleSchema({
     },
     recipients: {
         type: [String],
+        label: "Recipients",
         autoform: {
             type: "select2",
             options: function () {

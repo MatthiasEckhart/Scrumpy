@@ -21,7 +21,8 @@ Template.navigation.events({
 });
 
 Template.navigation.helpers({
-    displayChangePasswordForm: () => Session.equals('changePassword', true)
+    displayChangePasswordForm: () => Session.equals('changePassword', true),
+    notificationCount: () => Meteor.user().notifications.length
 });
 
 Template.navigation.onDestroyed(function () {

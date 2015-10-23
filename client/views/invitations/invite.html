@@ -1,83 +1,29 @@
 <template name="invite">
-    <div class="page-content">
-        <div class="header">
-            <h2>Invite users</h2>
-        </div>
-        <div class="padding-20 margin-top-20">
-            {{#autoForm schema=userInvitationFormSchema id="insert-invitations-form" type="method" meteormethod="userInvitation" doc=this}}
-                {{#if advancedMode 'insert-products-form'}}
-                    <div class="form-group">
-                        <label for="scrumMaster">Scrum Master</label>
-                        {{> afFieldInput name="scrumMaster" type="select2" multiple=true}}
-                    </div>
-                {{/if}}
-                <div class="form-group">
-                    <label for="developmentTeam">Development Team</label>
-                    {{> afFieldInput name="developmentTeam" type="select2" multiple=true}}
-                </div>
-                <button id="invite" type="submit" class="btn btn-primary">Invite</button>
-                <button id="skip" type="button" class="btn btn-default btn-xs">{{textForCancelButton}}</button>
-            {{/autoForm}}
-        </div>
-
-        {{#unless productCreateSession}}
-            <h3>Manage invitations</h3>
-
-            <div id="invitations">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="main-box no-header clearfix">
-                            <div class="main-box-body clearfix">
-                                <div class="table-responsive">
-                                    <table class="table user-list">
-                                        <thead>
-                                        <tr>
-                                            <th><span>Invited</span></th>
-                                            <th><span>Role</span></th>
-                                            <th><span>Date</span></th>
-                                            <th class="text-center"><span>Status</span></th>
-                                            <th>Actions</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {{#each invitations}}
-                                            <tr>
-                                                <td>
-                                                    {{#with user}}
-                                                        <a class="pull-left" href="{{pathFor 'profilePage'}}">
-                                                            <img src="{{avatar}}"
-                                                                 alt="{{username}}" width="50" height="50">
-                                                        </a>
-                                                        <a href="{{pathFor 'profilePage'}}"
-                                                           class="user-link">{{username}}</a>
-                                                        <span class="user-subhead">{{fullName}}</span>
-                                                    {{/with}}
-                                                </td>
-                                                <td>{{roleFormatted}}</td>
-                                                <td>{{createdAtFormatted}}</td>
-                                                <td class="text-center">
-                                                    <span class="label {{statusCss}}">{{statusFormatted}}</span>
-                                                </td>
-                                                <td style="width: 20%;">
-                                                    {{#unless _.isEqual status 2}}
-                                                        <a href="#" class="table-link danger decline-invitation">
-                                            <span class="fa-stack">
-                                                <i class="fa fa-square fa-stack-2x"></i>
-                                                <i class="fa fa-times fa-stack-1x fa-inverse"></i>
-                                            </span>
-                                                        </a>
-                                                    {{/unless}}
-                                                </td>
-                                            </tr>
-                                        {{/each}}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+    <div class="container">
+        <div class="row">
+            <div class="single-form col-md-6 col-md-offset-3">
+                {{#unless noInvitations}}
+                    <a href="{{pathFor 'productInvitations'}}"
+                       class="btn btn-default btn-xs pull-right single-button-h2-single-form">Manage Invitations</a>
+                {{/unless}}
+                <h2>Invite Users</h2>
+                <hr/>
+                {{#autoForm schema=userInvitationFormSchema id="insert-invitations-form" type="method" meteormethod="userInvitation" doc=this}}
+                    {{#if advancedMode 'insert-products-form'}}
+                        <div class="form-group">
+                            <label for="scrumMaster">Scrum Master</label>
+                            {{> afFieldInput name="scrumMaster" type="select2" multiple=true}}
                         </div>
+                    {{/if}}
+                    <div class="form-group">
+                        <label for="developmentTeam">Development Team</label>
+                        {{> afFieldInput name="developmentTeam" type="select2" multiple=true}}
                     </div>
-                </div>
+                    <button id="invite" type="submit" class="btn btn-primary">Invite</button>
+                    <button id="skip" type="button"
+                            class="btn btn-default btn-xs">{{textForCancelButton}}</button>
+                {{/autoForm}}
             </div>
-        {{/unless}}
+        </div>
     </div>
 </template>

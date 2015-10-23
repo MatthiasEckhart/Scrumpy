@@ -16,6 +16,7 @@ standard-minifiers      # JS/CSS minifiers run for production mode
 es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
 ejson                   # Extended and Extensible JSON library
+check                   # A lightweight package for argument checking and general pattern matching
 
 accounts-password
 iron:router
@@ -43,3 +44,4 @@ particle4dev:upload-avatar
 hausor:autoform-bs-minicolors
 fortawesome:fontawesome
 mrt:chartjs
+jspdf:core

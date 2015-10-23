@@ -6,14 +6,6 @@ Template.notifications.helpers({
             return null;
         }
         return Notifications.find({_id: {$in: Meteor.user().notifications}}, {sort: {submitted: -1}});
-    },
-    notificationCount: function () {
-        if (Meteor.user().notifications === undefined || Meteor.user().notifications.length === 0) {
-            return 0;
-        }
-        if (Meteor.user().notifications.length > 0) {
-            return Notifications.find({_id: {$in: Meteor.user().notifications}}).count();
-        }
     }
 });
 

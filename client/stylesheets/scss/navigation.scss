@@ -1,113 +1,22 @@
-#top-navigation {
-  position: fixed;
-  z-index: 9999 !important;
-  height: 50px;
-  width: 100%;
+.navbar-default {
+  background-color: #454e59;
+}
+
+.navbar-default .navbar-brand {
+  color: #fff !important;
+}
+
+.navbar-default .navbar-nav > .open {
   background-color: #5ccdde;
-  border-radius: 0;
-  .dropdown-menu {
-    position: relative;
-    float: right;
-    margin-top: 50px;
-    left: 55px;
-    background-color: #ffffff;
-  }
 }
 
-.sidebar-top {
-  position: absolute;
-  width: 220px;
-  height: 50px;
-  border-right: dotted 1px #c8c8c8;
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -ms-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  .logo {
-    margin-top: 3px;
-    margin-left: 13px;
-  }
-  &:hover {
-    background-color: #4EAFBD;
-  }
+span.badge.badge-danger.pull-right {
+  background-color: red;
+  bottom: 8px;
+  position: relative;
 }
 
-.avatar-container {
-  float: right;
-  margin-top: 7px;
-  margin-right: 20px;
-  width: 35px;
-  height: 35px;
-  cursor: pointer;
-  -webkit-border-radius: 90px;
-  -moz-border-radius: 90px;
-  border-radius: 90px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  .avatar-img {
-    -webkit-border-radius: 90px;
-    -moz-border-radius: 90px;
-    border-radius: 90px;
-    -moz-background-clip: padding;
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
-  }
-}
-
-.settings {
-  position: absolute;
-  right: 70px;
-  margin-top: 7px;
-  margin-right: 10px;
-  width: 35px;
-  height: 35px;
-  background-color: #ffffff;
-  -webkit-border-radius: 90px;
-  -moz-border-radius: 90px;
-  border-radius: 90px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  cursor: auto;
-}
-
-.settings-img {
-  margin-top: 5px;
-  margin-left: 5px;
-}
-
-.navbar-form {
-  position: absolute;
-  right: 200px;
-}
-
-@media (max-width: 992px) {
-  .sidebar-top {
-    width: 70px;
-    height: 50px;
-    border-right: dotted 1px #c8c8c8;
-  }
-  #top-navigation .dropdown-menu {
-    position: relative !important;
-    float: right  !important;
-    right: 0 !important;
-    left: -165px !important;
-    margin-top: 50px !important;
-    width: 100px !important;
-    background-color: #ffffff !important;
-  }
-}
-
-@media (min-width: 992px) {
-  .sidebar-top {
-    width: 220px;
-    height: 50px;
-    border-right: dotted 1px #c8c8c8;
-  }
-}
 /* Special class on .container surrounding .navbar, used for positioning it into place. */
-
 .navbar-wrapper {
   position: absolute;
   top: 0;

@@ -1,24 +1,25 @@
 <template name="productCreate">
-    <div class="page-content">
-        <div class="header">
-            <h2>New product</h2>
-        </div>
-        <div class="padding-20 margin-top-20">
-            {{#autoForm collection="Products" id="insert-product-form" type="insert"}}
-                <div class="form-group">
-                    {{> afQuickField name='title' placeholder='Name your product'}}
-                </div>
-                <div class="form-group">
-                    {{> afQuickField name='advancedMode'}}
-                </div>
-                {{#if advancedMode 'insert-product-form'}}
+    <div class="container">
+        <div class="row">
+            <div class="single-form col-md-6 col-md-offset-3">
+                <h2>New Product</h2>
+                <hr />
+                {{#autoForm collection="Products" id="insert-product-form" type="insert"}}
                     <div class="form-group">
-                        {{> afQuickField name='vision' placeholder='Clear and stable vision of the product to be developed'}}
+                        {{> afQuickField name='title' placeholder='Name your product'}}
                     </div>
-                {{/if}}
-                <button id="submit-product-create" type="submit" class="btn btn-primary">Submit</button>
-                <a href="{{pathFor 'dashboard'}}" class="btn btn-default btn-xs">Cancel</a>
-            {{/autoForm}}
+                    <div class="form-group">
+                        {{> afQuickField name='advancedMode'}}
+                    </div>
+                    {{#if advancedMode 'insert-product-form'}}
+                        <div class="form-group">
+                            {{> afQuickField name='vision' placeholder='Clear and stable vision of the product to be developed'}}
+                        </div>
+                    {{/if}}
+                    <button id="submit-product-create" type="submit" class="btn btn-primary">Submit</button>
+                    <a href="{{pathFor 'dashboard'}}" class="btn btn-default btn-xs">Cancel</a>
+                {{/autoForm}}
+            </div>
         </div>
     </div>
 </template>

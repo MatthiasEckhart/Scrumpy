@@ -1,16 +1,16 @@
 <template name="taskBoardPage">
-    <div class="page-content">
-        {{> taskBoard}}
-        <div id="control-project-task-board">
-            {{#unless noStories}}
-                <a href="#" class="btn btn-default" id="export-taskboard-as-pdf"><i class="fa fa-file-pdf-o"></i> <strong>Export as
-                    PDF</strong></a>
-            {{/unless}}
-            {{#if userIsAdmin}}
-                <a href="{{pathFor 'productEdit'}}" class="btn btn-default"><i class="fa fa-pencil"></i> <strong>Edit
-                    project</strong></a>
-                <a href="{{pathFor 'invite'}}" class="btn btn-default"><i class="fa fa-group"></i> <strong>Invite users</strong></a>
-            {{/if}}
-        </div>
+    {{> taskBoard}}
+    <div id="control-project-task-board">
+        {{#unless noStories}}
+            <a href="#" class="btn btn-default" id="export-taskboard-as-pdf"><i class="fa fa-file-pdf-o"></i> <strong>Export
+                as
+                PDF</strong></a>
+        {{/unless}}
+        {{#if userIsAdmin}}
+            <a href="{{pathFor 'productEdit'}}" class="btn btn-default"><i class="fa fa-pencil"></i> <strong>Edit
+                Project</strong></a>
+            <a href="{{pathFor 'invite'}}" class="btn btn-default"><i class="fa fa-group"></i> <strong>Invite
+                Users</strong></a>
+        {{/if}}
     </div>
 </template>

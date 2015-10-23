@@ -1,24 +1,27 @@
 <template name="productEdit">
-    <div class="page-content">
-        <div class="header">
-            <h2>Edit product</h2>
-        </div>
-        <div class="padding-20 margin-top-20">
-            {{#autoForm collection="Products" id="update-product-form" type="update" doc=this}}
-                <div class="form-group">
-                    {{> afQuickField name='title' placeholder='Name your product'}}
-                </div>
-                {{#if advancedMode}}
+    <div class="container">
+        <div class="row">
+            <div class="single-form col-md-6 col-md-offset-3">
+                <button id="delete-product" type="button"
+                        class="btn btn-danger btn-xs pull-right single-button-h2-single-form">Delete product
+                </button>
+                <h2>Edit Product</h2>
+                <hr/>
+                {{#autoForm collection="Products" id="update-product-form" type="update" doc=this}}
                     <div class="form-group">
-                        {{> afQuickField name='vision' placeholder='Clear and stable vision of the product to be developed'}}
+                        {{> afQuickField name='title' placeholder='Name your product'}}
                     </div>
-                {{/if}}
-                <div class="form-group">
-                    <button id="submit-product-Update" type="submit" class="btn btn-primary">Submit</button>
-                    <a href="{{pathFor 'productDashboard'}}" class="btn btn-default btn-xs">Cancel</a>
-                </div>
-            {{/autoForm}}
-            <button id="delete-product" type="button" class="btn btn-danger">Delete product</button>
+                    {{#if advancedMode}}
+                        <div class="form-group">
+                            {{> afQuickField name='vision' placeholder='Clear and stable vision of the product to be developed'}}
+                        </div>
+                    {{/if}}
+                    <div class="form-group">
+                        <button id="submit-product-Update" type="submit" class="btn btn-primary">Submit</button>
+                        <a href="{{pathFor 'productDashboard'}}" class="btn btn-default btn-xs">Cancel</a>
+                    </div>
+                {{/autoForm}}
+            </div>
         </div>
     </div>
 </template>

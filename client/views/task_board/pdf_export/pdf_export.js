@@ -141,9 +141,7 @@ startPDFExportingProcess = function () {
             userStoryDescriptionY = storyY + 50;
         }
 
-        if (!addNewPage) {
-            j++;
-        }
+        if (!addNewPage) j++;
 
         doc.rect(storyX, storyY, storyW, storyH);
 
@@ -174,7 +172,8 @@ startPDFExportingProcess = function () {
         doc.setFontStyle("bold");
         doc.text(userStoryAuthorX, userStoryAuthorY, "Author:");
         doc.setFontStyle("normal");
-        doc.text(userStoryAuthorX + 14, userStoryAuthorY, userStoriesArr[i].author);
+        let author = Users.findOne({_id: userStoriesArr[i].userId});
+        doc.text(userStoryAuthorX + 14, userStoryAuthorY, author.username);
 
         // User story priority
         doc.setFontSize(10);
@@ -247,9 +246,7 @@ startPDFExportingProcess = function () {
     // Draw tasks
     for (i = 0; i < taskArr.length; i++) {
         if (i != 0) {
-            if (addNewPage) {
-                addNewPage = false;
-            }
+            if (addNewPage) addNewPage = false;
             if (taskY >= 259.875 && spaceForTasksOnPage > j) { // more than 8 tasks in one column -> reset Y and start on top
                 taskY = 0;
                 taskX = taskW;
@@ -268,9 +265,7 @@ startPDFExportingProcess = function () {
             }
         }
 
-        if (!addNewPage) {
-            j++;
-        }
+        if (!addNewPage) j++;
 
         doc.rect(taskX, taskY, taskW, taskH);
 
