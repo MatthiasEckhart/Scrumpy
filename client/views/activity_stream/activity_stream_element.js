@@ -4,14 +4,11 @@ Template.activityStreamElement.helpers({
     elType: function (type) {
         return this.type === parseInt(type, 10);
     },
-    submittedFormatted: function () {
-        return moment(this.submitted).format('MMMM Do YYYY, h:mm:ss a');
-    },
     user: function () {
         return Users.findOne({_id: this.userId});
     },
     roleFormatted: function () {
-        return (this.role == 2) ? "Scrum Master" :  "part of the development team";
+        return (this.role == 2) ? "Scrum Master" : "part of the development team";
     },
     sprintStartDate: function () {
         return moment.utc(this.sprintStartDate).format('YYYY-MM-DD');
@@ -38,14 +35,19 @@ Template.activityStreamElement.helpers({
     },
     author: function () {
         var user = Users.findOne({_id: this.userId});
-        if (user) {
-            if (Meteor.user().username === user.username) {
-                return "You";
-            }
-            return user.username;
-        }
+        return (Meteor.user().username === user.username) ? "You" : user.username;
     },
     comments: function () {
         return Comments.find({actElId: this._id});
     }
+});
+
+Template.activityStreamElement.events({
+    'click .add-comment': function () {
+        Session.set('actElId', Template.currentData()._id);
+    }
+});
+
+Template.activityStreamElement.onDestroyed(function () {
+    Session.set('actElId', null);
 });

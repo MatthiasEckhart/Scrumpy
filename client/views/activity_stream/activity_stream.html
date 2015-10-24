@@ -1,5 +1,15 @@
 <template name="activityStream">
-    {{#each activityStreamElements}}
-        {{> activityStreamElement}}
-    {{/each}}
+    <div id="activity-stream" class="panel panel-default widget panel-scrollable">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                Activity Stream</h3>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                {{#each activityStreamElements}}
+                    {{> activityStreamElement}}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
 </template>

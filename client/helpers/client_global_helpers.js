@@ -57,15 +57,15 @@ UI.registerHelper('advancedMode', function (formId) {
 });
 
 UI.registerHelper('totalDevTeamMember', function () {
-    return Invitations.find({productId: this._id, role: 3}, {$and: [{status: 0}, {status: 1}]}).count();
+    return Invitations.find({productId: this._id, role: 3, status: {$ne: 2}}, {$and: [{status: 0}, {status: 1}]}).count();
 });
 
 UI.registerHelper('totalScrumMaster', function () {
-    return Invitations.find({productId: this._id, role: 2}, {$and: [{status: 0}, {status: 1}]}).count();
+    return Invitations.find({productId: this._id, role: 2, status: {$ne: 2}}, {$and: [{status: 0}, {status: 1}]}).count();
 });
 
 UI.registerHelper('teamOverview', function (role) {
-    return Invitations.find({productId: this._id, role: parseInt(role, 10)}).map(function (document, index) {
+    return Invitations.find({productId: this._id, role: parseInt(role, 10), status: {$ne: 2}}).map(function (document, index) {
         document.isAlreadyInRole = document.status == 1;
         let user = Users.findOne({_id: document.userId});
         if (user) document.username = user.username;
@@ -111,6 +111,10 @@ UI.registerHelper('sprintStartDateFormatted', function () {
 
 UI.registerHelper('sprintEndDateFormatted', function () {
     return moment.utc(this.endDate).format('YYYY-MM-DD');
+});
+
+UI.registerHelper('timestamp', function () {
+    return moment(this.createdAt).fromNow();
 });
 
 UI.registerHelper('fullName', function () {

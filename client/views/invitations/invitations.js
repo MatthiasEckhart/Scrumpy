@@ -2,7 +2,7 @@
 
 Template.invitations.helpers({
     invitations: function () {
-        return Invitations.find({}, {sort: {status: 1}});
+        return Invitations.find({}, {sort: {status: 1, createdAt: -1}});
     },
     user: function () {
         let product = Products.findOne({_id: this.productId});
@@ -15,9 +15,6 @@ Template.invitations.helpers({
     },
     roleFormatted: function () {
         return this.role == 2 ? "Scrum Master" : "Development Team member";
-    },
-    createdAtFormatted: function () {
-        return moment(this.createdAt).format("MMMM Do YYYY, h:mm:ss a");
     },
     statusFormatted: function () {
         if (this.status == 0) return "pending";

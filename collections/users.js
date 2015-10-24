@@ -6,7 +6,7 @@ Users.deny({
 });
 
 Users.allow({
-    update: allowPermission
+    update: ownsDocument
 });
 
 Schema.UserProfile = new SimpleSchema({

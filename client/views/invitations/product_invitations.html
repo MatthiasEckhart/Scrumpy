@@ -1,9 +1,10 @@
 <template name="productInvitations">
-    <h2>Manage Invitations</h2>
-
-    <div id="invitations">
-        <div class="row">
-            <div class="col-lg-12">
+    <div class="panel panel-default panel-invitations">
+        <div class="panel-heading">
+            <h3 class="panel-title">Manage Invitations</h3>
+        </div>
+        <div class="panel-body">
+            <div id="invitations">
                 <div class="main-box no-header clearfix">
                     <div class="main-box-body clearfix">
                         <div class="table-responsive">
@@ -12,7 +13,7 @@
                                 <tr>
                                     <th><span>Invited</span></th>
                                     <th><span>Role</span></th>
-                                    <th><span>Date</span></th>
+                                    <th><span class="glyphicon glyphicon-time"></span></th>
                                     <th class="text-center"><span>Status</span></th>
                                     <th>Actions</th>
                                 </tr>
@@ -23,8 +24,8 @@
                                         <td>
                                             {{#with user}}
                                                 <a class="pull-left" href="{{pathFor 'profilePage'}}">
-                                                    <img src="{{avatar}}"
-                                                         alt="{{username}}" width="50" height="50">
+                                                    <img class="media-object img-rounded" src="{{avatar}}"
+                                                         alt="{{username}}">
                                                 </a>
                                                 <a href="{{pathFor 'profilePage'}}"
                                                    class="user-link">{{username}}</a>
@@ -32,7 +33,7 @@
                                             {{/with}}
                                         </td>
                                         <td>{{roleFormatted}}</td>
-                                        <td>{{createdAtFormatted}}</td>
+                                        <td>{{timestamp}}</td>
                                         <td class="text-center">
                                             <span class="label {{statusCss}}">{{statusFormatted}}</span>
                                         </td>

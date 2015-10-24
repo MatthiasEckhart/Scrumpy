@@ -1,43 +1,30 @@
 "use strict";
 
 Template.notification.helpers({
-    notificationType: function (type) {
-        return type == this.type;
-    },
-    pm: function () {
-        return PrivateMessages.findOne({_id: this.pmId});
-    },
-    product: function () {
-        return Products.findOne({_id: this.productId});
+    productTitle: function () {
+        let product = Products.findOne({_id: this.productId});
+        return product && product.title;
     },
     author: function () {
         var user = Users.findOne({_id: this.userId});
-        if (user) {
-            return user.username;
-        }
+        return user && user.username;
     },
     user: function () {
         var user = Users.findOne({_id: this.userId});
-        if (user) {
-            return user;
-        }
+        if (user) return user;
     },
-    notification: function () {
-        var notification = Notifications.findOne({_id: Template.parentData(1)._id});
-        if (notification) {
-            return notification;
-        }
+    conversation: function () {
+        return Conversations.findOne({_id: this.conversationId});
+    },
+    product: function () {
+        return Products.findOne({_id: this.productId});
     }
-
 });
 
 Template.notification.events({
     'click .mark-notification-as-read': function () {
         Meteor.call('markSingleNotificationAsRead', Meteor.userId(), Template.currentData()._id, function (err) {
-            if (err) {
-                throwAlert('error', error.reason, error.details);
-                return null;
-            }
+            if (err) throwAlert('error', error.reason, error.details);
         });
     }
 });

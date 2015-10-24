@@ -5,13 +5,13 @@
                 <h3 class="panel-title">{{subject}}</h3>
             </div>
             <div class="panel-body">
-                <ul class="media-list">
+                <ul class="chat">
                     {{#each privateMessages}}
                         {{> privateMessageText}}
                     {{/each}}
                 </ul>
                 {{#autoForm collection="PrivateMessages" id="insert-private-message-form" type="insert"}}
-                    {{> afQuickField name='text' placeholder='Message'}}
+                    {{> afQuickField name='text' placeholder='Write your message here…'}}
                     <div class="control-group">
                         <div class="controls">
                             <button id="submit-private-message" type="submit" class="btn btn-primary">Send</button>

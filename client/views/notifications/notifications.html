@@ -1,14 +1,16 @@
 <template name="notifications">
-    <ul class=" dropdown-menu">
-        {{#if notificationCount}}
+    <ul class="dropdown-menu">
+        {{#unless _.isEqual notificationCount 0}}
             {{#each notifications}}
                 {{> notification}}
             {{/each}}
-            <li class="mark-all-notifications-as-read">
-                <a href="#">Mark all notifications as read.</a>
+            <li id="mark-all-notifications-as-read">
+                <a href="#">Mark all notifications as read</a>
             </li>
         {{else}}
-            <p class="no-notifications">You got no notifications</p>
-        {{/if}}
+            <li id="no-notifications">
+                <h5>No notifications</h5>
+            </li>
+        {{/unless}}
     </ul>
 </template>

@@ -2,7 +2,10 @@ Invitations = new Mongo.Collection('invitations');
 
 Invitations.allow({
     insert: ownsProduct,
-    update: ownsDocumentOrAdminOrProductOwner,
+    update: ownsDocumentOrAdminOrProductOwner
+});
+
+Invitations.deny({
     remove: denyPermission
 });
 

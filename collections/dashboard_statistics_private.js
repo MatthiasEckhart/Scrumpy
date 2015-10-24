@@ -2,7 +2,10 @@
 DashboardStatisticsPrivate = new Mongo.Collection('dashboardStatisticsPrivate');
 
 DashboardStatisticsPrivate.allow({
-    insert: ownsDocumentOrAdminOrProductOwner,
+    insert: ownsDocumentOrAdminOrProductOwner
+});
+
+DashboardStatisticsPrivate.deny({
     update: denyPermission,
     remove: denyPermission
 });

@@ -1,36 +1,61 @@
 <template name="notification">
-    <ul class="notification-list">
-        <li class="notification-item">
-            {{#if notificationType '1'}}
-                {{#with user}}
-                    <a href="{{pathFor 'profilePage'}}">
-                        <img src="{{avatar}}" alt="{{username}}" width="20" height="20"/>
-                    </a>
-                {{/with}}
-                {{#with pm}}
-
-                    <a href="{{pathFor 'privateMessage'}}" class="mark-notification-as-read">
-                        {{#with notification}}
-                            <span class="author">{{author}}</span> <span class="new-message">sent </span> <span class="rest-message"> a new message.</span>
+    <li class="notification-item" style="position: relative;">
+        {{#if _.isEqual type 1}}
+            <a href="{{pathFor 'conversation' data=conversation}}" class="mark-notification-as-read">
+                <div>
+                    <div class="avatar pull-left">
+                        {{#with user}}
+                            <img src="{{avatar}}" alt="{{username}}" width="50" height="50"/>
                         {{/with}}
-                    </a>
-
-                {{/with}}
-            {{/if}}
-            {{#if notificationType '2'}}
-                {{#with user}}
-                    <a href="{{pathFor 'productDashboard'}}">
-                        <img src="{{avatar}}" alt="{{username}}" width="20" height="20"/>
-                    </a>
-                {{/with}}
-                {{#with product}}
-                    <a href="{{pathFor 'productDashboard'}}" class="mark-notification-as-read">
-                        {{#with notification}}
-                        <span class="author">{{author}}</span><span class="rest-message">commented on a common project.</span>
+                    </div>
+                    <div class="message">
+                        <span class="author">{{author}}</span><span
+                            class="rest-message"> sent you a new private message.</span>
+                    </div>
+                    <div class="timestamp">
+                        {{timestamp}}
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+            </a>
+        {{/if}}
+        {{#if _.isEqual type 2}}
+            <a href="{{pathFor 'invitations'}}" class="mark-notification-as-read">
+                <div>
+                    <div class="avatar pull-left">
+                        {{#with user}}
+                            <img src="{{avatar}}" alt="{{username}}" width="50" height="50"/>
                         {{/with}}
-                    </a>
-                {{/with}}
-            {{/if}}
-        </li>
-    </ul>
+                    </div>
+                    <div class="message">
+                        <span class="author">{{author}}</span><span
+                            class="rest-message"> invited you to work on <strong>{{productTitle}}</strong>.</span>
+                    </div>
+                    <div class="timestamp">
+                        {{timestamp}}
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+            </a>
+        {{/if}}
+        {{#if _.isEqual type 3}}
+            <a href="{{pathFor 'productDashboard' data=product}}" class="mark-notification-as-read">
+                <div>
+                    <div class="avatar pull-left">
+                        {{#with user}}
+                            <img src="{{avatar}}" alt="{{username}}" width="50" height="50"/>
+                        {{/with}}
+                    </div>
+                    <div class="message">
+                        <span class="author">{{author}}</span><span
+                            class="rest-message"> commented on an activity in product <strong>{{productTitle}}</strong>.</span>
+                    </div>
+                    <div class="timestamp">
+                        {{timestamp}}
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+            </a>
+        {{/if}}
+    </li>
 </template>

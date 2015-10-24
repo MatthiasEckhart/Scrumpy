@@ -3,7 +3,7 @@ Comments = new Mongo.Collection('comments');
 Comments.attachSchema(new SimpleSchema({
     body: {
         type: String,
-        label: "Add a message for other Scrum team members",
+        label: "Add a comment for other Scrum team members",
         autoform: {
             afFieldInput: {
                 type: "textarea",

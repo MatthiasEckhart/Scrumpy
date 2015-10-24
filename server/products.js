@@ -6,7 +6,7 @@ Meteor.methods({
     },
     deleteProduct: function (data) {
         var {productId, userId} = data,
-            product = getProduct(productId),
+            product = getDocument(Products, productId),
             documentIds,
             db;
 

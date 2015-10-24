@@ -2,24 +2,35 @@
 
 Meteor.methods({
     createNotificationsForComment: function (commentId) {
-        let comment = Comments.findOne({_id: commentId});
-        if (!comment) throw new Meteor.Error(500, "Comment not found.", "Please contact support team.");
+        let comment = getDocument(Comments, commentId);
         let participantsIds = [];
         Comments.find({actElId: comment.actElId}).forEach(function (comment) {
             participantsIds.push(comment.userId);
         });
-        let actEl = ActivityStreamElements.findOne({_id: comment.actElId});
-        if (!actEl) throw new Meteor.Error(500, "Activity Stream Element not found.", "Please contact support team.");
+        let actEl = getDocument(ActivityStreamElements, comment.actElId);
         if (comment.userId != actEl.userId) participantsIds.push(actEl.userId);
         if (participantsIds.length > 0) {
             let notificationId = Notifications.insert({
                 userId: comment.userId,
-                type: 2,
+                type: 3,
                 commentId: comment._id,
-                createdAt: new Date(),
                 productId: actEl.productId
             });
             Users.update({_id: {$in: _.without(participantsIds, comment.userId)}}, {$push: {notifications: notificationId}}, {multi: true});
+        }
+    },
+    createNotificationForPrivateMessage: function (privateMessageId) {
+        let privateMessage = getDocument(PrivateMessages, privateMessageId);
+        let conversation = getDocument(Conversations, privateMessage.conversationId);
+        let recipientsIds = conversation.recipients;
+        if (privateMessage.userId != conversation.userId) recipientsIds.push(conversation.userId);
+        if (recipientsIds.length > 0) {
+            let notificationId = Notifications.insert({
+                userId: privateMessage.userId,
+                type: 1,
+                conversationId: conversation._id
+            });
+            Users.update({_id: {$in: _.without(recipientsIds, privateMessage.userId)}}, {$push: {notifications: notificationId}}, {multi: true});
         }
     }
 });

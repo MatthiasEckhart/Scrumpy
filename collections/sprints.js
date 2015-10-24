@@ -89,6 +89,12 @@ Sprints.attachSchema(new SimpleSchema({
 
 var productId = undefined;
 
+/**
+ * Validates the specified sprint date on certain preconditions.
+ * Conditions:
+ *  - Start date must be before end date.
+ * - Combination of start and end date must be unique (product-specific).
+ */
 function validateSprintDate(context, startDate, endDate) {
     /* Inserts */
     if (!context.operator) {

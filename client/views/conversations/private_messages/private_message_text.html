@@ -1,26 +1,22 @@
 <template name="privateMessageText">
-    <li class="media">
-        {{#if authorIsCurrentUser}}
-            {{#with user}}
-                <a class="" href="{{pathFor 'profilePage'}}">
-                    <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}">
-                </a>
-            {{/with}}
-        {{else}}
-            {{#with user}}
-                <a class="pull-left" href="{{pathFor 'profilePage'}}">
-                    <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}">
-                </a>
-            {{/with}}
-        {{/if}}
-        <div class="media-body">
-            <h4 class="media-heading">
+    <li class="left clearfix">
+        {{#with user}}
+            <span class="chat-img pull-left"> <a class="" href="{{pathFor 'profilePage'}}">
+                <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}">
+            </a></span>
+        {{/with}}
+        <div class="chat-body clearfix">
+            <div class="header">
                 {{#with user}}
-                    <a href="{{pathFor 'profilePage'}}">{{username}}</a>
+                    <a href="{{pathFor 'profilePage'}}"><strong>{{username}}</strong></a>
                 {{/with}}
-            </h4>
-            <p>{{date}}</p>
-            <p>{{{text}}}</p>
+                <small class="pull-right text-muted">
+                    <span class="glyphicon glyphicon-time"></span>{{timestamp}}
+                </small>
+            </div>
+            <p>
+                {{text}}
+            </p>
         </div>
     </li>
 </template>

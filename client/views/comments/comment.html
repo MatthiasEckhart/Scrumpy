@@ -1,20 +1,26 @@
 <template name="comment">
-    {{#with user}}
-        <a class="pull-left" href="{{pathFor 'profilePage'}}">
-            <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30" height="30">
-        </a>
-    {{/with}}
-    <div class="comment-header margin-left-40">
-        <li class="no-style">
-            <span class="author">{{#with user}}{{username}}{{/with}}</span>
-            <span class="date">on {{submittedFormatted}}</span>
-        </li>
-        {{#if productOwnerOrOwnerOfComment}}
-            <button type="button" class="fa fa-trash btn btn-danger btn-xs delete-comment"></button>
-            {{#afModal formId="update-user-story-form" class="fa fa-pencil btn btn-warning btn-xs edit-comment" collection="Comments" operation="update" title="Update your comment" doc=_id}}{{/afModal}}
-        {{/if}}
-        <div class="comment-body">
-            <p>{{body}}</p>
+    <li class="left clearfix">
+        {{#with user}}
+            <span class="chat-img pull-left"> <a class="" href="{{pathFor 'profilePage'}}">
+                <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}">
+            </a></span>
+        {{/with}}
+        <div class="chat-body clearfix">
+            <div class="header">
+                {{#with user}}
+                    <a href="{{pathFor 'profilePage'}}"><strong>{{username}}</strong></a>
+                {{/with}}
+                <small class="pull-right text-muted">
+                    <span class="glyphicon glyphicon-time"></span>{{timestamp}}
+                </small>
+            </div>
+            {{#if productOwnerOrOwnerOfComment}}
+                <button type="button" class="fa fa-trash btn btn-danger btn-xs delete-comment"></button>
+                {{#afModal formId="update-user-story-form" class="fa fa-pencil btn btn-warning btn-xs edit-comment" collection="Comments" operation="update" title="Update your comment" doc=_id}}{{/afModal}}
+            {{/if}}
+            <p>
+                {{body}}
+            </p>
         </div>
-    </div>
+    </li>
 </template>

@@ -2,14 +2,14 @@
 
 Meteor.methods({
     createActElProductCreate: function (productId, userId) {
-        let product = getProduct(productId);
+        let product = getDocument(Products, productId);
         let el = _.extend(getBaseActEl(1, productId, userId), {
             productTitle: product.title
         });
         insertActivityStreamElement(el);
     },
     createActElProductTitleEdit: function (productId, userId, oldProductTitle) {
-        let product = getProduct(productId);
+        let product = getDocument(Products, productId);
         let el = _.extend(getBaseActEl(2, product._id, userId), {
             newProductTitle: product.title,
             oldProductTitle: oldProductTitle
@@ -17,14 +17,14 @@ Meteor.methods({
         insertActivityStreamElement(el);
     },
     createActElUserInvitationAccepted: function (productId, userId, role) {
-        let product = getProduct(productId);
+        let product = getDocument(Products, productId);
         let el = _.extend(getBaseActEl(3, product._id, userId), {
             role: role
         });
         insertActivityStreamElement(el);
     },
     createActElUserInvitationDeclined: function (productId, userId, role) {
-        let product = getProduct(productId);
+        let product = getDocument(Products, productId);
         let el = _.extend(getBaseActEl(4, product._id, userId), {
             role: role
         });
@@ -39,7 +39,7 @@ Meteor.methods({
         insertActivityStreamElement(el);
     },
     createActElUserStory: function (userStoryId, userId) {
-        let userStory = getUserStory(userStoryId);
+        let userStory = getDocument(UserStories, userStoryId);
         let el = _.extend(getBaseActEl(6, userStory.productId, userId), {
             userStoryTitle: userStory.title
         });

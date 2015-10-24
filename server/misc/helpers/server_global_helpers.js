@@ -1,13 +1,7 @@
-getProduct = function (productId) {
-    let product = Products.findOne({_id: productId});
-    if (!product) throw new Meteor.Error(500, "Product not found.", "Please contact support team.");
-    return product;
-};
-
-getUserStory = function (userStoryId) {
-    let userStory = UserStories.findOne({_id: userStoryId});
-    if (!userStory) throw new Meteor.Error(500, "User Story not found.", "Please contact support team.");
-    return userStory;
+getDocument = function(collection, documentId) {
+    let document = collection.findOne({_id: documentId});
+    if (!document) throw new Meteor.Error(500, "Document with ID " + documentId + " not found.", "Please contact support team.");
+    return document;
 };
 
 arrayContainsDateElement = function (arr, el) {

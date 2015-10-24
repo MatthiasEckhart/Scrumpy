@@ -1,0 +1,52 @@
+.notifications .dropdown-menu {
+  width: 260px;
+  a {
+    padding: 8px 12px 8px 8px;
+  }
+  .divider {
+    margin: 1px;
+  }
+}
+
+#notification-items {
+  width: 300px;
+}
+
+#notification-spinner {
+  text-align: center;
+  padding: 8px 0px 11px;
+}
+
+.notifications {
+  .notification-item {
+    position: relative;
+    a {
+      min-height: 50px;
+    }
+    .avatar {
+      width: 50px;
+      height: 50px;
+      float: left;
+      margin-right: 8px;
+    }
+    .message {
+      margin-left: 58px;
+      white-space: normal;
+      line-height: 16px;
+    }
+    .timestamp {
+      font-size: 11px;
+      color: #999;
+      float: right;
+    }
+  }
+  #no-notifications {
+    padding: 8px 0px 11px;
+    text-align: center;
+  }
+  #mark-all-notifications-as-read {
+    border-top: solid;
+    border-color: #ededed;
+    text-align: center;
+  }
+}

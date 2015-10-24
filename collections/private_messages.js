@@ -9,7 +9,13 @@ PrivateMessages.allow({
 PrivateMessages.attachSchema(new SimpleSchema({
     text: {
         type: String,
-        label: "Message"
+        label: "New Private Message",
+        autoform: {
+            afFieldInput: {
+                type: "textarea",
+                rows: 3
+            }
+        }
     }, conversationId: {
         type: String,
         autoform: {
