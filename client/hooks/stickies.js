@@ -23,7 +23,7 @@ var stickyInsertHooks = {
                             throwAlert('error', error.reason, error.details);
                             return;
                         }
-                        Meteor.call('createActElStickyCreate', sticky.productId, Meteor.user()._id, sticky.title, story.title, sprint.goal, function (error) {
+                        Meteor.call('createActElStickyCreate', product._id, Meteor.user()._id, sticky.title, story.title, sprint.goal, function (error) {
                             if (error) {
                                 throwAlert('error', error.reason, error.details);
                                 return;

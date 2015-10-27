@@ -19,15 +19,13 @@ Template.sticky.onRendered(function () {
             stickyDroppedId = rd.obj.getAttribute('id'),
             stickyDropped = Stickies.findOne({_id: stickyDroppedId}),
             stickyOldStatus = stickyDropped.status,
-            stickyDroppedUserStory = UserStories.findOne({_id: stickyDropped.storyId});
-        if (pos[2] === 2) {
-            updateStickyPosition(stickyDroppedId, "1");
-        } else if (pos[2] === 3) {
-            updateStickyPosition(stickyDroppedId, "2");
-        } else if (pos[2] === 4) {
-            updateStickyPosition(stickyDroppedId, "3");
-        } else if (pos[2] === 5) {
-            updateStickyPosition(stickyDroppedId, "4");
+            stickyDroppedUserStory = UserStories.findOne({_id: stickyDropped.storyId}),
+            location;
+        if (pos[2] === 2) location = "1";
+        else if (pos[2] === 3) location = "2";
+        else if (pos[2] === 4) location = "3";
+        else if (pos[2] === 5) {
+            location = "4";
             if (advancedMode) {
                 Meteor.call('updateBurndown', sprint._id, (error) => {
                     if (error) throwAlert('error', error.reason, error.details);
@@ -37,6 +35,7 @@ Template.sticky.onRendered(function () {
                 if (error) throwAlert('error', error.reason, error.details);
             });
         }
+        updateStickyPosition(stickyDroppedId, location);
         if (pos[2] !== 5) {
             Meteor.call('updateDashboardStatisticsPrivateDec', stickyDropped, stickyDroppedUserStory, function (error) {
                 if (error) throwAlert('error', error.reason, error.details);
@@ -49,7 +48,7 @@ Template.sticky.onRendered(function () {
                 lastMovedBy: Meteor.userId()
             }
         });
-        Meteor.call('createActElStickyMoved', stickyDroppedUserStory.productId, Meteor.user()._id, stickyDropped.title, stickyOldStatus, stickyDropped.status, function (error) {
+        Meteor.call('createActElStickyMoved', stickyDroppedUserStory.productId, Meteor.user()._id, stickyDropped.title, stickyOldStatus, location, function (error) {
             if (error) throwAlert('error', error.reason, error.details);
         });
     };

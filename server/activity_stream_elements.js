@@ -102,9 +102,9 @@ Meteor.methods({
         });
         insertActivityStreamElement(el);
     },
-    createActElUserStoryRemoved: function (productId, userId, storyTitle) {
+    createActElUserStoryRemoved: function (productId, userId, userStoryTitle) {
         let el = _.extend(getBaseActEl(15, productId, userId), {
-            storyTitle: storyTitle
+            userStoryTitle: userStoryTitle
         });
         insertActivityStreamElement(el);
     },
@@ -148,7 +148,6 @@ Meteor.methods({
 function getBaseActEl(type, productId, userId) {
     return {
         type: type,
-        submitted: new Date(),
         userId: userId,
         productId: productId
     };
