@@ -5,3 +5,8 @@ Template.login.helpers({
         return Schema.login;
     }
 });
+
+Template.login.onRendered(function () {
+    particlesJS.load('particles-js', '/particles.json', function () {
+    });
+});

@@ -1,5 +1,5 @@
 <template name="navigation">
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -15,41 +15,34 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    {{#if currentUser}}
-                        <li><a href="{{pathFor 'productCreate'}}"><i class="fa fa-cubes"></i> New Product</a></li>
-                        {{#with currentUser}}
-                            <li class="dropdown notifications">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-haspopup="true" aria-expanded="false"><i
-                                        class="fa fa-bell"></i> {{#if notificationCount}}<span
-                                        class="badge badge-danger pull-right">{{notificationCount}}</span>{{else}}<span
-                                        class="caret"></span>{{/if}}
-                                </a>
-                                {{> notifications}}
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-haspopup="true" aria-expanded="false"><i
-                                        class="fa fa-user"></i> {{currentUserUsername}} <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        {{#if displayChangePasswordForm}}
-                                            {{> changePassword}}
-                                        {{else}}
-                                            {{> userOverview}}
-                                        {{/if}}
-                                    </li>
-                                </ul>
-                            </li>
-                        {{/with}}
-                    {{else}}
-                        <li><a href="{{pathFor 'register'}}">Register</a></li>
-                        <li><a href="{{pathFor 'login'}}">Login</a></li>
-                    {{/if}}
+                    <li><a href="{{pathFor 'productCreate'}}"><i class="fa fa-cubes"></i> New Product</a></li>
+                    {{#with currentUser}}
+                        <li class="dropdown notifications">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false"><i
+                                    class="fa fa-bell"></i> {{#if notificationCount}}<span
+                                    class="badge badge-danger pull-right">{{notificationCount}}</span>{{else}}<span
+                                    class="caret"></span>{{/if}}
+                            </a>
+                            {{> notifications}}
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false"><i
+                                    class="fa fa-user"></i> {{currentUserUsername}} <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    {{#if displayChangePasswordForm}}
+                                        {{> changePassword}}
+                                    {{else}}
+                                        {{> userOverview}}
+                                    {{/if}}
+                                </li>
+                            </ul>
+                        </li>
+                    {{/with}}
                 </ul>
             </div>
-            <!-- /.navbar-collapse -->
         </div>
-        <!-- /.container-fluid -->
     </nav>
 </template>

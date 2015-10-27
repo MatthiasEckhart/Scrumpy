@@ -1,10 +1,5 @@
 "use strict";
 
-Users.before.insert(function (userId, doc) {
-    let dashboardStats = DashboardStatistics.findOne();
-    DashboardStatistics.update({_id: dashboardStats._id}, {$inc: {totalUsers: 1}});
-});
-
 Meteor.methods({
     markAllNotificationsAsRead: function (userId) {
         var userNotifications = Users.findOne({_id: userId}).notifications;

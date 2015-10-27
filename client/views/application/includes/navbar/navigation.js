@@ -6,8 +6,8 @@ Template.navigation.events({
         Meteor.logout(function () {
             Session.set('logoutSuccess', true);
             Session.set('username', username);
+            Router.go('/');
         });
-        Router.go('dashboard');
     },
     'click #upload-image': function (e) {
         e.preventDefault();

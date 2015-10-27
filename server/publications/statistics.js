@@ -22,7 +22,3 @@ Meteor.publish('dashboardStatisticsPrivate', function () {
     if (productIds.length > 0) return DashboardStatisticsPrivate.find({productId: {$in: productIds}});
     else this.ready();
 });
-
-Meteor.publish('dashboardStatistics', function () {
-    return DashboardStatistics.find();
-});

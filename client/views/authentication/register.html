@@ -1,25 +1,34 @@
 <template name="register">
-    <div id="authentication-wrapper">
-        <div id="register">
-            {{#autoForm schema=registerSchema id="register-form" type="method" meteormethod="doUserRegister"}}
-                <div class="athentication-header">
-                    <p>REGISTER</p>
+    <div id="authentication" class="container">
+        <div id="particles-js"></div>
+        <div class="row vertical-center">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="pull-left">
+                            <a href="{{pathFor 'landingPage'}}"><i class="fa fa-arrow-left"></i></a>
+                        </div>
+                        <h3 class="panel-title">Create an account</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{#autoForm schema=registerSchema id="register-form" type="method" meteormethod="doUserRegister"}}
+                            <div class="form-group">
+                                {{> afQuickField name="username"}}
+                            </div>
+                            <div class="form-group">
+                                {{> afQuickField name="password" type="password"}}
+                            </div>
+                            <div class="form-group">
+                                {{> afQuickField name="passwordConfirmation" type="password"}}
+                            </div>
+                            <div class="form-group">
+                                <input class="btn btn-primary btn-block" type="submit" value="Join Scrumpy">
+                            </div>
+                            Already have an account? <a href="{{pathFor 'login'}}">Click here to login!</a>
+                        {{/autoForm}}
+                    </div>
                 </div>
-                <div class="padding-20">
-                    <div class="form-group">
-                        {{> afQuickField name="username"}}
-                    </div>
-                    <div class="form-group">
-                        {{> afQuickField name="password" type="password"}}
-                    </div>
-                    <div class="form-group">
-                        {{> afQuickField name="passwordConfirmation" type="password"}}
-                    </div>
-                    <div class="form-group">
-                        <input class="btn btn-primary btn-block" type="submit" value="Join Scrumpy">
-                    </div>
-                </div>
-            {{/autoForm}}
+            </div>
         </div>
     </div>
 </template>

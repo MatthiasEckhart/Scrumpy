@@ -1,12 +1,17 @@
 <template name="layout">
-    <header class="application">
-        {{> navigation}}
-        {{> alerts}}
-        {{> dialogs}}
-    </header>
-    <div class="page-wrapper">
-        {{> autoformModals}}
-        {{> editYourAvatarModal}}
+    {{#if currentUser}}
+        <header class="application">
+            {{> navigation}}
+            {{> alerts}}
+            {{> dialogs}}
+        </header>
+
+        <div class="page-wrapper">
+            {{> autoformModals}}
+            {{> editYourAvatarModal}}
+            {{> yield}}
+        </div>
+    {{else}}
         {{> yield}}
-    </div>
+    {{/if}}
 </template>

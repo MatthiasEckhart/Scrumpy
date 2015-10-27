@@ -60,13 +60,3 @@ Meteor.methods({
         Products.remove(productId);
     }
 });
-
-Products.before.insert(function (userId, doc) {
-    let dashboardStats = DashboardStatistics.findOne();
-    DashboardStatistics.update({_id: dashboardStats._id}, {$inc: {totalProducts: 1}});
-});
-
-Products.before.remove(function (userId, doc) {
-    let dashboardStats = DashboardStatistics.findOne();
-    DashboardStatistics.update({_id: dashboardStats._id}, {$inc: {totalProducts: -1}});
-});

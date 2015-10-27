@@ -1,13 +1,13 @@
 .navbar-default {
-  background-color: #454e59;
+  background-color: #110022;
 }
 
 .navbar-default .navbar-brand {
-  color: #fff !important;
+  color: #ffffff !important;
 }
 
-.navbar-default .navbar-nav > .open {
-  background-color: #5ccdde;
+.nav.navbar-nav.navbar-right li a {
+  color: #ffffff;
 }
 
 span.badge.badge-danger.pull-right {
@@ -97,4 +97,8 @@ span.badge.badge-danger.pull-right {
     text-align: center;
     color: inherit;
   }
+}
+
+.left-navbar-footer-button {
+  color: #000000 !important;
 }

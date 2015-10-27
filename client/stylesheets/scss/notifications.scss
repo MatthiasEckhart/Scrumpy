@@ -33,6 +33,7 @@
       margin-left: 58px;
       white-space: normal;
       line-height: 16px;
+      color: #333333;
     }
     .timestamp {
       font-size: 11px;
@@ -43,10 +44,15 @@
   #no-notifications {
     padding: 8px 0px 11px;
     text-align: center;
+    color: #333333;
   }
   #mark-all-notifications-as-read {
     border-top: solid;
     border-color: #ededed;
     text-align: center;
+    a {
+      color: #333333;
+      font-weight: bold;
+    }
   }
 }

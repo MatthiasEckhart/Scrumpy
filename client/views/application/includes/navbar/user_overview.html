@@ -26,11 +26,11 @@
         <div class="navbar-footer-content">
             <div class="row">
                 <div class="col-md-8">
-                    {{#afModal formId="update-user-form" class="btn btn-default btn-sm" collection="Users" operation="update" title="Settings" doc=_id}}
+                    {{#afModal formId="update-user-form" class="btn btn-default btn-sm left-navbar-footer-button" collection="Users" operation="update" title="Settings" doc=_id}}
                         <i class="fa fa-cog"></i>{{/afModal}}
-                    <a id="change-password" href="#" class="btn btn-default btn-sm"><i class="fa fa-key"></i></a>
-                    <a id="invitations" href="{{pathFor 'invitations'}}" class="btn btn-default btn-sm"><i class="fa fa-group"></i></a>
-                    <a id="messages" href="{{pathFor 'conversationsList'}}" class="btn btn-default btn-sm"><i class="fa fa-comments"></i></a>
+                    <a id="change-password" href="#" class="btn btn-default btn-sm left-navbar-footer-button"><i class="fa fa-key"></i></a>
+                    <a id="invitations" href="{{pathFor 'invitations'}}" class="btn btn-default btn-sm left-navbar-footer-button"><i class="fa fa-group"></i></a>
+                    <a id="messages" href="{{pathFor 'conversationsList'}}" class="btn btn-default btn-sm left-navbar-footer-button"><i class="fa fa-comments"></i></a>
                 </div>
                 <div class="col-md-4">
                     <a id="sign-out" href="#"
