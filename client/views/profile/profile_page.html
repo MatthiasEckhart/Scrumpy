@@ -1,73 +1,83 @@
 <template name="profilePage">
-    <div class="cover-picture">
-        <div class="cover-picture-shadow">
-            {{#if noAvatar 'profile'}}
-                <div class="profile-pic-wrapper">
-                    <img class="profile-img" src="{{defaultAvatar}}" alt="{{username}}"/>
-                </div>
+    <div class="container target">
+        <div class="row">
+            <div class="col-sm-10">
+                <img src={{avatar}}
+                             alt="{{username}}" class="img-responsive img-rounded img-profile"/>
 
-            {{else}}
-                <div class="profile-pic-wrapper">
-                    <img class="profile-img" src="{{profile.image}}" alt="{{username}}"/>
-                </div>
-            {{/if}}
-
-            <div class="display-name">
-                <span class="display-username">{{username}}</span>
+                <h1>{{username}}</h1>
             </div>
         </div>
-    </div>
+        <br/>
 
-    {{#if personalInfoAvailable}}
-        <div class="panel panel-default">
-            <div class="panel-heading">Personal information</div>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Organization</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>{{firstName}}</td>
-                    <td>{{lastName}}</td>
-                    <td>{{organization}}</td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="row">
+            <div class="col-sm-3">
+                <ul class="list-group">
+                    <li class="list-group-item text-muted" contenteditable="false"><i class="fa fa-user fa-1x"></i>
+                        About
+                    </li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong
+                            class="">Joined</strong></span> {{fromNow "createdAt"}}
+                    </li>
+                    {{#if profile.firstName}}
+                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">First name
+                        </strong></span> {{profile.firstName}}
+                        </li>
+                    {{/if}}
+                    {{#if profile.lastName}}
+                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Last
+                            name</strong></span> {{profile.lastName}}</li>
+                    {{/if}}
+                    {{#if profile.organization}}
+                        <li class="list-group-item text-right"><span class="pull-left"><strong
+                                class="">Organization</strong></span> {{profile.organization}}</li>
+                    {{/if}}
+                </ul>
+                {{#if profile.website}}
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><i class="fa fa-link fa-1x"></i> Website</div>
+                        <div class="panel-body"><a href="{{profile.website}}" target="_blank">{{profile.website}}</a>
+
+                        </div>
+                    </div>
+                {{/if}}
+            </div>
+            <div class="col-sm-9" contenteditable="false" style="">
+                {{#if profile.bio}}
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><i class="fa fa-bullhorn fa-1x"></i> Bio</div>
+                        <div class="panel-body"> {{profile.bio}}
+
+                        </div>
+                    </div>
+                {{/if}}
+                {{#if statDataAvailable}}
+                    <div class="panel panel-default target">
+                        <div class="panel-heading" contenteditable="false"><i class="fa fa-dashboard fa-1x"></i>
+                            Activity
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="thumbnail">
+                                        {{> profileRolesPolarAreaChart}}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="thumbnail">
+                                        {{> profileProductsDoughnutChart}}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="thumbnail">
+                                        {{> profileActivityOverviewBarChart}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/if}}
+            </div>
         </div>
-    {{/if}}
-
-    <div class="statistics-wrapper">
-        {{#if statDataAvailable}}
-            <div class="statistics-profile-block">
-                <div class="header">
-                    <p class="statistics-header-title">Roles</p>
-                </div>
-                <div class="statistics-profile-content">
-                    {{> profileRolesPolarAreaChart}}
-                </div>
-            </div>
-
-            <div class="statistics-profile-block">
-                <div class="header">
-                    <p class="statistics-header-title">Products</p>
-                </div>
-                <div class="statistics-profile-content">
-                    {{> profileProductsDoughnutChart}}
-                </div>
-            </div>
-
-            <div class="statistics-profile-block">
-                <div class="header">
-                    <p class="statistics-header-title">Activity overview (created)</p>
-                </div>
-                <div class="statistics-profile-content">
-                    {{> profileActivityOverviewBarChart}}
-                </div>
-            </div>
-        {{/if}}
     </div>
 </template>

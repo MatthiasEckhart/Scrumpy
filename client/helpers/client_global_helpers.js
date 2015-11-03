@@ -30,23 +30,6 @@ UI.registerHelper('currentUserUsername', function () {
     return Meteor.user().username;
 });
 
-UI.registerHelper('defaultAvatar', function () {
-    return DEFAULT_AVATAR;
-});
-
-UI.registerHelper('noAvatar', function (type) {
-    var user;
-    if (type === "assignee") {
-        user = Users.findOne({_id: this.assigneeId});
-        if (user) return !_.has(user.profile, 'image') || user.profile.image.length === 0;
-    } else if (type === "currentUser") return !_.has(Meteor.user().profile, 'image') || Meteor.user().profile.image.length === 0;
-    else if (type === "profile") return !_.has(this.profile, 'image') || this.profile.image.length === 0;
-    else if (type === "productOwnerOrAdministrator") {
-        user = Users.findOne({_id: this.userId});
-        if (user) return !_.has(user.profile, 'image') || user.profile.image.length === 0;
-    }
-});
-
 UI.registerHelper('navTabIsActive', function (navTab) {
     return Session.equals('activeNavTab', navTab);
 });
@@ -57,15 +40,27 @@ UI.registerHelper('advancedMode', function (formId) {
 });
 
 UI.registerHelper('totalDevTeamMember', function () {
-    return Invitations.find({productId: this._id, role: 3, status: {$ne: 2}}, {$and: [{status: 0}, {status: 1}]}).count();
+    return Invitations.find({
+        productId: this._id,
+        role: 3,
+        status: {$ne: 2}
+    }, {$and: [{status: 0}, {status: 1}]}).count();
 });
 
 UI.registerHelper('totalScrumMaster', function () {
-    return Invitations.find({productId: this._id, role: 2, status: {$ne: 2}}, {$and: [{status: 0}, {status: 1}]}).count();
+    return Invitations.find({
+        productId: this._id,
+        role: 2,
+        status: {$ne: 2}
+    }, {$and: [{status: 0}, {status: 1}]}).count();
 });
 
 UI.registerHelper('teamOverview', function (role) {
-    return Invitations.find({productId: this._id, role: parseInt(role, 10), status: {$ne: 2}}).map(function (document, index) {
+    return Invitations.find({
+        productId: this._id,
+        role: parseInt(role, 10),
+        status: {$ne: 2}
+    }).map(function (document, index) {
         document.isAlreadyInRole = document.status == 1;
         let user = Users.findOne({_id: document.userId});
         if (user) document.username = user.username;
@@ -113,9 +108,10 @@ UI.registerHelper('sprintEndDateFormatted', function () {
     return moment.utc(this.endDate).format('YYYY-MM-DD');
 });
 
-UI.registerHelper('timestamp', function () {
-    return moment(this.createdAt).fromNow();
+UI.registerHelper('fromNow', function (value) {
+    return moment(this[value]).fromNow();
 });
+
 
 UI.registerHelper('fullName', function () {
     if (_.has(this, 'profile') && _.has(this.profile, 'firstName') && _.has(this.profile, 'lastName')) return this.profile.firstName + " " + this.profile.lastName;
@@ -131,36 +127,6 @@ UI.registerHelper('userIsProductOwner', function (template) {
     }
     return Roles.userIsInRole(Meteor.user(), [productId], 'productOwner');
 });
-
-isNotEmpty = function (selector, value) {
-    if (value && value !== '') {
-        return true;
-    } else {
-        highlightWarningForField(selector);
-        return false;
-    }
-};
-
-highlightWarningForField = function (selector) {
-    $(selector).parent().addClass('has-warning has-feedback');
-    if ($(selector).parent().children().length === 1) {
-        $(selector).parent().append($('<span/>', {'class': 'glyphicon glyphicon-warning-sign form-control-feedback'}));
-    }
-};
-
-highlightErrorForField = function (selector) {
-    $(selector).parent().addClass('has-error has-feedback');
-    if ($(selector).parent().children().length === 1) {
-        $(selector).parent().append($('<span/>', {'class': 'glyphicon glyphicon-remove form-control-feedback'}));
-    }
-};
-
-resetAlertsForFields = function () {
-    $('.form-control').each(function () {
-        $(this).parent().removeClass('has-warning').removeClass('has-error');
-        $(this).parent().find('span').remove();
-    });
-};
 
 setSessionForActiveNavTab = function (name) {
     Session.set('activeNavTab', name);

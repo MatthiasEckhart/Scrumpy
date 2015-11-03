@@ -10,7 +10,10 @@ UserStories.attachSchema(new SimpleSchema({
     title: {
         type: String,
         label: "Title",
-        max: 20
+        max: 20,
+        autoform: {
+            placeholder: "Name your story."
+        }
     },
     productId: {
         type: String,
@@ -59,7 +62,10 @@ UserStories.attachSchema(new SimpleSchema({
     },
     description: {
         type: String,
-        label: "Description"
+        label: "Description",
+        autoform: {
+            placeholder: "As a 'role', I want 'goal' so that 'benefit'."
+        }
     },
     priority: {
         type: Number,
@@ -95,7 +101,10 @@ UserStories.attachSchema(new SimpleSchema({
         label: "Business Value",
         min: 1,
         max: 1000,
-        optional: true
+        optional: true,
+        autoform: {
+            placeholder: "1-1000"
+        }
     },
     createdAt: {
         type: Date,

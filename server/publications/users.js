@@ -21,7 +21,7 @@ Meteor.publish('usernamesRoles', function () {
 });
 
 Meteor.publish('userProfile', function (username) {
-    return Users.find({username: username}, {fields: {'profile': 1, 'username': 1, 'roles': 1}});
+    return Users.find({username: username}, {fields: {'profile': 1, 'username': 1, 'roles': 1, 'createdAt': 1}});
 });
 
 Meteor.publish('usernames', function () {

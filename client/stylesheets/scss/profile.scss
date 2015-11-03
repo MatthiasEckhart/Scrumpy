@@ -1,75 +1,7 @@
-.page-content-profile {
-  margin-left: 220px;
-}
-
-.cover-picture {
-  width: 100%;
-  .cover-picture-shadow {
-    width: 100%;
-    height: 80px;
-    background-color: #000000;
-    background: rgba(0, 0, 0, 0.5);
-    position: relative;
-    margin-bottom: 30px;
-  }
-  .profile-pic-wrapper {
-    position: relative;
-    bottom: -15px;
-    margin-left: 20px;
-    background-color: #ffffff;
-    width: 56px;
-    height: 56px;
-    -webkit-border-radius: 90px;
-    -moz-border-radius: 90px;
-    border-radius: 90px;
-    -moz-background-clip: padding;
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
-  }
-  .profile-img {
-    width: 50px;
-    height: 50px;
-    -webkit-border-radius: 90px;
-    -moz-border-radius: 90px;
-    border-radius: 90px;
-    -moz-background-clip: padding;
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
-    margin-top: 3px;
-    margin-left: 3px;
-  }
-  .display-name {
-    position: relative;
-    bottom: 30px;
-    margin-left: 90px;
-    color: #ffffff;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    .organisation-name {
-      display: block;
-      margin-left: 20px;
-    }
-  }
-}
-
-.statistics-profile-block {
-  width: 31.33%;
-  height: 320px;
-  margin-top: 5px;
-  margin-left: 15px;
-  background-color: #ffffff;
+.img-profile {
   float: left;
-  z-index: 100 !important;
-  .statistics-header-title {
-    text-align: center;
-    color: #444444;
-    position: relative;
-    top: 15px;
-  }
-  .statistics-profile-content {
-    width: 100%;
-    height: 270px;
-    background-color: #f9f9f9;
-  }
+  margin-top: 10px;
+  margin-right: 15px;
 }
 
 #profile-roles-polar-area-chart, #profile-products-doughnut-charts {
@@ -84,30 +16,4 @@
   height: auto;
   margin: 0 auto;
   padding-top: 20px;
-}
-
-@media (max-width: 992px) {
-  .page-content-profile {
-    margin-left: 70px;
-  }
-  .statistics-profile-block {
-    width: 96%;
-    height: 270px;
-    margin-top: 5px;
-    margin-left: 15px;
-    background-color: #ffffff;
-    float: left;
-    z-index: 100 !important;
-    .statistics-header-title {
-      text-align: center;
-      color: #444444;
-      position: relative;
-      top: 15px;
-    }
-    .statistics-profile-content {
-      width: 100%;
-      height: 250px;
-      background-color: #f9f9f9;
-    }
-  }
 }

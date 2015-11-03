@@ -10,12 +10,18 @@ Stickies.attachSchema(new SimpleSchema({
     title: {
         type: String,
         label: "Title",
-        max: 20
+        max: 20,
+        autoform: {
+            placeholder: "Name your sticky."
+        }
     },
     description: {
         type: String,
         label: "Description",
-        max: 50
+        max: 50,
+        autoform: {
+            placeholder: "A clear and concise statement of work to do."
+        }
     },
     effort: {
         type: Number,

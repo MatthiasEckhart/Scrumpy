@@ -11,11 +11,11 @@
                         {{#autoForm collection="UserStories" id="insert-user-story-form" type="insert" doc=productForAutoForm}}
 
                             <div class="form-group">
-                                {{> afQuickField name='title' placeholder='Name your story.'}}
+                                {{> afQuickField name='title'}}
                             </div>
 
                             <div class="form-group">
-                                {{> afQuickField name='description' placeholder='As a <role>, I want <goal> so that <benefit>.'}}
+                                {{> afQuickField name='description'}}
                             </div>
 
                             <div class="form-group">
@@ -23,7 +23,7 @@
                             </div>
 
                             <div class="form-group">
-                                {{> afQuickField name='businessValue' placeholder="1-1000"}}
+                                {{> afQuickField name='businessValue'}}
                             </div>
 
                             <button id="submit-user-story-create" type="submit" class="btn btn-primary">Create User

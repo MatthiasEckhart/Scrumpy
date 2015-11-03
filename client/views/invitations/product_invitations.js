@@ -10,9 +10,6 @@ Template.productInvitations.helpers({
     roleFormatted: function () {
         return this.role == 2 ? "Scrum Master" : "Development Team member";
     },
-    createdAtFormatted: function () {
-        return moment(this.createdAt).format("MMMM Do YYYY, h:mm:ss a");
-    },
     statusFormatted: function () {
         if (this.status == 0) return "pending";
         else if (this.status == 1) return "accepted";
