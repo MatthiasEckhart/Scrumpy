@@ -43,40 +43,46 @@
                 {{/if}}
             </div>
             <div class="col-sm-9" contenteditable="false" style="">
-                {{#if profile.bio}}
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-bullhorn fa-1x"></i> Bio</div>
-                        <div class="panel-body"> {{profile.bio}}
-
-                        </div>
+                {{#unless mainDataAvailable}}
+                    <div class="alert alert-warning" role="alert"><strong>Oh snap!</strong> This user profile is empty.
+                        Nothing to see here.
                     </div>
-                {{/if}}
-                {{#if statDataAvailable}}
-                    <div class="panel panel-default target">
-                        <div class="panel-heading" contenteditable="false"><i class="fa fa-dashboard fa-1x"></i>
-                            Activity
+                {{else}}
+                    {{#if profile.bio}}
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><i class="fa fa-bullhorn fa-1x"></i> Bio</div>
+                            <div class="panel-body"> {{profile.bio}}
+
+                            </div>
                         </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="thumbnail">
-                                        {{> profileRolesPolarAreaChart}}
+                    {{/if}}
+                    {{#if statDataAvailable}}
+                        <div class="panel panel-default target">
+                            <div class="panel-heading" contenteditable="false"><i class="fa fa-dashboard fa-1x"></i>
+                                Activity
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="thumbnail">
+                                            {{> profileRolesPolarAreaChart}}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="thumbnail">
-                                        {{> profileProductsDoughnutChart}}
+                                    <div class="col-md-4">
+                                        <div class="thumbnail">
+                                            {{> profileProductsDoughnutChart}}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="thumbnail">
-                                        {{> profileActivityOverviewBarChart}}
+                                    <div class="col-md-4">
+                                        <div class="thumbnail">
+                                            {{> profileActivityOverviewBarChart}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                {{/if}}
+                    {{/if}}
+                {{/unless}}
             </div>
         </div>
     </div>
