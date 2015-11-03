@@ -19,19 +19,13 @@ var stickyInsertHooks = {
                 if (product.advancedMode) {
                     let sprint = Sprints.findOne({_id: story.sprintId});
                     Meteor.call('updateBurndown', sprint._id, function (error) {
-                        if (error) {
-                            throwAlert('error', error.reason, error.details);
-                            return;
-                        }
+                        if (error) throwAlert('error', error.reason, error.details);
                         Meteor.call('createActElStickyCreate', product._id, Meteor.user()._id, sticky.title, story.title, sprint.goal, function (error) {
-                            if (error) {
-                                throwAlert('error', error.reason, error.details);
-                                return;
-                            }
-                            throwAlert("success", "Success", "Sticky added.");
+                            if (error) throwAlert('error', error.reason, error.details);
                         });
                     });
                 }
+                throwAlert("success", "Success", "Sticky added.");
             }
         }
     }

@@ -1,11 +1,9 @@
 <template name="layout">
     {{#if currentUser}}
         <header class="application">
+            {{> sAlert template='sAlertCustom'}}
             {{> navigation}}
-            {{> alerts}}
-            {{> dialogs}}
         </header>
-
         <div class="page-wrapper">
             {{> autoformModals}}
             {{> editYourAvatarModal}}
