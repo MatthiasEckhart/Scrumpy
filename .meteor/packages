@@ -22,7 +22,7 @@ reactive-var            # Reactive variable
 accounts-password
 iron:router
 alanning:roles
-mizzao:bootstrap-3
+twbs:bootstrap
 mrt:jquery-ui
 fourseven:scss
 multiply:iron-router-progress
@@ -41,10 +41,10 @@ rajit:bootstrap3-datepicker
 aldeed:autoform-bs-datepicker
 momentjs:moment
 yogiben:autoform-modals
-particle4dev:upload-avatar
 hausor:autoform-bs-minicolors
 fortawesome:fontawesome
 mrt:chartjs
 jspdf:core
 juliancwirko:s-alert
 juliancwirko:s-alert-stackslide
+selaias:avatar-upload
