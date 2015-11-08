@@ -3,7 +3,11 @@
 Template.dashboardLineChart.onRendered(function () {
     if (DashboardStatisticsPrivate.find().count() > 0) {
         Tracker.autorun(function () {
-            var labels = [], dataProduct1 = [], products = Products.find({}, {sort: {lastModified: -1}, limit: 1}).fetch(), product1 = products[0], dashboardStatsPrivate1, dateObj, i, data, lineChart, ctx, mom, effort;
+            var labels = [],
+                dataProduct1 = [],
+                products = Products.find({}, {sort: {updatedAt: -1}, limit: 1}).fetch(),
+                product1 = products[0],
+                dashboardStatsPrivate1, dateObj, i, data, lineChart, ctx, mom, effort;
 
             // at least 1 product is needed to create a line chart
             if (product1) {
@@ -15,7 +19,6 @@ Template.dashboardLineChart.onRendered(function () {
                 dateObj.setMinutes(0);
                 dateObj.setSeconds(0);
                 dateObj.setMilliseconds(0);
-
 
                 // show statistics for last 15 days
                 for (i = 15; i >= 0; i--) {

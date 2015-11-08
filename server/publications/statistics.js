@@ -22,8 +22,32 @@ Meteor.publish('statisticsForProfilePage', function (username) {
     } else this.ready();
 });
 
-Meteor.publish('dashboardStatisticsPrivate', function () {
-    var productIds = _.union(Roles.getRolesForUser(this.userId, "administrator"), Roles.getRolesForUser(this.userId, "developmentTeam"), Roles.getRolesForUser(this.userId, "productOwner"), Roles.getRolesForUser(this.userId, "scrumMaster"));
-    if (productIds.length > 0) return DashboardStatisticsPrivate.find({productId: {$in: productIds}});
-    else this.ready();
+Meteor.publishComposite('dashboardStatisticsPrivateByInvitation', function () {
+    return {
+        find: function () {
+            return Invitations.find({userId: this.userId, status: 1});
+        },
+        children: [
+            {
+                find: function (invitation) {
+                    return DashboardStatisticsPrivate.find({productId: invitation.productId});
+                }
+            }
+        ]
+    }
+});
+
+Meteor.publishComposite('dashboardStatisticsPrivateByProductUserId', function () {
+    return {
+        find: function () {
+            return Products.find({userId: this.userId});
+        },
+        children: [
+            {
+                find: function (product) {
+                    return DashboardStatisticsPrivate.find({productId: product._id});
+                }
+            }
+        ]
+    }
 });

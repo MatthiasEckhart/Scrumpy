@@ -23,7 +23,7 @@
                                 {{#each invitations}}
                                     <tr>
                                         <td>
-                                            {{#with user}}
+                                            {{#with userByProductId}}
                                                 <a class="pull-left" href="{{pathFor 'profilePage'}}">
                                                     <img class="media-object img-rounded" src="{{avatar}}"
                                                          alt="{{username}}">
@@ -34,10 +34,10 @@
                                             {{/with}}
                                         </td>
                                         <td>
-                                            {{productTitle}}
+                                            {{productTitle 'productId'}}
                                         </td>
                                         <td>{{roleFormatted}}</td>
-                                        <td>{{timestamp}}</td>
+                                        <td>{{fromNow 'createdAt'}}</td>
                                         <td class="text-center">
                                             <span class="label {{statusCss}}">{{statusFormatted}}</span>
                                         </td>

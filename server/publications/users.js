@@ -102,8 +102,8 @@ Meteor.publishComposite('usersInvitationRecipient', function (productSlug) {
         },
         children: [
             {
-                find: function (invitation) {
-                    return Users.find({_id: invitation.userId}, {
+                find: function (product) {
+                    return Users.find({_id: product.userId}, {
                         fields: {
                             'profile.image': 1,
                             'username': 1,

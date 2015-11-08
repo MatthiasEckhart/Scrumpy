@@ -7,9 +7,6 @@ Template.activityStreamElement.helpers({
     user: function () {
         return Users.findOne({_id: this.userId});
     },
-    roleFormatted: function () {
-        return (this.role == 2) ? "Scrum Master" : "part of the development team";
-    },
     sprintStartDate: function () {
         return moment.utc(this.sprintStartDate).format('YYYY-MM-DD');
     },

@@ -25,7 +25,7 @@ Stickies.attachSchema(new SimpleSchema({
     },
     effort: {
         type: Number,
-        label: "Effort",
+        label: "Effort (h)",
         allowedValues: [2, 4, 6, 8]
     },
     storyId: {

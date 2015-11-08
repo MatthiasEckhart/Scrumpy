@@ -12,8 +12,7 @@
                     <div>
                         {{#if elType '1'}}
                             <p class="text-info text-information"><span class="author">{{author}}</span> created the
-                                product with the
-                                title {{productTitle}}.</p>
+                                product with the title {{productTitle 'productId'}}.</p>
                         {{/if}}
                         {{#if elType '2'}}
                             <p class="text-info text-information"><span class="author">{{author}}</span> changed the
@@ -109,8 +108,16 @@
                                 effort from
                                 sticky {{stickyTitle}} from {{oldEffort}} to {{newEffort}}.</p>
                         {{/if}}
-                        <p class="date margin-left-40">{{fromNow createdAt}}</p>
+                        <p class="date margin-left-40">
+                            <i class="fa fa-clock-o timestamp-icon"></i>
+                            {{#if updatedAt}}
+                                {{fromNow 'updatedAt'}}
+                            {{else}}
+                                {{fromNow 'createdAt'}}
+                            {{/if}}
+                        </p>
                     </div>
+                    <hr/>
                     <div class="comment-text">
                         <ul class="chat">
                             {{#each comments}}
@@ -120,7 +127,7 @@
                     </div>
                     <div class="action">
                         {{#afModal formId="insert-comment-form" class="btn btn-primary btn-xs add-comment" collection="Comments" operation="insert" title="Submit a new Comment"}}
-                            <i class="fa fa-reply"></i> {{/afModal}}
+                            Create Comment {{/afModal}}
                     </div>
                 </div>
             </div>

@@ -3,6 +3,21 @@ Template.registerHelper('_', function () {
     return _;
 });
 
+UI.registerHelper('userByProductId', function () {
+    let product = Products.findOne({_id: this.productId});
+    if (product) return Users.findOne({_id: product.userId});
+});
+
+UI.registerHelper('roleFormatted', function () {
+    return this.role == 2 ? "Scrum Master" : "Development Team member";
+});
+
+UI.registerHelper('productTitle', function (value) {
+    let product = Products.findOne({_id: this[value]});
+    if (product) return product.title;
+    else return UNKNOWN;
+});
+
 UI.registerHelper('titleShort', function (type) {
     var short = this.title;
     if (short) {
@@ -35,7 +50,7 @@ UI.registerHelper('navTabIsActive', function (navTab) {
 });
 
 UI.registerHelper('advancedMode', function (formId) {
-    if (_.has(this, "advancedMode"))return this.advancedMode;
+    if (_.has(this, "advancedMode")) return this.advancedMode;
     else return AutoForm.getFieldValue('advancedMode', formId);
 });
 
@@ -153,8 +168,3 @@ getUsername = function (userId) {
     if (user) return user.username;
     else return ANONYMOUS;
 };
-
-function highlightWarningForRegisterPasswordFields() {
-    highlightWarningForField('#register-password');
-    highlightWarningForField('#register-password-confirm');
-}

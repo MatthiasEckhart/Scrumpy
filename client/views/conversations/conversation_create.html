@@ -6,14 +6,14 @@
                 <hr/>
                 {{#autoForm collection="Conversations" id="insert-conversation-form" type="insert"}}
                     <div class="form-group">
-                        {{> afQuickField name='subject' placeholder='The conversation subject'}}
+                        {{> afQuickField name='subject'}}
                     </div>
                     <div class="form-group">
                         <label for="recipients">Recipients</label>
                         {{> afFieldInput name="recipients" type="select2" multiple=true}}
                     </div>
                     <div class="form-group">
-                        <button id="submit-product-create" type="submit" class="btn btn-primary">Submit</button>
+                        <button id="submit-conversation-create" type="submit" class="btn btn-primary">Create Conversation</button>
                         <a href="{{pathFor 'dashboard'}}" class="btn btn-default btn-xs">Cancel</a>
                     </div>
                 {{/autoForm}}

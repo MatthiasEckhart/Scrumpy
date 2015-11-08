@@ -1,28 +1,35 @@
 "use strict";
 
 Template.dashboardContent.helpers({
-    emptyProducts: function () {
-        return _.union(
-                Roles.getRolesForUser(Meteor.userId(), "developmentTeam"),
-                Roles.getRolesForUser(Meteor.userId(), "productOwner"),
-                Roles.getRolesForUser(Meteor.userId(), "scrumMaster"),
-                Roles.getRolesForUser(Meteor.userId(), "administrator")
-            ).length === 0;
+    noProducts: function () {
+        return this.products.count() === 0;
     },
-    totalProductsUser: function () {
-        return Products.find().count();
+    productTitleForLineChartPanel: function () {
+        return this.products.fetch()[0].title;
     },
-    productStatTitle: function (type) {
-        var product = Products.findOne({_id: Session.get(type)});
-        if (product) {
-            return product.title;
-        }
+    conversations: function () {
+        return Conversations.find({});
     },
-    oneProductExist: function () {
-        return Products.find().count() >= 1;
+    privateMessage: function () {
+        return PrivateMessages.find({conversationId: this._id}, {sort: {createdAt: -1}, limit: 1}).fetch()[0];
     },
-    totalTasksDoneForProduct: function () {
-        return Stickies.find({productId: Session.get("productStat"), status: 4}).count();
+    noConversations: function () {
+        return Conversations.find().count() === 0;
+    },
+    noPrivateMessages: function () {
+        return PrivateMessages.find({conversationId: this._id}).count() === 0;
+    },
+    invitations: function () {
+        return Invitations.find({status: 0}, {sort: {createdAt: -1}});
+    },
+    noPendingInvitations: function () {
+        return Invitations.find({status: 0}).count() === 0;
+    },
+    sumConversations: () =>  Conversations.find().count(),
+    sumProducts: () => Products.find().count(),
+    sumConnectedUsers: () => Users.find({_id: {$ne: Meteor.userId()}}).count(),
+    sumTasksCompleted: function() {
+        return Stickies.find({status: 4}).count();
     }
 });
 

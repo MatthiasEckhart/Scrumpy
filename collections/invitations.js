@@ -85,6 +85,11 @@ Schema.invitationUser = new SimpleSchema({
                     label: user.username,
                     value: user._id
                 }));
+            },
+            afFieldInput: {
+                select2Options: {
+                    placeholder: "Add ScrumMasters here."
+                }
             }
         }
     },
@@ -106,6 +111,11 @@ Schema.invitationUser = new SimpleSchema({
                     label: user.username,
                     value: user._id
                 }));
+            },
+            afFieldInput: {
+                select2Options: {
+                    placeholder: "Add Development Team members here."
+                }
             }
         }
     },

@@ -8,10 +8,6 @@ Template.dashboard.onRendered(function () {
     } else if (Session.equals("registerSuccess", true)) {
         throwAlert('success', 'Congratulations!', 'You\'re now a member of Scrumpy!');
         Session.set('registerSuccess', false);
-    } else if (Session.equals("logoutSuccess", true)) {
-        throwAlert('info', 'Bye ' + Session.get('username') + '!', 'Come back whenever you want!');
-        Session.set('logoutSuccess', false);
-        Session.set('username', false);
     } else if (Session.equals("changePasswordSuccess", true)) {
         throwAlert('success', 'Work done!', 'You changed your password successfully.');
         Session.set('changePasswordSuccess', false);

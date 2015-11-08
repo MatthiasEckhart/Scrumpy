@@ -106,8 +106,6 @@ Schema.User = new SimpleSchema({
     }
 });
 
-Users.attachSchema(Schema.User);
-
 Schema.changePassword = new SimpleSchema({
     newPassword: {
         type: String,

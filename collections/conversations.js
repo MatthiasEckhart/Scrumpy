@@ -17,7 +17,10 @@ Conversations.attachSchema(new SimpleSchema({
     subject: {
         type: String,
         label: "Subject",
-        max: 30
+        max: 30,
+        autoform: {
+            placeholder: "The conversation subject."
+        }
     },
     recipients: {
         type: [String],
@@ -28,6 +31,11 @@ Conversations.attachSchema(new SimpleSchema({
                 return Users.find({_id: {$ne: Meteor.userId()}}).map(function (user) {
                     return {label: user.username, value: user._id};
                 });
+            },
+            afFieldInput: {
+                select2Options: {
+                    placeholder: "Add recipients here."
+                }
             }
         }
     },

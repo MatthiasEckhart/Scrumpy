@@ -2,18 +2,18 @@
 
 Template.profilePage.helpers({
     statDataAvailable: function () {
-        return statDataAvailable();
+        return statDataAvailable(this);
     },
     mainDataAvailable: function () {
-        return this.profile.bio || statDataAvailable();
+        return this.profile.bio || statDataAvailable(this);
     }
 });
 
-function statDataAvailable() {
+function statDataAvailable(ctx) {
     return _.union(
-            Roles.getRolesForUser(this._id, "developmentTeam"),
-            Roles.getRolesForUser(this._id, "productOwner"),
-            Roles.getRolesForUser(this._id, "scrumMaster"),
-            Roles.getRolesForUser(this._id, "administrator")
+            Roles.getRolesForUser(ctx._id, "developmentTeam"),
+            Roles.getRolesForUser(ctx._id, "productOwner"),
+            Roles.getRolesForUser(ctx._id, "scrumMaster"),
+            Roles.getRolesForUser(ctx._id, "administrator")
         ).length > 0;
 }

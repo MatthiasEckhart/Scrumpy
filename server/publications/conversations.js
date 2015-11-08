@@ -4,6 +4,10 @@ Meteor.publish('conversations', function (userId) {
     return Conversations.find({$or: [{'userId': userId}, {'recipients': userId}]});
 });
 
+Meteor.publish('recentConversations', function (userId) {
+    return Conversations.find({$or: [{'userId': userId}, {'recipients': userId}]}, {limit: 5});
+});
+
 Meteor.publish('conversation', function (slug) {
     return Conversations.find({slug: slug});
 });

@@ -41,8 +41,7 @@ Meteor.methods({
 Accounts.config({forbidClientAccountCreation: true});
 
 Accounts.onCreateUser(function (options, user) {
-    user.profile = {color: getRandomColor()};
-    user.notifications = [];
+    _.extend(user, {profile: {color: getRandomColor()}, notifications: []});
     return user;
 });
 

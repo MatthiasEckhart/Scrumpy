@@ -37,10 +37,32 @@ Meteor.publishComposite('stickiesAdvanced', function (sprintId) {
     }
 });
 
-Meteor.publishComposite('productStat', function () {
+Meteor.publishComposite('tasksCompletedByInvitation', function () {
     return {
         find: function () {
-            return Products.find({}, {sort: {lastModified: -1}, limit: 1});
+            return Invitations.find({userId: this.userId, status: 1});
+        },
+        children: [
+            {
+                find: function (invitation) {
+                    return UserStories.find({productId: invitation.productId})
+                },
+                children: [
+                    {
+                        find: function (userStory) {
+                            return Stickies.find({storyId: userStory._id}, {fields: {status: 1}});
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+});
+
+Meteor.publishComposite('tasksCompletedByProductUserId', function () {
+    return {
+        find: function () {
+            return Products.find({userId: this.userId});
         },
         children: [
             {
@@ -50,7 +72,7 @@ Meteor.publishComposite('productStat', function () {
                 children: [
                     {
                         find: function (userStory) {
-                            return Stickies.find({storyId: userStory._id}, {fields: {productId: 1, status: 1, assigneeId: 1}});
+                            return Stickies.find({storyId: userStory._id}, {fields: {status: 1}});
                         }
                     }
                 ]

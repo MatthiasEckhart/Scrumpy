@@ -1,7 +1,7 @@
 <template name="layout">
+    {{> sAlert template='sAlertCustom'}}
     {{#if currentUser}}
         <header class="application">
-            {{> sAlert template='sAlertCustom'}}
             {{> navigation}}
         </header>
         <div class="page-wrapper">
