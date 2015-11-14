@@ -43,6 +43,14 @@ Schema.UserProfile = new SimpleSchema({
             type: "bootstrap-minicolors"
         },
         regEx: /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/
+    },
+    image: {
+        type: String,
+        optional: true,
+        label: "Profile Image",
+        autoform: {
+            omit: "true"
+        }
     }
 });
 
@@ -150,7 +158,10 @@ Schema.register = new SimpleSchema({
         custom: function () {
             if (Meteor.isClient && this.isSet) {
                 Meteor.call("isUsernameAvailable", this.value, function (error) {
-                    if (error) Schema.register.namedContext("register-form").addInvalidKeys([{name: "username", type: "usernameAlreadyExists"}]);
+                    if (error) Schema.register.namedContext("register-form").addInvalidKeys([{
+                        name: "username",
+                        type: "usernameAlreadyExists"
+                    }]);
                 });
             }
         }
