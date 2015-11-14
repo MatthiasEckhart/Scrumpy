@@ -7,6 +7,19 @@ body {
   min-height: 100%;
 }
 
+.custom-container {
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper {
+  position: absolute;
+  top: 50px;
+  background-color: #ebeef2;
+  width: 100%;
+  min-height: 100%;
+}
+
 #iron-router-progress {
   background-color: #fa2600;
   box-shadow: 0 0 1px #333333;
@@ -15,6 +28,11 @@ body {
 
 .single-form {
   background-color: #FFFFFF;
+  margin-top: 15px;
+  padding-bottom: 15px;
+}
+
+.single-panel {
   margin-top: 15px;
   padding-bottom: 15px;
 }
@@ -44,5 +62,19 @@ body {
 }
 
 .timestamp-icon {
+  float: right;
+}
+
+.post-time {
+  color: #858b8f;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: .6em;
+  line-height: 15px;
+  margin: 0;
+}
+
+.timestamp-list {
+  display: inline;
   float: right;
 }

@@ -11,7 +11,10 @@ Template.productDashboard.helpers({
         return "";
     },
     totalStickies: function () {
-        return Stickies.find({productId: this._id}).count();
+        let userStoryIds = UserStories.find({productId: this._id}).map(function (userStory) {
+            return userStory._id;
+        });
+        return Stickies.find({storyId: {$in: userStoryIds}}).count();
     },
     totalUserStories: function () {
         return UserStories.find({productId: this._id}).count();
@@ -34,17 +37,21 @@ Template.productDashboard.helpers({
     },
     velocity: function () {
         var sumStoryPoints = 0, sumSprints, velocity;
-        UserStories.find({productId: this._id, sprintId: {$exists: true}, storyPoints: {$exists: true}}).forEach(function (story) {
+        UserStories.find({
+            productId: this._id,
+            sprintId: {$exists: true},
+            storyPoints: {$exists: true}
+        }).forEach(function (story) {
             sumStoryPoints += parseFloat(story.storyPoints);
         });
         sumSprints = Sprints.find({productId: this._id}).count();
         velocity = sumStoryPoints / sumSprints;
         if (_.isNaN(velocity)) {
-            return "-";
+            return "0";
         }
         return velocity;
     },
-    sprintsAvailable: function() {
+    sprintsAvailable: function () {
         return Sprints.find({productId: this._id}).count() > 0;
     }
 });

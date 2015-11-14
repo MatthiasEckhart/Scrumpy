@@ -1,16 +1,5 @@
 "use strict";
 
-Template.productHistory.onRendered(function () {
-    var routerStartDate = moment.utc(Router.current().params.startDate).toDate(),
-        routerEndDate = moment.utc(Router.current().params.endDate).toDate(), selectedSprint;
-    if (routerStartDate && routerEndDate) {
-        selectedSprint = Sprints.findOne({startDate: routerStartDate, endDate: routerEndDate});
-        if (selectedSprint) {
-            $(getProductHistorySelectorString(selectedSprint._id)).addClass('disabled');
-        }
-    }
-});
-
 Template.productHistory.helpers({
     sprints: function () {
         return Sprints.find({productId: this._id});

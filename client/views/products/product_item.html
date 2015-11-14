@@ -3,13 +3,8 @@
         {{titleShort 'product'}}
         -
         <small class="text-muted">{{role}}</small>
-        <i class="fa fa-clock-o timestamp-icon"></i>
-        <small class="timestamp-text">
-            {{#if updatedAt}}
-                {{fromNow 'updatedAt'}}
-            {{else}}
-                {{fromNow 'createdAt'}}
-            {{/if}}
-        </small>
+        <div class="post-time timestamp-list">
+            {{fromNow 'updatedAt'}} <i class="fa fa-clock-o"></i>
+        </div>
     </a>
 </template>

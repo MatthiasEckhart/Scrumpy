@@ -2,7 +2,7 @@
 
 Template.invitations.helpers({
     invitations: function () {
-        return Invitations.find({}, {sort: {status: 1, createdAt: -1}});
+        return Invitations.find({}, {sort: {status: 1, updatedAt: -1}});
     },
     statusFormatted: function () {
         if (this.status == 0) return "pending";

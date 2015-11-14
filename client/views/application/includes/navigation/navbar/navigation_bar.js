@@ -1,6 +1,6 @@
 "use strict";
 
-Template.navigation.events({
+Template.navigationBar.events({
     'click #upload-image': function (e) {
         e.preventDefault();
         $('#editYourAvatarModal').modal();
@@ -12,11 +12,11 @@ Template.navigation.events({
     }
 });
 
-Template.navigation.helpers({
+Template.navigationBar.helpers({
     displayChangePasswordForm: () => Session.equals('changePassword', true),
     notificationCount: () => Meteor.user().notifications.length
 });
 
-Template.navigation.onDestroyed(function () {
+Template.navigationBar.onDestroyed(function () {
     Session.set('changePassword', null);
 });

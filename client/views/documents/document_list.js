@@ -7,17 +7,13 @@ Template.documentList.helpers({
 });
 
 Template.documentList.events({
-    "click button": function () {
+    "click #new-document": function () {
         return Documents.insert({
-            title: "untitled",
+            title: "Untitled",
             productId: this._id
         }, function (err, id) {
-            if (err) {
-                throwAlert("error", "Error!", err);
-            }
-            if (!id) {
-                return;
-            }
+            if (err) throwAlert("error", "Error!", err);
+            if (!id) return;
             return Session.set("document", id);
         });
     }

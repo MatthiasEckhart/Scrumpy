@@ -1,136 +1,104 @@
 <template name="activityStreamElement">
-    <li class="list-group-item">
-        <div class="row">
-            <div>
-                {{#with user}}
-                    <a class="pull-left" href="{{pathFor 'profilePage'}}">
-                        <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="30"
-                             height="30">
-                    </a>
-                {{/with}}
-                <div>
-                    <div>
+    <div class="message-item" id="m16">
+        <div class="message-inner">
+            <div class="message-head clearfix">
+                <div class="message-icon pull-left">
+                    {{#with user}}
+                        <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                            <img class="media-object img-rounded" src="{{avatar}}" alt="{{username}}" width="60"
+                                 height="60">
+                        </a>
+                    {{/with}}
+                </div>
+                <div class="user-detail">
+                    <h5 class="handle">
                         {{#if elType '1'}}
-                            <p class="text-info text-information"><span class="author">{{author}}</span> created the
-                                product with the title {{productTitle 'productId'}}.</p>
+                            Created the product with the title {{productTitle 'productId'}}.
                         {{/if}}
                         {{#if elType '2'}}
-                            <p class="text-info text-information"><span class="author">{{author}}</span> changed the
-                                product title
-                                from {{oldProductTitle}} to {{newProductTitle}}.</p>
+                            Changed the product title from {{oldProductTitle}} to {{newProductTitle}}.
                         {{/if}}
                         {{#if elType '3'}}
-                            <p class="text-info text-information"><b>{{author}}</b> accepted to work
-                                as {{roleFormatted}}.</p>
+                            Accepted to work as {{roleFormatted}}.
                         {{/if}}
                         {{#if elType '4'}}
-                            <p class="text-info text-information"><span class="author">{{author}}</span> declined to
-                                work
-                                as {{roleFormatted}}.</p>
+                            Declined to work as {{roleFormatted}}.
                         {{/if}}
                         {{#if elType '5'}}
-                            <p class="text-info text-information"><span class="author">{{author}}</span> created the
-                                sprint {{sprintGoal}}
-                                with the period from {{sprintStartDate}} to {{sprintEndDate}}.</p>
+                            Created the sprint {{sprintGoal}} with the period from {{sprintStartDate}}
+                            to {{sprintEndDate}}.
                         {{/if}}
                         {{#if elType '6'}}
-                            <p class="text-info text-information"><span class="author">{{author}}</span> created the
-                                user
-                                story {{userStoryTitle}}.</p>
+                            Created the user story {{userStoryTitle}}.
                         {{/if}}
                         {{#if elType '7'}}
-                            <p class="text-info text-information"><span class="author">{{author}}</span> assigned
-                                priority no. {{priority}}
-                                for the user story {{userStoryTitle}}.</p>
+                            Assigned priority no. {{priority}} for the user story {{userStoryTitle}}.
                         {{/if}}
                         {{#if elType '8'}}
-                            <p class="text-info text-information"><span class="author">{{author}}</span> created the
-                                sticky {{stickyTitle}}
-                                for the user story {{userStoryTitle}} in the sprint {{sprintGoal}}.</p>
+                            Created the sticky {{stickyTitle}} for the user story {{userStoryTitle}} in the
+                            sprint {{sprintGoal}}.
                         {{/if}}
                         {{#if elType '9'}}
-                            <p class="text-info text-information"><span class="author">{{author}}</span> moved the
-                                sticky {{stickyTitle}}
-                                from status {{stickyStatusFormatted 'old'}} to {{stickyStatusFormatted 'new'}}.</p>
+                            Moved the sticky {{stickyTitle}} from status {{stickyStatusFormatted 'old'}}
+                            to {{stickyStatusFormatted 'new'}}.
                         {{/if}}
                         {{#if elType '10'}}
-                            <p class="text-info text-information"><span class="author">{{author}}</span> changed the
-                                sticky title
-                                from {{oldStickyTitle}} to {{newStickyTitle}}.</p>
+                            Changed the sticky title from {{oldStickyTitle}} to {{newStickyTitle}}.
                         {{/if}}
                         {{#if elType '11'}}
-                            <p class="text-info text-information"><span class="author">{{author}}</span> changed the
-                                sticky description
-                                from {{oldStickyDescription}} to {{newStickyDescription}}.</p>
+                            Changed the sticky description from {{oldStickyDescription}} to {{newStickyDescription}}.
                         {{/if}}
                         {{#if elType '12'}}
-                            <p class="text-info text-information"><span class="author">{{author}}</span> changed the
-                                user story title
-                                from {{oldUserStoryTitle}} to {{newUserStoryTitle}}.</p>
+                            Changed the user story title from {{oldUserStoryTitle}} to {{newUserStoryTitle}}.
                         {{/if}}
                         {{#if elType '13'}}
-                            <p class="text-info text-information"><span class="author">{{author}}</span> changed the
-                                user story description
-                                from {{oldUserStoryDescription}} to {{newUserStoryDescription}}.</p>
+                            Changed the user story description from {{oldUserStoryDescription}}
+                            to {{newUserStoryDescription}}.
                         {{/if}}
                         {{#if elType '14'}}
-                            <p class="text-info text-information"><span class="author">{{author}}</span> removed the
-                                sticky {{stickyTitle}}.
-                            </p>
+                            Removed the sticky {{stickyTitle}}.
                         {{/if}}
                         {{#if elType '15'}}
-                            <p class="text-info text-information"><span class="author">{{author}}</span> removed the
-                                story {{userStoryTitle}}.
-                            </p>
+                            Removed the story {{userStoryTitle}}.
                         {{/if}}
                         {{#if elType '16'}}
-                            <p class="text-info text-information"><span class="author">{{author}}</span> changed the
-                                sprint goal
-                                from {{oldSprintGoal}} to {{newSprintGoal}}.</p>
+                            Changed the sprint goal from {{oldSprintGoal}} to {{newSprintGoal}}.
                         {{/if}}
                         {{#if elType '17'}}
-                            <p class="text-info text-information"><span class="author">{{author}}</span> changed the
-                                sprint start date
-                                from {{oldSprintStartDate}} to {{newSprintStartDate}}.</p>
+                            Changed the sprint start date from {{oldSprintStartDate}} to {{newSprintStartDate}}.
                         {{/if}}
                         {{#if elType '18'}}
-                            <p class="text-info text-information"><span class="author">{{author}}</span> changed the
-                                sprint end date
-                                from {{oldSprintEndDate}} to {{newSprintEndDate}}.</p>
+                            Changed the sprint end date from {{oldSprintEndDate}} to {{newSprintEndDate}}.
                         {{/if}}
                         {{#if elType '19'}}
-                            <p class="text-info text-information"><span class="author">{{author}}</span> removed the
-                                sprint {{sprintGoal}}.
-                            </p>
+                            Removed the sprint {{sprintGoal}}.
                         {{/if}}
                         {{#if elType '20'}}
-                            <p class="text-info text-information"><span class="author">{{author}}</span> changed the
-                                effort from
-                                sticky {{stickyTitle}} from {{oldEffort}} to {{newEffort}}.</p>
+                            Changed the effort from sticky {{stickyTitle}} from {{oldEffort}} to {{newEffort}}.
                         {{/if}}
-                        <p class="date margin-left-40">
-                            <i class="fa fa-clock-o timestamp-icon"></i>
-                            {{#if updatedAt}}
-                                {{fromNow 'updatedAt'}}
-                            {{else}}
-                                {{fromNow 'createdAt'}}
-                            {{/if}}
-                        </p>
+                    </h5>
+
+                    <div class="post-author">
+                        {{#with user}}
+                            <a href="{{pathFor 'profilePage'}}">{{username}}</a>
+                        {{/with}}
                     </div>
-                    <hr/>
-                    <div class="comment-text">
-                        <ul class="chat">
-                            {{#each comments}}
-                                {{> comment}}
-                            {{/each}}
-                        </ul>
-                    </div>
-                    <div class="action">
-                        {{#afModal formId="insert-comment-form" class="btn btn-primary btn-xs add-comment" collection="Comments" operation="insert" title="Submit a new Comment"}}
-                            Create Comment {{/afModal}}
+                    <div class="post-time">
+                        <p><i class="fa fa-clock-o"></i> {{fromNow 'updatedAt'}}</p>
                     </div>
                 </div>
             </div>
+            <div class="qa-message-content">
+                <ul class="chat">
+                    {{#each comments}}
+                        {{> comment}}
+                    {{/each}}
+                </ul>
+                <div class="action">
+                    {{#afModal formId="insert-comment-form" class="btn btn-primary btn-xs add-comment" collection="Comments" operation="insert" title="Submit a new Comment"}}
+                        Create Comment {{/afModal}}
+                </div>
+            </div>
         </div>
-    </li>
+    </div>
 </template>

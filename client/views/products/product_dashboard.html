@@ -1,62 +1,131 @@
 <template name="productDashboard">
-    <div class="padding-20">
-        <div class="includes">
-            {{> productPageIncludes}}
-        </div>
-        <div class="col-md-6">
+    {{#with product}}
+        <div class="row">
+            <div class="col-md-3">
+                <div class="product-dashboard-statistic-block">
+                    <div class="info-content effect">
+                        <div class="info-icon orange">
+                            <span class="fa fa-bolt"></span>
 
-            {{#if sprintsAvailable }}
-                {{> sprintsOverview }}
-            {{/if}}
-
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Overall statistics</h3>
-                </div>
-                <div class="panel-body">
-                    <ul>
-                        <li>Velocity: {{velocity}}</li>
-                        <li>Total moved stickies: {{totalStickies}}</li>
-                        <li>Total user stories: {{totalUserStories}}</li>
-                        <li>Member working on this product: {{totalScrumTeamMembers}}</li>
-                    </ul>
+                            <div id="velocity" class="visual-sugar-block">
+                                <div class="visual-sugar">
+                                    <div class="sugar">
+                                        <span class="plus-sign fa fa-plus"></span>
+                                        <span class="counter">{{velocity}}</span>
+                                    </div>
+                                    <span class="visual-sugar-text">VELOCITY</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class="col-md-3">
+                <div class="product-dashboard-statistic-block">
+                    <div class="info-content effect">
+                        <div class="info-icon red">
+                            <span class="fa fa-cubes"></span>
 
-            {{#if barChartDataAvailable}}
+                            <div id="total-user-stories" class="visual-sugar-block">
+                                <div class="visual-sugar">
+                                    <div class="sugar">
+                                        <span class="plus-sign fa fa-plus"></span>
+                                        <span class="counter">{{totalUserStories}}</span>
+                                    </div>
+                                    <span class="visual-sugar-text">TOTAL STORIES</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="product-dashboard-statistic-block">
+                    <div class="info-content effect">
+                        <div class="info-icon green">
+                            <span class="fa fa-cube"></span>
+
+                            <div id="total-stickies" class="visual-sugar-block">
+                                <div class="visual-sugar">
+                                    <div class="sugar">
+                                        <span class="plus-sign fa fa-plus"></span>
+                                        <span class="counter">{{totalStickies}}</span>
+                                    </div>
+                                    <span class="visual-sugar-text">TOTAL TASKS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="product-dashboard-statistic-block">
+                    <div class="info-content effect">
+                        <div class="info-icon blue">
+                            <span class="fa fa-users"></span>
+
+                            <div id="total-scrum-team-members" class="visual-sugar-block">
+                                <div class="visual-sugar">
+                                    <div class="sugar">
+                                        <span class="plus-sign fa fa-plus"></span>
+                                        <span class="counter">{{totalScrumTeamMembers}}</span>
+                                    </div>
+                                    <span class="visual-sugar-text">USERS IN TEAM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col-md-6">
+                {{#if sprintsAvailable }}
+                    {{> sprintsOverview }}
+                    <hr/>
+                {{/if}}
+                {{#if barChartDataAvailable}}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>Bar chart
+                                <label class="toggle">
+                                    <input type="checkbox" name="showBarChartForCurrentSprint" {{barChartSwitch}}>
+                                    <span class="handle"></span>
+                                </label>
+                            </h4>
+                        </div>
+                        <div class="panel-body">
+                            {{> productDashboardBarChart}}
+                        </div>
+                    </div>
+                    <hr/>
+                {{/if}}
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Bar chart
-                            <label class="toggle">
-                                <input type="checkbox" name="showBarChartForCurrentSprint" {{barChartSwitch}}>
-                                <span class="handle"></span>
-                            </label>
-                        </h3>
+                        <h4>Your Team</h4>
                     </div>
                     <div class="panel-body">
-                        {{> productDashboardBarChart}}
+                        {{> teamOverview}}
                     </div>
-                </div>
-            {{/if}}
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Your team</h3>
-                </div>
-                <div class="panel-body">
-                    {{> teamOverview}}
                 </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            {{#if burndownDataAvailable}}
-                <div class="panel panel-info">
-                    <div class="panel-heading">Burndown chart</div>
-                    <div class="panel-body">
-                        {{> productDashboardBurndownChart}}
+            <div class="col-md-6">
+                {{#if burndownDataAvailable}}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>Burndown chart</h4>
+                        </div>
+                        <div class="panel-body">
+                            {{> productDashboardBurndownChart}}
+                        </div>
                     </div>
-                </div>
-            {{/if}}
-            {{> activityStream}}
+                    <hr/>
+                {{/if}}
+                {{#with ..}}
+                    {{> activityStream}}
+                {{/with}}
+            </div>
         </div>
-    </div>
+    {{/with}}
 </template>

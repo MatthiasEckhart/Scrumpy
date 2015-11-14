@@ -27,7 +27,6 @@ mrt:jquery-ui
 fourseven:scss
 multiply:iron-router-progress
 mizzao:sharejs-ace
-mrt:profile-online
 matb33:collection-hooks
 reywood:publish-composite
 meteorhacks:fast-render
@@ -48,3 +47,4 @@ jspdf:core
 juliancwirko:s-alert
 juliancwirko:s-alert-stackslide
 selaias:avatar-upload
+meteorhacks:aggregate

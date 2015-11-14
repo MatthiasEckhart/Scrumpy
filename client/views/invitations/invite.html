@@ -1,5 +1,5 @@
 <template name="invite">
-    <div class="container">
+    {{#with product}}
         <div class="row">
             <div class="single-form col-md-6 col-md-offset-3">
                 {{#unless noInvitations}}
@@ -25,5 +25,5 @@
                 {{/autoForm}}
             </div>
         </div>
-    </div>
+    {{/with}}
 </template>

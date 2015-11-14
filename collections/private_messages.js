@@ -51,5 +51,18 @@ PrivateMessages.attachSchema(new SimpleSchema({
         autoform: {
             omit: true
         }
+    },
+    updatedAt: {
+        type: Date,
+        autoValue: function () {
+            if (this.isInsert || this.isUpdate) return new Date;
+            else if (this.isUpsert) return {$setOnInsert: new Date};
+            else
+            /* Prevent user from supplying their own date. */
+                this.unset();
+        },
+        autoform: {
+            omit: true
+        }
     }
 }));

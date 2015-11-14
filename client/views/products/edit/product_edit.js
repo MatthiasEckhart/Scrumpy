@@ -9,3 +9,7 @@ Template.productEdit.events({
         });
     }
 });
+
+Template.productEdit.onRendered(function () {
+    Session.set('activeNavTab', 'productEdit');
+});

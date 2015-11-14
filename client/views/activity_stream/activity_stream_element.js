@@ -20,19 +20,10 @@ Template.activityStreamElement.helpers({
         } else if (type === "new") {
             status = this.newStickyStatus;
         }
-        if (status == "1") {
-            return "ToDo";
-        } else if (status == "2") {
-            return "Started";
-        } else if (status == "3") {
-            return "Verify";
-        } else if (status == "4") {
-            return "Done";
-        }
-    },
-    author: function () {
-        var user = Users.findOne({_id: this.userId});
-        return (Meteor.user().username === user.username) ? "You" : user.username;
+        if (status == "1") return "ToDo";
+        else if (status == "2") return "Started";
+        else if (status == "3") return "Verify";
+        else if (status == "4") return "Done";
     },
     comments: function () {
         return Comments.find({actElId: this._id});

@@ -1,13 +1,12 @@
 <template name="documents">
-    <div class="padding-20">
-        {{> productPageIncludes}}
+    {{#with product}}
         <div class="row upper">
-            <div class="col-xs-5 full-height custom-xs-3 panel">
+            <div class="col-sm-4 full-height panel">
                 {{> documentList}}
             </div>
-            <div class="col-xs-5 editor-container full-height">
+            <div class="col-sm-8 editor-container full-height">
                 {{> editor}}
             </div>
         </div>
-    </div>
+    {{/with}}
 </template>

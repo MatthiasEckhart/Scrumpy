@@ -1,20 +1,6 @@
 <template name="productPageIncludes">
-    <div class="title-box">
-        <h2 class="">{{title}}</h2>
-    </div>
-
-    <div class="vision-statement">
-        {{> vision}}
-    </div>
-    <div class="row">
-        {{#if userIsProductOwner 'productPageIncludes'}}
-            <div id="control-project-product-dashboard">
-                <a href="{{pathFor 'productEdit'}}" class="btn btn-default"><i class="fa fa-pencil"></i> <strong>Edit
-                    Project</strong></a>
-                <a href="{{pathFor 'invite'}}" class="btn btn-default"><i class="fa fa-group"></i> <strong>Invite Users</strong></a>
-            </div>
-        {{/if}}
-    </div>
-    <br/>
-    {{> productPageNavTabs}}
+    <h1 class="page-header">
+        {{product.title}}
+        {{#if product.advancedMode}}<p class="lead">{{> vision}}</p>{{/if}}
+    </h1>
 </template>

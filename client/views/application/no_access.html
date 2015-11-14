@@ -1,12 +1,19 @@
 <template name="noAccess">
-    <div class="page-content-errors">
-        <a href="{{pathFor 'dashboard'}}">
-        <div class="alert-error">
-           <div class="text-vertical-align">
-               <span class="text-center">You are not part of the development process of the product {{title}}.</span><br/>
-               <span class="text-center">Please contact {{author}}, the {{representative}}.</span>
-           </div>
+    <div class="error-page">
+        <div class="error-code m-b-10 m-t-20">403 <i class="fa fa-warning"></i></div>
+        <h3 class="font-bold">No access!</h3>
+
+        <div class="error-desc">
+            You are not part of the development process of the product {{title}}.<br/>
+            Please contact {{authorByUserId}}, the {{representative}}.<br/>
+
+            <div>
+                <br/>
+                <a href="{{pathFor 'landingPage'}}" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-home"></span>
+                    Go back to Home</a>
+                <br/><br/>
+            </div>
         </div>
-        </a>
     </div>
 </template>

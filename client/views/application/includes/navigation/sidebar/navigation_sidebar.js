@@ -1,6 +1,6 @@
 "use strict";
 
-Template.productPageNavTabs.events({
+Template.navigationSidebar.events({
     'click .productDashboardNavTab': function () {
         setSessionForActiveNavTab('productDashboard');
     },

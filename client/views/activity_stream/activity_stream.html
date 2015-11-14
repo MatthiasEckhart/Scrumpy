@@ -1,15 +1,10 @@
 <template name="activityStream">
-    <div id="activity-stream" class="panel panel-default widget panel-scrollable">
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                Activity Stream</h3>
-        </div>
-        <div class="panel-body">
-            <ul class="list-group">
-                {{#each activityStreamElements}}
-                    {{> activityStreamElement}}
-                {{/each}}
-            </ul>
-        </div>
+    <div id="activity-stream" class="qa-message-list">
+        {{#each activityStreamElements}}
+            {{> activityStreamElement}}
+        {{/each}}
+        {{#if nextPath}}
+            <a class="load-more" href="{{nextPath}}">Load more</a>
+        {{/if}}
     </div>
 </template>

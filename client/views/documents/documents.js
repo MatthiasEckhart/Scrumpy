@@ -1,5 +1,5 @@
 "use strict";
 
-Template.documents.rendered = function () {
+Template.documents.onRendered(function () {
     Session.set('activeNavTab', 'documents');
-};
+});

@@ -35,3 +35,7 @@ Template.productInvitations.events({
         }
     }
 });
+
+Template.productInvitations.onRendered(function () {
+    Session.set('activeNavTab', 'productInvitations');
+});

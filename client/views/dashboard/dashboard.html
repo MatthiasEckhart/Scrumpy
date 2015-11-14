@@ -1,3 +1,247 @@
 <template name="dashboard">
-    {{> dashboardContent}}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="dashboard-statistic-block">
+                            <div class="info-content effect">
+                                <div class="info-icon blue">
+                                    <span class="fa fa-check-circle"></span>
+
+                                    <div id="total-tasks-completed" class="visual-sugar-block">
+                                        <div class="visual-sugar">
+                                            <div class="sugar">
+                                                <span class="plus-sign fa fa-plus"></span>
+                                                <span class="counter">{{sumTasksCompleted}}</span>
+                                            </div>
+                                            <span class="visual-sugar-text">TASKS COMPLETED</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dashboard-statistic-block">
+                            <div class="info-content effect">
+                                <div class="info-icon green">
+                                    <span class="fa fa-users"></span>
+
+                                    <div id="total-users" class="visual-sugar-block">
+                                        <div class="visual-sugar">
+                                            <div class="sugar">
+                                                <span class="plus-sign fa fa-plus"></span>
+                                                <span class="counter">{{sumConnectedUsers}}</span>
+                                            </div>
+                                            <span class="visual-sugar-text">CONNECTED USERS</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dashboard-statistic-block">
+                            <div class="info-content effect">
+                                <div class="info-icon orange">
+                                    <span class="fa fa-cubes"></span>
+
+                                    <div id="total-projects" class="visual-sugar-block">
+                                        <div class="visual-sugar">
+                                            <div class="sugar">
+                                                <span class="plus-sign fa fa-plus"></span>
+                                                <span class="counter">{{sumProducts}}</span>
+                                            </div>
+                                            <span class="visual-sugar-text">PRODUCTS</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dashboard-statistic-block">
+                            <div class="info-content effect">
+                                <div class="info-icon red">
+                                    <span class="fa fa-comments"></span>
+
+                                    <div id="total-organizations" class="visual-sugar-block">
+                                        <div class="visual-sugar">
+                                            <div class="sugar">
+                                                <span class="plus-sign fa fa-plus"></span>
+                                                <span class="counter">{{sumConversations}}</span>
+                                            </div>
+                                            <span class="visual-sugar-text">CONVERSATIONS</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4>Products</h4>
+                            </div>
+                            <div class="panel-body">
+                                {{#if noProducts}}
+                                    <a href="{{pathFor 'productCreate'}}">
+                                        <div class="product-empty">
+                                            <div class="alert alert-info" role="alert"><p class="text-center">Start by
+                                                Creating a New Product</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                {{else}}
+                                    <ul class="list-group">
+                                        {{#each products}}
+                                            {{> productItem}}
+                                        {{/each}}
+                                    </ul>
+                                    {{#if nextPath}}
+                                        <a class="load-more" href="{{nextPath}}">Load more</a>
+                                    {{/if}}
+                                {{/if}}
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="btn-group btn-group-justified">
+                            <a href="{{pathFor 'productCreate'}}" class="btn btn-primary col-sm-3">
+                                <i class="fa fa-cubes"></i>
+                                <br> New Product
+                            </a>
+                            <a href="{{pathFor 'invitations'}}" class="btn btn-primary col-sm-3">
+                                <i class="fa fa-group"></i>
+                                <br> Invitations
+                            </a>
+                            <a href="{{pathFor 'conversationsList'}}" class="btn btn-primary col-sm-3">
+                                <i class="fa fa-comments"></i>
+                                <br> Conversations
+                            </a>
+                            <a href="#" class="btn btn-danger col-sm-3 sign-out">
+                                <i class="fa fa-sign-out"></i>
+                                <br> Sign out
+                            </a>
+                        </div>
+                        <hr/>
+                        {{#unless noConversations}}
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4>Recent Conversations</h4></div>
+                                <div class="panel-body">
+                                    <div class="list-group">
+                                        {{#each conversations}}
+                                            <a href="{{pathFor 'conversation'}}" class="list-group-item">
+                                                {{subject}}
+                                                <div class="post-time timestamp-list">
+                                                    {{fromNow 'updatedAt'}}
+                                                    <i class="fa fa-clock-o"></i>
+                                                </div>
+                                            </a>
+                                        {{/each}}
+                                    </div>
+                                </div>
+                            </div>
+                        {{/unless}}
+                    </div>
+                    <div class="col-md-6">
+                        {{#unless noProducts}}
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4>Work done (h) for Product {{productTitleForLineChartPanel}}</h4></div>
+                                <div class="panel-body">
+                                    {{> dashboardLineChart}}
+                                </div>
+                            </div>
+                            <hr/>
+                        {{/unless}}
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <h4>New Conversation</h4>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                {{#autoForm collection="Conversations" id="insert-conversation-form" type="insert"}}
+                                    <div class="form-group">
+                                        {{> afQuickField name='subject'}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recipients">Recipients</label>
+                                        {{> afFieldInput name="recipients" type="select2" multiple=true}}
+                                    </div>
+                                    <div class="form-group">
+                                        <button id="submit-conversation-create" type="submit" class="btn btn-primary">
+                                            Create Conversation
+                                        </button>
+                                    </div>
+                                {{/autoForm}}
+                            </div>
+                        </div>
+                        {{#unless noPendingInvitations}}
+                            <hr/>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title">
+                                        <h4>Pending Invitations</h4></div>
+                                </div>
+                                <div class="panel-body">
+                                    <div id="invitations" class="table-responsive">
+                                        <table class="table user-list">
+                                            <thead>
+                                            <tr>
+                                                <th><span>Invited by</span></th>
+                                                <th><span>Product</span></th>
+                                                <th><span>Role</span></th>
+                                                <th>Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {{#each invitations}}
+                                                <tr>
+                                                    <td>
+                                                        {{#with userByProductId}}
+                                                            <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                                                                <img class="media-object img-rounded" src="{{avatar}}"
+                                                                     alt="{{username}}">
+                                                            </a>
+                                                            <a href="{{pathFor 'profilePage'}}"
+                                                               class="user-link">{{username}}</a>
+                                                            <span class="user-subhead">{{fullName}}</span>
+                                                        {{/with}}
+                                                    </td>
+                                                    <td>
+                                                        {{productTitle 'productId'}}
+                                                    </td>
+                                                    <td>{{roleFormatted}}</td>
+                                                    <td style="width: 20%;">
+                                                        <a href="#" class="table-link accept-invitation">
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                                        </a>
+                                                        <a href="#" class="table-link danger decline-invitation">
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                <i class="fa fa-times fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {{/each}}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        {{/unless}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>

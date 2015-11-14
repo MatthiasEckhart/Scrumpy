@@ -3,22 +3,22 @@ Template.registerHelper('_', function () {
     return _;
 });
 
-UI.registerHelper('userByProductId', function () {
+Template.registerHelper('userByProductId', function () {
     let product = Products.findOne({_id: this.productId});
     if (product) return Users.findOne({_id: product.userId});
 });
 
-UI.registerHelper('roleFormatted', function () {
+Template.registerHelper('roleFormatted', function () {
     return this.role == 2 ? "Scrum Master" : "Development Team member";
 });
 
-UI.registerHelper('productTitle', function (value) {
+Template.registerHelper('productTitle', function (value) {
     let product = Products.findOne({_id: this[value]});
     if (product) return product.title;
     else return UNKNOWN;
 });
 
-UI.registerHelper('titleShort', function (type) {
+Template.registerHelper('titleShort', function (type) {
     var short = this.title;
     if (short) {
         if (type === "product") {
@@ -34,27 +34,27 @@ UI.registerHelper('titleShort', function (type) {
     return short;
 });
 
-UI.registerHelper('representative', function () {
+Template.registerHelper('representative', function () {
     if (this._id) {
         let product = Products.findOne({_id: this._id});
         if (product) return product.advancedMode ? 'Product Owner' : 'Administrator';
     } else return ANONYMOUS;
 });
 
-UI.registerHelper('currentUserUsername', function () {
+Template.registerHelper('currentUserUsername', function () {
     return Meteor.user().username;
 });
 
-UI.registerHelper('navTabIsActive', function (navTab) {
+Template.registerHelper('navTabIsActive', function (navTab) {
     return Session.equals('activeNavTab', navTab);
 });
 
-UI.registerHelper('advancedMode', function (formId) {
+Template.registerHelper('advancedMode', function (formId) {
     if (_.has(this, "advancedMode")) return this.advancedMode;
     else return AutoForm.getFieldValue('advancedMode', formId);
 });
 
-UI.registerHelper('totalDevTeamMember', function () {
+Template.registerHelper('totalDevTeamMember', function () {
     return Invitations.find({
         productId: this._id,
         role: 3,
@@ -62,7 +62,7 @@ UI.registerHelper('totalDevTeamMember', function () {
     }, {$and: [{status: 0}, {status: 1}]}).count();
 });
 
-UI.registerHelper('totalScrumMaster', function () {
+Template.registerHelper('totalScrumMaster', function () {
     return Invitations.find({
         productId: this._id,
         role: 2,
@@ -70,7 +70,7 @@ UI.registerHelper('totalScrumMaster', function () {
     }, {$and: [{status: 0}, {status: 1}]}).count();
 });
 
-UI.registerHelper('teamOverview', function (role) {
+Template.registerHelper('teamOverview', function (role) {
     return Invitations.find({
         productId: this._id,
         role: parseInt(role, 10),
@@ -85,7 +85,7 @@ UI.registerHelper('teamOverview', function (role) {
     });
 });
 
-UI.registerHelper('isOnline', function () {
+Template.registerHelper('isOnline', function () {
     if (_.has(this, 'profile') && _.has(this.profile, 'online')) {
         return this.profile.online;
     } else {
@@ -96,18 +96,18 @@ UI.registerHelper('isOnline', function () {
     }
 });
 
-UI.registerHelper('avatar', function () {
+Template.registerHelper('avatar', function () {
     if (_.has(this, 'profile') && _.has(this.profile, 'image')) return this.profile.image;
     else return DEFAULT_AVATAR;
 });
 
-UI.registerHelper('fullNameOrUsername', function (displayUsername) {
+Template.registerHelper('fullNameOrUsername', function (displayUsername) {
     if (_.has(this, 'profile') && _.has(this.profile, 'firstName') && _.has(this.profile, 'lastName') && this.profile.firstName && this.profile.lastName) return this.profile.firstName + " " + this.profile.lastName;
     else if (displayUsername == "true") return this.username;
     else return ANONYMOUS;
 });
 
-UI.registerHelper('userIsScrumMaster', function (template) {
+Template.registerHelper('userIsScrumMaster', function (template) {
     if (template === "sprint") {
         return Roles.userIsInRole(Meteor.user(), [Template.parentData(2)._id], 'scrumMaster');
     } else if (template === "sprintPlanning") {
@@ -115,32 +115,45 @@ UI.registerHelper('userIsScrumMaster', function (template) {
     }
 });
 
-UI.registerHelper('sprintStartDateFormatted', function () {
+Template.registerHelper('sprintStartDateFormatted', function () {
     return moment.utc(this.startDate).format('YYYY-MM-DD');
 });
 
-UI.registerHelper('sprintEndDateFormatted', function () {
+Template.registerHelper('sprintEndDateFormatted', function () {
     return moment.utc(this.endDate).format('YYYY-MM-DD');
 });
 
-UI.registerHelper('fromNow', function (value) {
+Template.registerHelper('fromNow', function (value) {
     return moment(this[value]).fromNow();
 });
 
 
-UI.registerHelper('fullName', function () {
+Template.registerHelper('fullName', function () {
     if (_.has(this, 'profile') && _.has(this.profile, 'firstName') && _.has(this.profile, 'lastName')) return this.profile.firstName + " " + this.profile.lastName;
     else return "";
 });
 
-UI.registerHelper('userIsProductOwner', function (template) {
-    var productId;
-    if (template === "userStory") {
-        productId = this.productId;
-    } else { // template -> sprintPlanning or productPageIncludes
-        productId = this._id;
-    }
+Template.registerHelper('noInvitations', function () {
+    return Invitations.find({'productId': this._id}).count() == 0;
+});
+
+Template.registerHelper('userIsProductOwner', function (template) {
+    let productId;
+    if (template === "userStory") productId = this.productId;
+    else productId = this._id;
     return Roles.userIsInRole(Meteor.user(), [productId], 'productOwner');
+});
+
+Template.registerHelper('authorByUserId', function () {
+    var user = Users.findOne({_id: this.userId});
+    return (Meteor.user().username === user.username) ? "You" : user.username;
+});
+
+Template.registerHelper('userIsProductOwnerOrAdmin', function (template) {
+    let productId;
+    if (template === "userStory") productId = this.productId;
+    else productId = this._id;
+    return Roles.userIsInRole(Meteor.user(), [productId], 'productOwner') || Roles.userIsInRole(Meteor.user(), [productId], 'administrator');
 });
 
 setSessionForActiveNavTab = function (name) {
@@ -167,4 +180,49 @@ getUsername = function (userId) {
     let user = Users.findOne({_id: userId});
     if (user) return user.username;
     else return ANONYMOUS;
+};
+
+signOut = function () {
+    let username = Meteor.user().username;
+    Meteor.logout(function () {
+        Session.set('logoutSuccess', true);
+        Session.set('username', username);
+        Router.go('landingPage');
+    });
+};
+
+acceptInvitation = function () {
+    if (this.status == 0) {
+        Meteor.call('addUserToRole', this.productId, Meteor.userId(), this.role, (error) => {
+            if (error) {
+                throwAlert('error', error.reason, error.details);
+                return;
+            }
+            Meteor.call('createActElUserInvitationAccepted', this.productId, Meteor.userId(), this.role, (error) => {
+                if (error) {
+                    throwAlert('error', error.reason, error.details);
+                    return;
+                }
+                Invitations.update({_id: this._id}, {$set: {status: 1}});
+            });
+        });
+    }
+};
+
+declineInvitation = function () {
+    if (this.status == 0 || this.status == 1) {
+        Meteor.call('removeUserFromRole', this.productId, Meteor.userId(), this.role, (error) => {
+            if (error) {
+                throwAlert('error', error.reason, error.details);
+                return;
+            }
+            Meteor.call('createActElUserInvitationDeclined', this.productId, Meteor.userId(), this.role, (error) => {
+                if (error) {
+                    throwAlert('error', error.reason, error.details);
+                    return;
+                }
+                Invitations.update({_id: this._id}, {$set: {status: 2}});
+            });
+        });
+    }
 };

@@ -1,60 +1,62 @@
 <template name="productInvitations">
-    <div class="panel panel-default panel-invitations">
-        <div class="panel-heading">
-            <h3 class="panel-title">Manage Invitations</h3>
-        </div>
-        <div class="panel-body">
-            <div id="invitations">
-                <div class="main-box no-header clearfix">
-                    <div class="main-box-body clearfix">
-                        <div class="table-responsive">
-                            <table class="table user-list">
-                                <thead>
-                                <tr>
-                                    <th><span>Invited</span></th>
-                                    <th><span>Role</span></th>
-                                    <th><span class="glyphicon glyphicon-time"></span></th>
-                                    <th class="text-center"><span>Status</span></th>
-                                    <th>Actions</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {{#each invitations}}
+    {{#with product}}
+        <div class="panel panel-default panel-invitations">
+            <div class="panel-heading">
+                <h3 class="panel-title">Manage Invitations</h3>
+            </div>
+            <div class="panel-body">
+                <div id="invitations">
+                    <div class="main-box no-header clearfix">
+                        <div class="main-box-body clearfix">
+                            <div class="table-responsive">
+                                <table class="table user-list">
+                                    <thead>
                                     <tr>
-                                        <td>
-                                            {{#with user}}
-                                                <a class="pull-left" href="{{pathFor 'profilePage'}}">
-                                                    <img class="media-object img-rounded" src="{{avatar}}"
-                                                         alt="{{username}}">
-                                                </a>
-                                                <a href="{{pathFor 'profilePage'}}"
-                                                   class="user-link">{{username}}</a>
-                                                <span class="user-subhead">{{fullName}}</span>
-                                            {{/with}}
-                                        </td>
-                                        <td>{{roleFormatted}}</td>
-                                        <td>{{fromNow createdAt}}</td>
-                                        <td class="text-center">
-                                            <span class="label {{statusCss}}">{{statusFormatted}}</span>
-                                        </td>
-                                        <td style="width: 20%;">
-                                            {{#unless _.isEqual status 2}}
-                                                <a href="#" class="table-link danger decline-invitation">
+                                        <th><span>Invited</span></th>
+                                        <th><span>Role</span></th>
+                                        <th><span class="glyphicon glyphicon-time"></span></th>
+                                        <th class="text-center"><span>Status</span></th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {{#each invitations}}
+                                        <tr>
+                                            <td>
+                                                {{#with user}}
+                                                    <a class="pull-left" href="{{pathFor 'profilePage'}}">
+                                                        <img class="media-object img-rounded" src="{{avatar}}"
+                                                             alt="{{username}}">
+                                                    </a>
+                                                    <a href="{{pathFor 'profilePage'}}"
+                                                       class="user-link">{{username}}</a>
+                                                    <span class="user-subhead">{{fullName}}</span>
+                                                {{/with}}
+                                            </td>
+                                            <td>{{roleFormatted}}</td>
+                                            <td>{{fromNow 'updatedAt'}}</td>
+                                            <td class="text-center">
+                                                <span class="label {{statusCss}}">{{statusFormatted}}</span>
+                                            </td>
+                                            <td style="width: 20%;">
+                                                {{#unless _.isEqual status 2}}
+                                                    <a href="#" class="table-link danger decline-invitation">
                                             <span class="fa-stack">
                                                 <i class="fa fa-square fa-stack-2x"></i>
                                                 <i class="fa fa-times fa-stack-1x fa-inverse"></i>
                                             </span>
-                                                </a>
-                                            {{/unless}}
-                                        </td>
-                                    </tr>
-                                {{/each}}
-                                </tbody>
-                            </table>
+                                                    </a>
+                                                {{/unless}}
+                                            </td>
+                                        </tr>
+                                    {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    {{/with}}
 </template>

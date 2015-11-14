@@ -154,17 +154,5 @@ function getBaseActEl(type, productId, userId) {
 }
 
 function insertActivityStreamElement(el) {
-    var sumActEl = ActivityStreamElements.find({productId: el.productId}).count();
-    // remove last activity stream element if there are already more than 50 elements in collection to this specific product
-    if (sumActEl >= 50) {
-        ActivityStreamElements.find({productId: el.productId}, {
-            sort: {submitted: 1},
-            limit: 1
-        }).forEach((item) => {
-            // remove all corresponding comments
-            Comments.remove({actElId: item._id});
-            ActivityStreamElements.remove({_id: item._id});
-        });
-    }
     ActivityStreamElements.insert(el);
 }

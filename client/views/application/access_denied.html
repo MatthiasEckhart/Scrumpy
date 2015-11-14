@@ -1,3 +1,18 @@
 <template name="accessDenied">
-    Please login.
+    <div class="error-page">
+        <div class="error-code m-b-10 m-t-20">403 <i class="fa fa-warning"></i></div>
+        <h3 class="font-bold">Please login!</h3>
+
+        <div class="error-desc">
+            Sorry, but you need to login if you want to access this page.<br/>
+
+            <div>
+                <br/>
+                <a href="{{pathFor 'login'}}" class="btn btn-primary">
+                    <i class="fa fa-sign-in"></i>
+                    Login</a>
+                <br/><br/>
+            </div>
+        </div>
+    </div>
 </template>

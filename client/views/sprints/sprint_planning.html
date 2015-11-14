@@ -1,15 +1,13 @@
 <template name="sprintPlanning">
-    <div class="padding-20">
-        {{> productPageIncludes}}
+    {{#with product}}
         <div class="row" id="drag">
             <div class="col-md-6">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Add story</h3>
+                        <h4>Add story</h4>
                     </div>
                     <div class="panel-body">
                         {{#autoForm collection="UserStories" id="insert-user-story-form" type="insert" doc=productForAutoForm}}
-
                             <div class="form-group">
                                 {{> afQuickField name='title'}}
                             </div>
@@ -32,9 +30,10 @@
                         {{/autoForm}}
                     </div>
                 </div>
+                <hr/>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">User Stories</h3>
+                        <h4>User Stories</h4>
                     </div>
                     <div class="panel-body">
                         <div>
@@ -50,9 +49,10 @@
                         </div>
                     </div>
                 </div>
+                <hr/>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Product Backlog</h3>
+                        <h4>Product Backlog</h4>
                     </div>
                     <div class="panel-body">
                         <div>
@@ -79,16 +79,18 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="panel panel-info">
-                    <div class="panel-heading">Add sprint</div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4>Add sprint</h4></div>
                     <div class="panel-body">
                         {{> sprintCreate}}
                     </div>
                 </div>
+                <hr/>
                 {{#each sprints}}
                     {{> sprint}}
                 {{/each}}
             </div>
         </div>
-    </div>
+    {{/with}}
 </template>

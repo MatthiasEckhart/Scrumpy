@@ -1,18 +1,21 @@
 <template name="conversationsList">
-    <div class="panel-heading main-page-heading">
-        <h2 class="panel-title">Conversations</h2>
-    </div>
-    <a href="{{pathFor 'conversationCreate'}}">
-        <button class="btn btn-sm btn-primary private-message-button">Start a conversation</button>
-    </a>
-
-    <div class="padding-20">
-        {{#if noConversations}}
-            No conversations available.
-        {{else}}
-            {{#each conversations}}
-                {{> conversationItem}}
-            {{/each}}
-        {{/if}}
+    <div class="single-panel col-md-6 col-md-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a href="{{pathFor 'conversationCreate'}}" id="new-conversation-btn" class="btn btn-xs btn-info pull-right">New Conversation</a>
+                <h4>Conversations</h4>
+            </div>
+            <div class="panel-body">
+                {{#if noConversations}}
+                    <div class="alert alert-info" role="alert">
+                        <p class="text-center">No conversations available.</p>
+                    </div>
+                {{else}}
+                    {{#each conversations}}
+                        {{> conversationItem}}
+                    {{/each}}
+                {{/if}}
+            </div>
+        </div>
     </div>
 </template>

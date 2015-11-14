@@ -4,9 +4,6 @@ Template.invite.helpers({
     userInvitationFormSchema: function () {
         return Schema.invitationUser;
     },
-    noInvitations: function () {
-        return Invitations.find({'productId': this._id}).count() == 0;
-    },
     textForCancelButton: function () {
         if (Session.equals('productCreate', true)) return "Skip";
         else return "Cancel";
@@ -28,4 +25,8 @@ Template.invite.events({
 Template.invite.onDestroyed(function () {
     /* Remove session when user changes the route. */
     Session.set('productCreate', null);
+});
+
+Template.invite.onRendered(function () {
+    Session.set('activeNavTab', 'invite');
 });

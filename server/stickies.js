@@ -5,8 +5,6 @@ Stickies.before.insert(function (userId, doc) {
 });
 
 Stickies.before.update(function (userId, doc, fieldNames, modifier, options) {
-    modifier.$set = modifier.$set || {};
-    modifier.$set.lastModified = new Date();
     updateLastModifiedForProduct(doc.productId);
 });
 

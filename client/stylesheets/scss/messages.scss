@@ -10,18 +10,12 @@
   font-size: 1.1em;
 }
 
-.remove-btn, .edit-conversation {
+.leave-conversation-btn, .edit-conversation-btn {
   float: right;
 }
 
-.remove-btn {
-  margin: 5px;
-  font-size: 0.9em;
-  margin-top: 0 !important;
-}
-
-.edit-conversation {
-  right: -30px;
+.edit-conversation-btn {
+  margin-right: 5px;
 }
 
 /* Message edit */

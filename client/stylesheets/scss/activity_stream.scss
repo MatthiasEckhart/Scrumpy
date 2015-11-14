@@ -1,38 +1,101 @@
 #activity-stream {
-  .widget {
-    .panel-body {
-      padding: 0px;
-    }
-    .list-group {
-      margin-bottom: 0;
-    }
-    .panel-title {
-      display: inline;
-    }
-    .label-info {
-      float: right;
-    }
-    li.list-group-item {
-      border-radius: 0;
-      border: 0;
-      border-top: 1px solid #ddd;
-      &:hover {
-        background-color: rgba(86, 61, 124, 0.1);
+  .message-item {
+    margin-bottom: 25px;
+    margin-left: 25px;
+    position: relative;
+    .message-inner {
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      padding: 10px;
+      position: relative;
+      &:before, &:after {
+        border-right: 5px solid #ddd;
+        border-style: solid;
+        border-width: 5px;
+        color: rgba(0, 0, 0, 0);
+        content: "";
+        display: block;
+        height: 0;
+        position: absolute;
+        left: -11px;
+        top: 10px;
+        width: 0;
       }
     }
-    .mic-info {
-      color: #666666;
-      font-size: 11px;
+    &:before {
+      background: #ddd;
+      border-radius: 2px;
+      bottom: -28px;
+      content: "";
+      height: 100%;
+      left: -14px;
+      position: absolute;
+      width: 1px;
     }
-    .action {
-      margin-top: 5px;
+    &:after {
+      background: #fff;
+      border: 1px solid #2e9df7;
+      border-radius: 50%;
+      content: "";
+      height: 11px;
+      left: -19px;
+      position: absolute;
+      top: 10px;
+      width: 11px;
     }
-    .comment-text {
-      font-size: 12px;
+  }
+
+  .clearfix {
+    &:before, &:after {
+      content: " ";
+      display: table;
     }
-    .btn-block {
-      border-top-left-radius: 0px;
-      border-top-right-radius: 0px;
+  }
+
+  .message-item {
+    .message-head {
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      .message-icon {
+        padding: 10px 12px;
+        margin-right: 10px;
+        border-radius: 50%;
+        -o-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        a i {
+          color: #fff;
+          font-size: 1.3em;
+        }
+      }
+      .user-detail {
+        overflow: hidden;
+        h5 {
+          font-size: 1.2em;
+          color: #585b5e;
+          margin: 0;
+          margin-bottom: 2px;
+        }
+      }
+      .post-author > a {
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: .7em;
+        margin: 0;
+        line-height: 17px;
+      }
+      .post-time {
+        float: left;
+      }
+    }
+    .qa-message-content p {
+      text-align: center;
+      color: #585b5e;
+      font-size: .9em;
+      margin: 0;
     }
   }
 }

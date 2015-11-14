@@ -1,11 +1,14 @@
 <template name="documentTitle">
-    <div class="navbar">
-        <form class="navbar-form">
+    <div class="document-actions">
+        <form class="document-form">
             <div class="center-this">
-                <input class="form-control" type="text" name="title" value="{{title}}" />
-                <button class="btn btn-danger">Remove this document</button>
+                <div class="input-group">
+                    <input class="form-control" type="text" name="title" value="{{title}}"/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-danger" type="button"><i class="fa fa-times"></i></button>
+                    </span>
+                </div>
             </div>
-
         </form>
     </div>
 </template>

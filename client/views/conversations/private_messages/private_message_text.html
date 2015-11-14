@@ -10,9 +10,10 @@
                 {{#with user}}
                     <a href="{{pathFor 'profilePage'}}"><strong>{{username}}</strong></a>
                 {{/with}}
-                <small class="pull-right text-muted">
-                    <span class="glyphicon glyphicon-time"></span>{{timestamp}}
-                </small>
+                <div class="post-time pull-right">
+                    {{fromNow 'updatedAt'}}
+                    <i class="fa fa-clock-o"></i>
+                </div>
             </div>
             <p>
                 {{text}}

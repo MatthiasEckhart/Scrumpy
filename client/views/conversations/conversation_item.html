@@ -1,25 +1,9 @@
 <template name="conversationItem">
-    <div class="panel panel-default message-block">
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                <a href="{{pathFor 'conversation'}}"><span class="subject">{{subject}}</span></a>
-                <button type="button"
-                        class="btn btn-xs btn-danger fa fa-remove remove-btn {{removeOrLeaveConversation}}"></button>
-                {{#if userIsAuthor}}
-                    <a href="{{pathFor 'conversationEdit'}}">
-                        <button type="button" class="btn btn-xs btn-default fa fa-pencil edit-conversation"></button>
-                    </a>
-                {{/if}}
-            </h3>
+    <a href="{{pathFor 'conversation'}}" class="list-group-item">
+        {{subject}}
+        <small class="text-muted">{{role}}</small>
+        <div class="post-time timestamp-list">
+            {{fromNow 'updatedAt'}} <i class="fa fa-clock-o"></i>
         </div>
-        <div class="panel-body">
-            {{#each recipients}}
-                <a href="{{pathFor 'profilePage'}}"><img class="media-object img-rounded" src="{{avatar}}"
-                                                         alt="{{username}}"></a>
-            {{/each}}
-            {{#if noRecipients}}
-                <span>You are the only one in this conversation.</span>
-            {{/if}}
-        </div>
-    </div>
+    </a>
 </template>

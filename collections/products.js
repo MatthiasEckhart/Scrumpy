@@ -76,12 +76,15 @@ Products.attachSchema(new SimpleSchema({
     updatedAt: {
         type: Date,
         autoValue: function () {
-            if (this.isUpdate) {
-                return new Date();
-            }
+            if (this.isInsert || this.isUpdate) return new Date;
+            else if (this.isUpsert) return {$setOnInsert: new Date};
+            else
+            /* Prevent user from supplying their own date. */
+                this.unset();
         },
-        denyInsert: true,
-        optional: true
+        autoform: {
+            omit: true
+        }
     },
     friendlySlugs: {
         type: Object,

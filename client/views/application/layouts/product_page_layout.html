@@ -1,0 +1,23 @@
+<template name="productPageLayout">
+    {{> sAlert template='sAlertCustom'}}
+    {{#if currentUser}}
+        <header class="header">
+            {{> navigationBar}}
+        </header>
+        <div class="wrapper">
+            {{> autoformModals}}
+            {{> editYourAvatarModal}}
+            <div class="container-fluid">
+                <div class="row row-offcanvas row-offcanvas-left">
+                    {{> yield "navigationSidebar"}}
+                    <div class="col-sm-9 col-md-10 main">
+                        {{> yield "productPageIncludes"}}
+                        {{> yield}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{else}}
+        {{> yield}}
+    {{/if}}
+</template>

@@ -1,0 +1,31 @@
+<template name="navigationSidebar">
+    <div class="col-sm-3 col-md-2 sidebar-offcanvas" id="sidebar" role="navigation">
+        {{#with product}}
+            {{#if advancedMode}}
+                <ul class="nav nav-sidebar">
+                    <li class="{{#if navTabIsActive 'productDashboard'}}active{{/if}}"><a
+                            href="{{pathFor 'productDashboard'}}"><i
+                            class="fa fa-tachometer"></i> Overview</a></li>
+                    <li class="{{#if navTabIsActive 'sprintPlanning'}}active{{/if}}"><a
+                            href="{{pathFor 'sprintPlanning'}}"><i
+                            class="fa fa-map-o"></i> Sprint Planning</a></li>
+                    <li class="{{#if navTabIsActive 'documents'}}active{{/if}}"><a href="{{pathFor 'documents'}}"><i
+                            class="fa fa-file-text"></i> Documents</a></li>
+                </ul>
+            {{/if}}
+            {{#if userIsProductOwnerOrAdmin 'productPageIncludes'}}
+                <ul class="nav nav-sidebar">
+                    <li class="{{#if navTabIsActive 'productEdit'}}active{{/if}}"><a href="{{pathFor 'productEdit'}}"><i
+                            class="fa fa-pencil"></i> Edit Product</a></li>
+                    <li class="{{#if navTabIsActive 'invite'}}active{{/if}}"><a href="{{pathFor 'invite'}}"><i
+                            class="fa fa-users"></i> Invite Users</a></li>
+                    {{#unless noInvitations}}
+                        <li class="{{#if navTabIsActive 'productInvitations'}}active{{/if}}"><a
+                                href="{{pathFor 'productInvitations'}}"><i
+                                class="fa fa-envelope-o"></i> Manage Invitations</a></li>
+                    {{/unless}}
+                </ul>
+            {{/if}}
+        {{/with}}
+    </div>
+</template>

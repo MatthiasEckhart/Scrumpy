@@ -1,4 +1,4 @@
-getDocument = function(collection, documentId) {
+getDocument = function (collection, documentId) {
     let document = collection.findOne({_id: documentId});
     if (!document) throw new Meteor.Error(500, "Document with ID " + documentId + " not found.", "Please contact support team.");
     return document;
@@ -16,6 +16,10 @@ arrayContainsDateElement = function (arr, el) {
 
 updateLastModifiedForProduct = function (productId) {
     Products.update({_id: productId}, {$set: {updatedAt: new Date()}});
+};
+
+updateLastModifiedForConversation = function (conversationId) {
+    Conversations.update({_id: conversationId}, {$set: {updatedAt: new Date()}});
 };
 
 createPrivateMessageNotification = function (slug, userId) {
