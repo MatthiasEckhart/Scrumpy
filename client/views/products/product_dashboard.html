@@ -88,12 +88,7 @@
                 {{#if barChartDataAvailable}}
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4>Bar chart
-                                <label class="toggle">
-                                    <input type="checkbox" name="showBarChartForCurrentSprint" {{barChartSwitch}}>
-                                    <span class="handle"></span>
-                                </label>
-                            </h4>
+                            <h4>Tasks Overview</h4>
                         </div>
                         <div class="panel-body">
                             {{> productDashboardBarChart}}
@@ -114,7 +109,7 @@
                 {{#if burndownDataAvailable}}
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4>Burndown chart</h4>
+                            <h4>Burndown Chart</h4>
                         </div>
                         <div class="panel-body">
                             {{> productDashboardBurndownChart}}

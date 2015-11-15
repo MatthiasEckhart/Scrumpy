@@ -1,19 +1,8 @@
 "use strict";
 
 Template.productDashboard.helpers({
-    showBarChartForCurrentSprint: function () {
-        return Session.equals('showBarChartForCurrentSprint', true);
-    },
-    barChartSwitch: function () {
-        if (Session.equals('showBarChartForAllSprints', true)) {
-            return "checked";
-        }
-        return "";
-    },
     totalStickies: function () {
-        let userStoryIds = UserStories.find({productId: this._id}).map(function (userStory) {
-            return userStory._id;
-        });
+        let userStoryIds = UserStories.find({productId: this._id}).map((story) => story._id);
         return Stickies.find({storyId: {$in: userStoryIds}}).count();
     },
     totalUserStories: function () {
@@ -26,14 +15,16 @@ Template.productDashboard.helpers({
         return sum;
     },
     burndownDataAvailable: function () {
+        let userStoryIds = UserStories.find({productId: this._id}).map((story) => story._id);
         return Sprints.find({
                 productId: this._id,
                 startDate: {$lte: new Date()},
                 endDate: {$gte: new Date()}
-            }).count() > 0 && Stickies.find({productId: this._id}).count() > 0;
+            }).count() > 0 && Stickies.find({storyId: {$in: userStoryIds}}).count() > 0;
     },
     barChartDataAvailable: function () {
-        return Stickies.find({productId: this._id}).count() > 0;
+        let userStoryIds = UserStories.find({productId: this._id}).map((story) => story._id);
+        return Stickies.find({storyId: {$in: userStoryIds}}).count() > 0;
     },
     velocity: function () {
         var sumStoryPoints = 0, sumSprints, velocity;
@@ -61,22 +52,8 @@ Template.productDashboard.onRendered(function () {
     if (Session.equals('noSprintsError', true)) {
         throwAlert('error', 'Ooops!', 'You cannot access the task board, because there are no sprints!');
     }
-    Session.set('showBarChartForCurrentSprint', true);
-    Session.set('showBarChartForAllSprints', false);
 });
 
 Template.productDashboard.onDestroyed(function () {
     Session.set('noSprintsError', false);
-});
-
-Template.productDashboard.events({
-    'click input[name=showBarChartForCurrentSprint]': function () {
-        if (Session.equals('showBarChartForCurrentSprint', false)) {
-            Session.set('showBarChartForCurrentSprint', true);
-            Session.set('showBarChartForAllSprints', false);
-        } else {
-            Session.set('showBarChartForCurrentSprint', false);
-            Session.set('showBarChartForAllSprints', true);
-        }
-    }
 });

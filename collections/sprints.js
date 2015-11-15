@@ -87,7 +87,7 @@ Sprints.attachSchema(new SimpleSchema({
     }
 }));
 
-var productId = undefined;
+var productId, product;
 
 /**
  * Validates the specified sprint date on certain preconditions.
@@ -99,17 +99,19 @@ function validateSprintDate(context, startDate, endDate) {
     /* Inserts */
     if (!context.operator) {
         if (!context.isSet || context.value === null || context.value === "") return "required";
+        let productIdTmp = context.field("productId").value;
+        /* If product ID is available, save in variable. */
+        if (productIdTmp) productId = productIdTmp;
     }
     /* Updates */
     else if (context.isSet) {
         if (context.operator === "$set" && context.value === null || context.value === "") return "required";
         if (context.operator === "$unset") return "required";
         if (context.operator === "$rename") return "required";
+        let sprint = Sprints.findOne({_id: context.docId});
+        productId = sprint.productId;
     }
-    let productIdTmp = context.field("productId").value;
-    /* If product ID is available, save in variable. */
-    if (productIdTmp) productId = productIdTmp;
-    let product = Products.findOne({_id: productId});
+    product = Products.findOne({_id: productId});
     /* Check if end date has been set. */
     if (!endDate) return;
     /* Check if end date is before start date. */

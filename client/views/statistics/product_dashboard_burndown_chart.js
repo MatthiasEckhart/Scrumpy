@@ -3,68 +3,80 @@
 Template.productDashboardBurndownChart.onRendered(function () {
     var productId = this.data._id;
     Tracker.autorun(function () {
+        /* Get current sprint. */
         var sprint = Sprints.findOne({
-            productId: productId,
-            startDate: {$lte: new Date()},
-            endDate: {$gte: new Date()}
-        }), labels = [], idealEffort = [], actualEffort = [],
-            startDate, endDate, storyIdsObj, storyIds, totalEstEffortInSprint, idealEffortCounter, burndownData, daysDiff, i, count, j, data;
+                productId: productId,
+                startDate: {$lte: new Date()},
+                endDate: {$gte: new Date()}
+            }), labels = [], idealEffort = [], actualEffort = [],
+            startDate, endDate, storyIds, totalEstEffortInSprint, idealEffortCounter, burndownData, daysDiff, i, counter, j, data;
+        /* Check if current sprint is available. */
         if (sprint) {
+            /* Set sprint start and end date. */
             startDate = sprint.startDate;
             endDate = sprint.endDate;
-            storyIdsObj = UserStories.find({sprintId: sprint._id}, {fields: {_id: 1}}).fetch();
-            storyIds = [];
-            _.each(storyIdsObj, function (item) {
-                storyIds.push(item._id);
-            });
+            /* Get array of user story IDs. */
+            storyIds = UserStories.find({sprintId: sprint._id}, {fields: {_id: 1}}).map((story) => story._id);
+            /* Set total estimated effort in sprint to 0. */
             totalEstEffortInSprint = 0;
+            /* Check if array contains at least one user story ID. */
             if (storyIds.length > 0) {
+                /* Sum up total estimated effort in sprint. */
                 Stickies.find({storyId: {$in: storyIds}}).forEach(function (sticky) {
                     totalEstEffortInSprint += parseInt(sticky.effort, 10);
                 });
             }
-            idealEffortCounter = totalEstEffortInSprint;
-            while (labels.length > 0) {
-                labels.pop();
-            }
-            while (idealEffort.length > 0) {
-                idealEffort.pop();
-            }
-            while (actualEffort.length > 0) {
-                actualEffort.pop();
-            }
-            burndownData = Burndown.findOne({sprintId: sprint._id});
-            daysDiff = moment.utc(endDate).diff(moment.utc(startDate), 'days');
 
+            idealEffortCounter = totalEstEffortInSprint;
+            /* Reset data to ensure a fresh start. */
+            while (labels.length > 0) labels.pop();
+            while (idealEffort.length > 0) idealEffort.pop();
+            while (actualEffort.length > 0) actualEffort.pop();
+            /* Get Burndown data. */
+            burndownData = Burndown.findOne({sprintId: sprint._id});
+            /* Calculate end date - start date (in days). */
+            daysDiff = moment.utc(endDate).diff(moment.utc(startDate), 'days');
+            /* Loop through each sprint day and set ideal effort. */
             for (i = 0; i < daysDiff; i++) {
+                /* Set ideal effort. */
                 if (i !== 0 && i !== (daysDiff - 1)) {
                     idealEffortCounter -= (totalEstEffortInSprint / (daysDiff - 1));
                     idealEffort.push(idealEffortCounter);
                 }
-                labels.push(moment.utc(startDate).add(i, 'days').format('L'));
-                if (i === 0) {
-                    idealEffort.push(idealEffortCounter);
-                }
+                /* Add all days to label array within the period start date - end date. */
+                labels.push(moment(startDate).add(i, 'days').startOf('day').toDate());
+                /* Add total estimated effort in sprint to first day of sprint (ideal effort).  */
+                if (i === 0) idealEffort.push(idealEffortCounter);
             }
+            /* Ideal effort should be 0 on last day of sprint. */
             idealEffort.push(0);
-
+            /* Check if Burndown data exists. */
             if (burndownData && _.has(burndownData, 'data')) {
-                count = 0;
+                /* This counter is used for iterating over labels, if there is no respective burndown data element
+                 * which matches a label element. */
+                counter = 0;
+                /* Loop through all burndown data elements and add actual effort to array. */
                 for (j = 0; j < burndownData.data.length; j++) {
-                    if (moment.utc(burndownData.data[j].date).format('L') === moment.utc(labels[j]).format('L')) {
+                    /* Check if burndown data element matches date of label. */
+                    if (moment(labels[j]).isSame(moment.utc(burndownData.data[j].date).toDate())) {
+                        /* Add actual effort to array and increase counter. */
                         actualEffort.push(burndownData.data[j].effort);
-                        count++;
+                        counter++;
                     } else {
-                        while (moment.utc(burndownData.data[j].date).format('L') !== moment.utc(labels[count]).format('L')) {
+                        /* Add actual effort to array while respective burndown data element does not match date label. */
+                        while (!moment(labels[counter]).isSame(moment.utc(burndownData.data[j].date).toDate())) {
                             actualEffort.push(burndownData.data[j - 1].effort);
-                            count++;
+                            counter++;
                         }
+                        /* Add actual effort to array. */
                         actualEffort.push(burndownData.data[j].effort);
-                        count++;
+                        counter++;
                     }
                 }
+                /* Setup burndown chart data. */
                 data = {
-                    labels: labels,
+                    /* Format labels for better readability. */
+                    labels: labels.map((label) => moment(label).format('L')),
                     datasets: [
                         {
                             fillColor: "rgba(220,220,220,0.5)",

@@ -23,8 +23,10 @@ table {
   border-top: dotted 2px #ccc;
 }
 
-/* Sprint div */
-
 .delete-sprint, .edit-sprint {
   float: right;
+}
+
+.edit-sprint {
+  margin-right: 5px;
 }
