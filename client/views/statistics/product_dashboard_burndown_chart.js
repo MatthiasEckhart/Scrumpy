@@ -22,9 +22,7 @@ Template.productDashboardBurndownChart.onRendered(function () {
             /* Check if array contains at least one user story ID. */
             if (storyIds.length > 0) {
                 /* Sum up total estimated effort in sprint. */
-                Stickies.find({storyId: {$in: storyIds}}).forEach(function (sticky) {
-                    totalEstEffortInSprint += parseInt(sticky.effort, 10);
-                });
+                Stickies.find({storyId: {$in: storyIds}}).forEach((sticky) => totalEstEffortInSprint += parseInt(sticky.effort, 10));
             }
 
             idealEffortCounter = totalEstEffortInSprint;
@@ -56,23 +54,21 @@ Template.productDashboardBurndownChart.onRendered(function () {
                  * which matches a label element. */
                 counter = 0;
                 /* Loop through all burndown data elements and add actual effort to array. */
-                for (j = 0; j < burndownData.data.length; j++) {
-                    /* Check if burndown data element matches date of label. */
-                    if (moment(labels[j]).isSame(moment.utc(burndownData.data[j].date).toDate())) {
+                for (var k = 0; k < burndownData.data.length; k++) {
+                    if (moment(labels[k]).isSame(moment.utc(burndownData.data[k].date).toDate())) {
                         /* Add actual effort to array and increase counter. */
-                        actualEffort.push(burndownData.data[j].effort);
+                        actualEffort.push(burndownData.data[k].effort);
                         counter++;
                     } else {
-                        /* Add actual effort to array while respective burndown data element does not match date label. */
-                        while (!moment(labels[counter]).isSame(moment.utc(burndownData.data[j].date).toDate())) {
-                            actualEffort.push(burndownData.data[j - 1].effort);
+                        while (moment(labels[counter]).isBefore(moment.utc(burndownData.data[k].date).toDate())) {
+                            actualEffort.push(totalEstEffortInSprint);
                             counter++;
                         }
-                        /* Add actual effort to array. */
-                        actualEffort.push(burndownData.data[j].effort);
+                        actualEffort.push(burndownData.data[k].effort);
                         counter++;
                     }
                 }
+
                 /* Setup burndown chart data. */
                 data = {
                     /* Format labels for better readability. */

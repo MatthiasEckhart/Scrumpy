@@ -115,17 +115,19 @@ Meteor.methods({
         });
         insertActivityStreamElement(el);
     },
-    createActElSprintEditStartDate: function (productId, userId, oldSprintStartDate, newSprintStartDate) {
+    createActElSprintEditStartDate: function (productId, userId, oldSprintStartDate, newSprintStartDate, sprintGoal) {
         let el = _.extend(getBaseActEl(17, productId, userId), {
             oldSprintStartDate: oldSprintStartDate,
-            newSprintStartDate: newSprintStartDate
+            newSprintStartDate: newSprintStartDate,
+            sprintGoal: sprintGoal
         });
         insertActivityStreamElement(el);
     },
-    createActElSprintEditEndDate: function (productId, userId, oldSprintEndDate, newSprintEndDate) {
+    createActElSprintEditEndDate: function (productId, userId, oldSprintEndDate, newSprintEndDate, sprintGoal) {
         let el = _.extend(getBaseActEl(18, productId, userId), {
             oldSprintEndDate: oldSprintEndDate,
-            newSprintEndDate: newSprintEndDate
+            newSprintEndDate: newSprintEndDate,
+            sprintGoal: sprintGoal
         });
         insertActivityStreamElement(el);
     },
@@ -140,6 +142,22 @@ Meteor.methods({
             oldEffort: oldEffort,
             newEffort: newEffort,
             stickyTitle: stickyTitle
+        });
+        insertActivityStreamElement(el);
+    },
+    createActElUserStoryStoryPointsChanged: function (productId, userId, oldStoryPoints, newStoryPoints, userStoryTitle) {
+        let el = _.extend(getBaseActEl(21, productId, userId), {
+            oldStoryPoints: oldStoryPoints,
+            newStoryPoints: newStoryPoints,
+            userStoryTitle: userStoryTitle
+        });
+        insertActivityStreamElement(el);
+    },
+    createActElUserStoryBusinessValueChanged: function (productId, userId, oldBusinessValue, newBusinessValue, userStoryTitle) {
+        let el = _.extend(getBaseActEl(22, productId, userId), {
+            oldBusinessValue: oldBusinessValue,
+            newBusinessValue: newBusinessValue,
+            userStoryTitle: userStoryTitle
         });
         insertActivityStreamElement(el);
     }

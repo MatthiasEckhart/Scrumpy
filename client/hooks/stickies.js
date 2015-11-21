@@ -31,4 +31,43 @@ var stickyInsertHooks = {
     }
 };
 
+var stickyUpdateHooks = {
+    onSuccess: function (formType, result) {
+        let currentDoc = this.currentDoc, updateDoc = this.updateDoc['$set'];
+        /* If user has updated the sticky title, description or effort, we want to create the corresponding activity stream element. */
+        if (currentDoc.title != updateDoc.title ||
+            currentDoc.description != updateDoc.description ||
+            currentDoc.effort != updateDoc.effort) {
+            let sticky = Stickies.findOne({_id: currentDoc._id});
+            if (sticky) {
+                let story = UserStories.findOne({_id: sticky.storyId});
+                if (story) {
+                    let product = Products.findOne({_id: story.productId});
+                    if (product.advancedMode) {
+                        /* Check if sticky title has been changed. */
+                        if (currentDoc.title != updateDoc.title) {
+                            Meteor.call('createActElStickyEditTitle', product._id, Meteor.userId(), currentDoc.title, updateDoc.title, function (error) {
+                                if (error) throwAlert('error', error.reason, error.details);
+                            });
+                        }
+                        /* Check if sticky description has been changed. */
+                        if(currentDoc.description != updateDoc.description) {
+                            Meteor.call('createActElStickyEditDescription', product._id, Meteor.userId(), currentDoc.description, updateDoc.description, function (error) {
+                                if (error) throwAlert('error', error.reason, error.details);
+                            });
+                        }
+                        /* Check if sticky effort has been changed. */
+                        if(currentDoc.effort != updateDoc.effort) {
+                            Meteor.call('createActElStickyEffortChanged', product._id, Meteor.userId(), currentDoc.effort, updateDoc.effort, currentDoc.title, function (error) {
+                                if (error) throwAlert('error', error.reason, error.details);
+                            });
+                        }
+                    }
+                }
+            }
+        }
+    }
+};
+
 AutoForm.addHooks('insert-sticky-form', stickyInsertHooks);
+AutoForm.addHooks('update-sticky-form', stickyUpdateHooks);

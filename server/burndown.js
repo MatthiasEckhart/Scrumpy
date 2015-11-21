@@ -3,14 +3,11 @@
 Meteor.methods({
     updateBurndown: function (sprintId) {
         var burndownData = Burndown.findOne({sprintId: sprintId}),
-            storyIdsObj,
             storyIds,
             estEffortInHCurr,
             date;
         if (burndownData) {
-            storyIdsObj = UserStories.find({sprintId: sprintId}, {fields: {_id: 1}}).fetch();
-            storyIds = [];
-            _.each(storyIdsObj, (item) => storyIds.push(item._id));
+            storyIds = UserStories.find({sprintId: sprintId}, {fields: {_id: 1}}).map((story) => story._id);
             estEffortInHCurr = 0;
             if (storyIds) {
                 Stickies.find({

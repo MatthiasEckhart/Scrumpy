@@ -87,7 +87,7 @@ Sprints.attachSchema(new SimpleSchema({
     }
 }));
 
-var productId, product;
+var productId, product, sprint;
 
 /**
  * Validates the specified sprint date on certain preconditions.
@@ -108,16 +108,24 @@ function validateSprintDate(context, startDate, endDate) {
         if (context.operator === "$set" && context.value === null || context.value === "") return "required";
         if (context.operator === "$unset") return "required";
         if (context.operator === "$rename") return "required";
-        let sprint = Sprints.findOne({_id: context.docId});
+        sprint = Sprints.findOne({_id: context.docId});
         productId = sprint.productId;
     }
     product = Products.findOne({_id: productId});
+    /* Check if product exists. */
+    if (!product) return "internalError";
     /* Check if end date has been set. */
     if (!endDate) return;
     /* Check if end date is before start date. */
-    if (moment.utc(moment.utc(endDate)).isBefore(startDate)) return "endDateBeforeStartDate";
-    /* Check if product exists. */
-    if (!product) return "internalError";
+    if (moment(moment.utc(endDate)).isBefore(moment.utc(startDate))) return "endDateBeforeStartDate";
+    /* Check if date is not before min. date. */
+    let newestSprint = Sprints.findOne({productId: productId}, {sort: {endDate: -1}});
+    if (sprint && newestSprint) {
+        if (((newestSprint._id != sprint._id) || !context.operator ) && moment(moment.utc(startDate)).isBefore(moment.utc(newestSprint.endDate)))
+            return "startDateInTimePeriodOfExistingSprint";
+    }
+    /* We do not want to check for duplicate sprints if we have to process an update and the sprint dates have not been changed. */
+    if (context.isSet && sprint && startDate == sprint.startDate && endDate == sprint.endDate) return;
     /* Check if start and end date combination is unique. */
     if (Sprints.find({
             productId: product._id,
@@ -127,7 +135,8 @@ function validateSprintDate(context, startDate, endDate) {
 }
 
 Sprints.simpleSchema().messages({
-    "endDateBeforeStartDate": "Your start date must be before the sprint's end date.",
+    "endDateBeforeStartDate": "The start date must be before the sprint's end date.",
     "duplicateSprint": "A sprint with same start and end date already exists.",
+    "startDateInTimePeriodOfExistingSprint": "This start date is within the time period of an existing sprint.",
     "internalError": "Error. Please contact support team."
 });

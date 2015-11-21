@@ -24,17 +24,7 @@ Template.sticky.onRendered(function () {
         if (pos[2] === 2) location = "1";
         else if (pos[2] === 3) location = "2";
         else if (pos[2] === 4) location = "3";
-        else if (pos[2] === 5) {
-            location = "4";
-            if (advancedMode) {
-                Meteor.call('updateBurndown', sprint._id, (error) => {
-                    if (error) throwAlert('error', error.reason, error.details);
-                });
-            }
-            Meteor.call('updateDashboardStatisticsPrivateInc', stickyDropped, stickyDroppedUserStory, function (error) {
-                if (error) throwAlert('error', error.reason, error.details);
-            });
-        }
+        else if (pos[2] === 5) location = "4";
         updateStickyPosition(stickyDroppedId, location);
         if (pos[2] !== 5) {
             Meteor.call('updateDashboardStatisticsPrivateDec', stickyDropped, stickyDroppedUserStory, function (error) {
@@ -51,6 +41,16 @@ Template.sticky.onRendered(function () {
         Meteor.call('createActElStickyMoved', stickyDroppedUserStory.productId, Meteor.user()._id, stickyDropped.title, stickyOldStatus, location, function (error) {
             if (error) throwAlert('error', error.reason, error.details);
         });
+        if (pos[2] === 5) {
+            if (advancedMode) {
+                Meteor.call('updateBurndown', sprint._id, (error) => {
+                    if (error) throwAlert('error', error.reason, error.details);
+                });
+            }
+            Meteor.call('updateDashboardStatisticsPrivateInc', stickyDropped, stickyDroppedUserStory, function (error) {
+                if (error) throwAlert('error', error.reason, error.details);
+            });
+        }
     };
     showInfoStickyPopoverSelector.popover({
         html: true,

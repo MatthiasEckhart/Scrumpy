@@ -25,8 +25,8 @@
                             Declined to work as {{roleFormatted}}.
                         {{/if}}
                         {{#if elType '5'}}
-                            Created the sprint {{sprintGoal}} with the period from {{sprintStartDate}}
-                            to {{sprintEndDate}}.
+                            Created the sprint {{sprintGoal}} with the period from {{formattedSprintDate 'sprintStartDate'}}
+                            to {{formattedSprintDate 'sprintEndDate'}}.
                         {{/if}}
                         {{#if elType '6'}}
                             Created the user story {{userStoryTitle}}.
@@ -65,16 +65,24 @@
                             Changed the sprint goal from {{oldSprintGoal}} to {{newSprintGoal}}.
                         {{/if}}
                         {{#if elType '17'}}
-                            Changed the sprint start date from {{oldSprintStartDate}} to {{newSprintStartDate}}.
+                            Changed the start date of the sprint with the goal {{sprintGoal}} from {{formattedSprintDate 'oldSprintStartDate'}} to {{formattedSprintDate 'newSprintStartDate'}}.
                         {{/if}}
                         {{#if elType '18'}}
-                            Changed the sprint end date from {{oldSprintEndDate}} to {{newSprintEndDate}}.
+                            Changed the end date of the sprint with the goal {{sprintGoal}} from {{formattedSprintDate 'oldSprintEndDate'}} to {{formattedSprintDate 'newSprintEndDate'}}.
                         {{/if}}
                         {{#if elType '19'}}
                             Removed the sprint {{sprintGoal}}.
                         {{/if}}
                         {{#if elType '20'}}
-                            Changed the effort from sticky {{stickyTitle}} from {{oldEffort}} to {{newEffort}}.
+                            Changed the effort of sticky {{stickyTitle}} from {{oldEffort}} to {{newEffort}}.
+                        {{/if}}
+                        {{#if elType '21'}}
+                            Changed the story points of user story {{userStoryTitle}} from {{formattedStoryPoints 'oldStoryPoints'}}
+                            to {{formattedStoryPoints 'newStoryPoints'}}.
+                        {{/if}}
+                        {{#if elType '22'}}
+                            Changed the business value of user story {{userStoryTitle}} from {{oldBusinessValue}}
+                            to {{newBusinessValue}}.
                         {{/if}}
                     </h5>
 

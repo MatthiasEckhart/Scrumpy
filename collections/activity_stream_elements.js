@@ -157,6 +157,42 @@ ActivityStreamElements.attachSchema(new SimpleSchema({
             omit: true
         }
     },
+    oldStoryPoints: {
+        type: Number,
+        optional: true,
+        allowedValues: [0.5, 1, 2, 3, 5, 8, 13, 20, 40, 80],
+        decimal: true,
+        autoform: {
+            omit: true
+        }
+    },
+    newStoryPoints: {
+        type: Number,
+        optional: true,
+        allowedValues: [0.5, 1, 2, 3, 5, 8, 13, 20, 40, 80],
+        decimal: true,
+        autoform: {
+            omit: true
+        }
+    },
+    oldBusinessValue: {
+        type: Number,
+        optional: true,
+        min: 1,
+        max: 1000,
+        autoform: {
+            omit: true
+        }
+    },
+    newBusinessValue: {
+        type: Number,
+        optional: true,
+        min: 1,
+        max: 1000,
+        autoform: {
+            omit: true
+        }
+    },
     /* Sticky attributes */
     stickyTitle: {
         type: String,

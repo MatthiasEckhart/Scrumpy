@@ -39,12 +39,15 @@ Template.sprintPlanning.helpers({
 
 Template.sprintPlanning.onRendered(function () {
     Session.set('activeNavTab', 'sprintPlanning');
-
+    if (Session.equals('noUserStories', true)) {
+        throwAlert('error', 'Oops! No user stories found.', 'You need to create user stories first, before you can access the task board.');
+        Session.set('noUserStories', null);
+    }
     REDIPS.drag.init();
     REDIPS.drag.hover.colorTd = 'rgba(0, 116, 147, 0.3)';
     // reference to the REDIPS.drag library
     var rd = REDIPS.drag,
-        productId = this.data._id;
+        productId = this.data.product._id;
     // define event.dropped handler
     rd.event.dropped = function () {
         var storyId = rd.obj.getAttribute('id'),

@@ -7,11 +7,11 @@ Template.activityStreamElement.helpers({
     user: function () {
         return Users.findOne({_id: this.userId});
     },
-    sprintStartDate: function () {
-        return moment.utc(this.sprintStartDate).format('YYYY-MM-DD');
+    formattedSprintDate: function (date) {
+        return moment.utc(this[date]).format('YYYY-MM-DD');
     },
-    sprintEndDate: function () {
-        return moment.utc(this.sprintEndDate).format('YYYY-MM-DD');
+    formattedStoryPoints: function (storyPoints) {
+        return this[storyPoints] === 0.5 ? "½" : this[storyPoints];
     },
     stickyStatusFormatted: function (type) {
         var status = 0;
