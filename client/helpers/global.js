@@ -191,37 +191,37 @@ signOut = function () {
     });
 };
 
-acceptInvitation = function () {
-    if (this.status == 0) {
-        Meteor.call('addUserToRole', this.productId, Meteor.userId(), this.role, (error) => {
+acceptInvitation = function (context) {
+    if (context.status == 0) {
+        Meteor.call('addUserToRole', context.productId, Meteor.userId(), context.role, (error) => {
             if (error) {
                 throwAlert('error', error.reason, error.details);
                 return;
             }
-            Meteor.call('createActElUserInvitationAccepted', this.productId, Meteor.userId(), this.role, (error) => {
+            Meteor.call('createActElUserInvitationAccepted', context.productId, Meteor.userId(), context.role, (error) => {
                 if (error) {
                     throwAlert('error', error.reason, error.details);
                     return;
                 }
-                Invitations.update({_id: this._id}, {$set: {status: 1}});
+                Invitations.update({_id: context._id}, {$set: {status: 1}});
             });
         });
     }
 };
 
-declineInvitation = function () {
-    if (this.status == 0 || this.status == 1) {
-        Meteor.call('removeUserFromRole', this.productId, Meteor.userId(), this.role, (error) => {
+declineInvitation = function (context) {
+    if (context.status == 0 || context.status == 1) {
+        Meteor.call('removeUserFromRole', context.productId, Meteor.userId(), context.role, (error) => {
             if (error) {
                 throwAlert('error', error.reason, error.details);
                 return;
             }
-            Meteor.call('createActElUserInvitationDeclined', this.productId, Meteor.userId(), this.role, (error) => {
+            Meteor.call('createActElUserInvitationDeclined', context.productId, Meteor.userId(), context.role, (error) => {
                 if (error) {
                     throwAlert('error', error.reason, error.details);
                     return;
                 }
-                Invitations.update({_id: this._id}, {$set: {status: 2}});
+                Invitations.update({_id: context._id}, {$set: {status: 2}});
             });
         });
     }
